@@ -1,0 +1,23 @@
+{
+  "theme": null,
+  "themes": {
+    "mode": "dark",
+    "light": {
+      "name": "Catppuccin Latte",
+      "url": "assets:///home/ties/.logseq/plugins/logseq-catppuccin/ctp-latte.css",
+      "description": "Catppuccin Latte",
+      "mode": "light",
+      "pid": "logseq-catppuccin",
+      "selected": true
+    },
+    "dark": {
+      "name": "Catppuccin Mocha",
+      "url": "assets:///home/ties/.logseq/plugins/logseq-catppuccin/ctp-mocha.css",
+      "description": "Catppuccin Mocha",
+      "mode": "dark",
+      "pid": "logseq-catppuccin",
+      "selected": false
+    }
+  },
+  "externals": []
+}
