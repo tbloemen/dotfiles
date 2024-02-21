@@ -117,3 +117,6 @@ source /home/ties/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 path+=('/home/ties/Documents/android-studio/bin')
 export PATH
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
