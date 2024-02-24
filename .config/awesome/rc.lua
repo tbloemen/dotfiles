@@ -255,6 +255,9 @@ local globalkeys = gears.table.join(
 	awful.key({}, "XF86AudioPrev", function()
 		awful.spawn("playerctl previous")
 	end, { description = "previous track", group = "media" }),
+	awful.key({}, "Print", function()
+		awful.spawn("gnome-screenshot -i")
+	end, { description = "launch screenshot menu", group = "media" }),
 
 	awful.key({ modkey }, "j", function()
 		awful.client.focus.byidx(1)
