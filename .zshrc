@@ -127,4 +127,4 @@ eval "$(pyenv init -)"
 export JAVA_HOME='/usr/lib/jvm/java-19-openjdk-amd64'
 path+=($JAVA_HOME/bin)
 export PATH
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
