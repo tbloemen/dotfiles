@@ -624,4 +624,5 @@ awful.spawn.with_shell("flatpak run com.todoist.Todoist")
 awful.spawn.with_shell("gitkraken")
 awful.spawn.with_shell("thunderbird")
 awful.spawn.with_shell("redshift -l 52.011578:4.357068")
+awful.spawn.with_shell("./scripts/autorun.sh")
 -- }}}
