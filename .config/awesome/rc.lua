@@ -529,7 +529,7 @@ awful.rules.rules = {
 	},
 	{
 		rule = {
-			class = "whatsapp",
+			class = "ZapZap",
 		},
 		properties = {
 			tag = "whatsapp",
@@ -617,12 +617,13 @@ end)
 -- }}}
 
 -- {{{ Autostart Applications
-awful.spawn.with_shell("picom")
-awful.spawn.with_shell("variety --next")
-awful.spawn.with_shell("spotify")
-awful.spawn.with_shell("flatpak run com.todoist.Todoist")
-awful.spawn.with_shell("gitkraken")
-awful.spawn.with_shell("thunderbird")
+awful.util.spawn("picom")
+awful.util.spawn("spotify")
+awful.util.spawn("flatpak run com.todoist.Todoist")
+awful.spawn.with_shell("sh ~/.config/awesome/scripts/autorun.sh")
+awful.util.spawn("gitkraken")
+awful.util.spawn("thunderbird")
+awful.util.spawn("flatpak run com.rtosta.zapzap")
 awful.spawn.with_shell("redshift -l 52.011578:4.357068")
-awful.spawn.with_shell("./scripts/autorun.sh")
+awful.util.spawn("variety --next")
 -- }}}

@@ -1,11 +1,5 @@
 #!/usr/bin/bash
 
-function run {
-    if ! pgrep "$1" ; then
-        "$@"&
-    fi
-}
-
 sleep 2
 
 # Specific to current laptop (HP Pavillion) and port (HDMI)
