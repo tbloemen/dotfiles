@@ -126,5 +126,9 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
 export JAVA_HOME='/usr/lib/jvm/java-19-openjdk-amd64'
 path+=($JAVA_HOME/bin)
+path+=('/home/ties/Documents/pycharm-2023.3.4/bin')
+path+=('/home/ties/.spicetify')
 export PATH
 
+
+export PATH=$PATH:/home/ties/.spicetify
