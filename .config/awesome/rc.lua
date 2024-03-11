@@ -52,7 +52,7 @@ local terminal = "kitty"
 local editor = os.getenv("EDITOR") or "code"
 local editor_cmd = terminal .. " -e " .. editor
 local modkey = "Mod4"
-local vi_focus = false
+local vi_focus = true
 awful.util.terminal = terminal
 awful.util.tagnames = { "main", "research", "git", "mail", "todoist", "whatsapp", "spotify" }
 
