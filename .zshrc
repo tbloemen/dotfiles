@@ -128,4 +128,5 @@ export JAVA_HOME='/usr/lib/jvm/java-19-openjdk-amd64'
 path+=($JAVA_HOME/bin)
 path+=('/home/ties/Documents/pycharm-2023.3.4/bin')
 path+=('/home/ties/.spicetify')
+path+=('/home/ties/Documents/Zotero_linux-x86_64')
 export PATH
