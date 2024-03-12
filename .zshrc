@@ -129,6 +129,3 @@ path+=($JAVA_HOME/bin)
 path+=('/home/ties/Documents/pycharm-2023.3.4/bin')
 path+=('/home/ties/.spicetify')
 export PATH
-
-
-export PATH=$PATH:/home/ties/.spicetify
