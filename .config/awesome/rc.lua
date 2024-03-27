@@ -54,7 +54,7 @@ local editor_cmd = terminal .. " -e " .. editor
 local modkey = "Mod4"
 local vi_focus = true
 awful.util.terminal = terminal
-awful.util.tagnames = { "main", "research", "git", "mail", "todoist", "whatsapp", "spotify" }
+awful.util.tagnames = { "main", "research", "git", "mail", "todoist", "messages", "spotify" }
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -532,7 +532,7 @@ awful.rules.rules = {
 			class = "ZapZap",
 		},
 		properties = {
-			tag = "whatsapp",
+			tag = "messages",
 		},
 	},
 	{
