@@ -52,7 +52,7 @@ local terminal = "kitty"
 local editor = os.getenv("EDITOR") or "code"
 local editor_cmd = terminal .. " -e " .. editor
 local modkey = "Mod4"
-local vi_focus = true
+local vi_focus = false
 awful.util.terminal = terminal
 awful.util.tagnames = { "main", "research", "git", "mail", "todoist", "messages", "spotify" }
 
@@ -454,7 +454,7 @@ awful.rules.rules = {
 			border_width = beautiful.border_width,
 			border_color = beautiful.border_normal,
 			focus = awful.client.focus.filter,
-			raise = true,
+			raise = vi_focus,
 			keys = clientkeys,
 			buttons = clientbuttons,
 			screen = awful.screen.preferred,
