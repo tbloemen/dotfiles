@@ -130,4 +130,5 @@ path+=($JAVA_HOME/bin)
 path+=('/home/ties/Documents/pycharm-2023.3.4/bin')
 path+=('/home/ties/.spicetify')
 path+=('/home/ties/Documents/Zotero_linux-x86_64')
+path+=('/home/ties/Documents/WebStorm-233.15026.13/bin')
 export PATH
