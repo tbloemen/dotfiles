@@ -10,6 +10,7 @@ local lain = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi = require("beautiful.xresources").apply_dpi
+local beautiful = require("beautiful")
 
 local math, string, os = math, string, os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -17,10 +18,11 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme = {}
 theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow"
 theme.wallpaper = theme.dir .. "/wall.png"
-theme.font = "JetBrainsMono 9"
+theme.font = "JetBrainsMono Nerd Font Regular 10"
 theme.fg_normal = "#cdd6f4"
 theme.fg_focus = "#cba6f7" -- Might change to blue
-theme.fg_urgent = "#f38ba8"
+-- theme.fg_urgent = "#f38ba8"
+theme.fg_urgent = "#cdd6f4"
 theme.bg_normal = "#1e1e2e"
 theme.bg_focus = "#313244"
 theme.bg_urgent = "#585b70"
@@ -274,79 +276,73 @@ function theme.at_screen_connect(s)
 	s.mywibox =
 		awful.wibar({ position = "top", screen = s, height = dpi(16), bg = theme.bg_normal, fg = theme.fg_normal })
 
+	local myColors = {
+		"#1e1e2e",
+		"#33294e",
+		"#55336e",
+		"#823e8e",
+		"#ad499f",
+		"#cd5399",
+		"#ed5e87",
+	}
+
+	beautiful.bg_systray = myColors[5]
+
 	-- Add widgets to the wibox
 	s.mywibox:setup({
 		layout = wibox.layout.align.horizontal,
 		{ -- Left widgets
 			layout = wibox.layout.fixed.horizontal,
 			--spr,
+
 			s.mytaglist,
-			s.mypromptbox,
+			-- s.mypromptbox,
 		},
 		s.mytasklist,
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
-			wibox.widget.systray(),
-
-			-- using separators
-			arrow(theme.bg_normal, "#dc8a78"),
+			arrow(myColors[1], myColors[2]),
 			wibox.container.background(
 				wibox.container.margin(
 					wibox.widget({ mpdicon, mpris.widget, layout = wibox.layout.align.horizontal }),
 					dpi(3),
-					dpi(6)
-				),
-				"#dc8a78"
-			),
-			arrow("#dc8a78", "#40a02b"),
-			wibox.container.background(
-				wibox.container.margin(
-					wibox.widget({ memicon, mem.widget, layout = wibox.layout.align.horizontal }),
-					dpi(2),
 					dpi(3)
 				),
-				"#40a02b"
+				myColors[2]
 			),
-			arrow("#40a02b", "#fe640b"),
-			wibox.container.background(
-				wibox.container.margin(
-					wibox.widget({ cpuicon, cpu.widget, layout = wibox.layout.align.horizontal }),
-					dpi(3),
-					dpi(4)
-				),
-				"#fe640b"
-			),
-			arrow("#fe640b", "#dd7878"),
-			wibox.container.background(
-				wibox.container.margin(
-					wibox.widget({ tempicon, temp.widget, layout = wibox.layout.align.horizontal }),
-					dpi(4),
-					dpi(4)
-				),
-				"#dd7878"
-			),
-			arrow("#dd7878", "#179299"),
-			wibox.container.background(
-				wibox.container.margin(
-					wibox.widget({ baticon, bat.widget, layout = wibox.layout.align.horizontal }),
-					dpi(3),
-					dpi(3)
-				),
-				"#179299"
-			),
-			arrow("#179299", "#e64553"),
+			-- using separators
+			arrow(myColors[2], myColors[3]),
 			wibox.container.background(
 				wibox.container.margin(
 					wibox.widget({ nil, neticon, net.widget, layout = wibox.layout.align.horizontal }),
 					dpi(3),
 					dpi(3)
 				),
-				"#e64553"
+				myColors[3]
 			),
-			arrow("#e64553", "#8839ef"),
-			wibox.container.background(wibox.container.margin(clock, dpi(4), dpi(8)), "#8839ef"),
-			arrow("#8839ef", "alpha"),
-			--]]
+			arrow(myColors[3], myColors[4]),
+			wibox.container.background(
+				wibox.container.margin(
+					wibox.widget({ cpuicon, cpu.widget, layout = wibox.layout.align.horizontal }),
+					dpi(3),
+					dpi(3)
+				),
+				myColors[4]
+			),
+			arrow(myColors[4], myColors[5]),
+			wibox.container.background(wibox.container.margin(wibox.widget.systray(), dpi(3), dpi(3)), myColors[5]),
+			arrow(myColors[5], myColors[6]),
+			wibox.container.background(
+				wibox.container.margin(
+					wibox.widget({ baticon, bat.widget, layout = wibox.layout.align.horizontal }),
+					dpi(3),
+					dpi(3)
+				),
+				myColors[6]
+			),
+			arrow(myColors[6], myColors[7]),
+			wibox.container.background(wibox.container.margin(clock, dpi(4), dpi(8)), myColors[7]),
+			arrow(myColors[7], "alpha"),
 			s.mylayoutbox,
 		},
 	})
