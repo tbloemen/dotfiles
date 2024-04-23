@@ -606,6 +606,11 @@ end)
 client.connect_signal("unfocus", function(c)
 	c.border_color = beautiful.border_normal
 end)
+client.connect_signal("property::maximized", function(c)
+	if c.maximized and c.class == "Mendeley Reference Manager" then
+		c.maximized = false
+	end
+end)
 -- }}}
 
 -- {{{ Autostart Applications
