@@ -529,14 +529,6 @@ awful.rules.rules = {
 	},
 	{
 		rule = {
-			class = "ZapZap",
-		},
-		properties = {
-			tag = "messages",
-		},
-	},
-	{
-		rule = {
 			class = "thunderbird",
 		},
 		properties = {
