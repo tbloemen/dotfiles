@@ -132,4 +132,5 @@ path+=('/home/ties/Documents/pycharm-2023.3.4/bin')
 path+=('/home/ties/.spicetify')
 path+=('/home/ties/Documents/Zotero_linux-x86_64')
 path+=('/home/ties/Documents/WebStorm-233.15026.13/bin')
+path+=('/usr/local/texlive/2024/bin/x86_64-linux')
 export PATH
