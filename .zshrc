@@ -134,3 +134,19 @@ path+=('/home/ties/Documents/Zotero_linux-x86_64')
 path+=('/home/ties/Documents/WebStorm-233.15026.13/bin')
 path+=('/usr/local/texlive/2024/bin/x86_64-linux')
 export PATH
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/ties/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/ties/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/ties/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/ties/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
