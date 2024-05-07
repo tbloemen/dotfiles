@@ -1,3 +1,14 @@
 [user]
-	email = ttjbloemen@gmail.com
-	name = ties
+	email = t.t.j.bloemen@student.tudelft.nl
+	name = Ties Bloemen
+	signingKey = ""
+[gpg]
+	format = openpgp
+	program = gpg
+[commit]
+	gpgSign = false
+[tag]
+	forceSignAnnotated = false
+[gpg "ssh"]
+	program = ssh-keygen
+	allowedSignersFile = ""
