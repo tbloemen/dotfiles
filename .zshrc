@@ -78,10 +78,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
+source <(fzf --zsh)
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf-tab)
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # User configuration
 
