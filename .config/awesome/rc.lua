@@ -503,6 +503,17 @@ awful.rules.rules = {
 		properties = { titlebars_enabled = false },
 	},
 
+	-- Make pdf reader not maximized
+
+	{
+		rule = {
+			class = "Xreader",
+		},
+		properties = {
+			maximized = false,
+		},
+	},
+
 	{
 		rule = {
 			class = "GitKraken",
