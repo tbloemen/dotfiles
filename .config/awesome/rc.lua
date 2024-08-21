@@ -204,8 +204,14 @@ screen.connect_signal("arrange", function(s)
 	end
 end)
 
+local numScreens = 0
+
+for s in screen do
+	numScreens = numScreens + 1
+end
+
 awful.screen.connect_for_each_screen(function(s)
-	beautiful.at_screen_connect(s)
+	beautiful.at_screen_connect(s, numScreens)
 end)
 -- }}}
 
@@ -630,7 +636,7 @@ awful.util.spawn("spotify")
 awful.util.spawn("flatpak run com.todoist.Todoist")
 awful.util.spawn("gitkraken")
 awful.util.spawn("thunderbird")
-awful.util.spawn("firefox --new-window web.whatsapp.com", { tag = "messages" })
+awful.util.spawn("firefox --new-window web.whatsapp.com", { tag = "whatsapp" })
 awful.spawn.with_shell("sh ~/.config/awesome/scripts/autorun.sh")
 awful.spawn.with_shell("redshift -l 52.011578:4.357068")
 awful.util.spawn("variety --next")

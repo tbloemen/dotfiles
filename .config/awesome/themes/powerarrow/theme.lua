@@ -237,12 +237,19 @@ local function pl(widget, bgcolor, padding)
 	return wibox.container.background(wibox.container.margin(widget, dpi(16), dpi(16)), bgcolor, theme.powerline_rl)
 end
 
-function theme.at_screen_connect(s)
+function theme.at_screen_connect(s, numScreens)
 	-- Quake application
 	s.quake = lain.util.quake({ app = awful.util.terminal })
 
 	-- Tags
-	awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
+	if numScreens ~= 2 then
+		awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
+	end
+	if s.index == 2 then
+		awful.tag({ "main", "research", "opt", "mail", "messages" }, s, awful.layout.layouts[1])
+	elseif s.index == 1 then
+		awful.tag({ "git", "todoist", "whatsapp", "spotify" }, s, awful.layout.layouts[1])
+	end
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
