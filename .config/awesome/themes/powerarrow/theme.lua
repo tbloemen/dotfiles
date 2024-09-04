@@ -244,11 +244,12 @@ function theme.at_screen_connect(s, numScreens)
 	-- Tags
 	if numScreens ~= 2 then
 		awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
-	end
-	if s.index == 2 then
-		awful.tag({ "main", "research", "opt", "mail", "messages" }, s, awful.layout.layouts[1])
-	elseif s.index == 1 then
-		awful.tag({ "git", "todoist", "whatsapp", "spotify" }, s, awful.layout.layouts[1])
+	else
+		if s.index == 2 then
+			awful.tag({ "main", "research", "opt", "mail", "messages" }, s, awful.layout.layouts[1])
+		elseif s.index == 1 then
+			awful.tag({ "git", "todoist", "whatsapp", "spotify" }, s, awful.layout.layouts[1])
+		end
 	end
 
 	-- Create a promptbox for each screen
