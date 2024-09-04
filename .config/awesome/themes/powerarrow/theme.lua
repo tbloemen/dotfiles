@@ -244,6 +244,11 @@ function theme.at_screen_connect(s, numScreens)
 	-- Tags
 	if numScreens ~= 2 then
 		awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
+		awful.util.spawn("spotify")
+		awful.util.spawn("flatpak run com.todoist.Todoist")
+		awful.util.spawn("gitkraken")
+		awful.util.spawn("thunderbird")
+		awful.util.spawn("firefox --new-window web.whatsapp.com", { tag = "whatsapp" })
 	else
 		if s.index == 2 then
 			awful.tag({ "main", "research", "opt", "mail", "messages" }, s, awful.layout.layouts[1])

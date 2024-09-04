@@ -632,11 +632,6 @@ end)
 
 -- {{{ Autostart Applications
 awful.util.spawn("picom")
-awful.util.spawn("spotify")
-awful.util.spawn("flatpak run com.todoist.Todoist")
-awful.util.spawn("gitkraken")
-awful.util.spawn("thunderbird")
-awful.util.spawn("firefox --new-window web.whatsapp.com", { tag = "whatsapp" })
 awful.spawn.with_shell("sh ~/.config/awesome/scripts/autorun.sh")
 awful.spawn.with_shell("redshift -l 52.011578:4.357068")
 awful.util.spawn("variety --next")
