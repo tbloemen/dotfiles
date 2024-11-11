@@ -80,7 +80,7 @@ theme.widget_task = theme.dir .. "/icons/task.png"
 theme.widget_scissors = theme.dir .. "/icons/scissors.png"
 theme.tasklist_plain_task_name = true
 theme.tasklist_disable_icon = true
-theme.useless_gap = 5
+theme.useless_gap = 2
 theme.titlebar_close_button_focus = theme.dir .. "/icons/titlebar/close_focus.png"
 theme.titlebar_close_button_normal = theme.dir .. "/icons/titlebar/close_normal.png"
 theme.titlebar_ontop_button_focus_active = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
@@ -251,9 +251,9 @@ function theme.at_screen_connect(s, numScreens)
 		awful.util.spawn("firefox --new-window web.whatsapp.com", { tag = "whatsapp" })
 	else
 		if s.index == 2 then
-			awful.tag({ "main", "research", "opt", "mail", "messages" }, s, awful.layout.layouts[1])
+			awful.tag({ "main", "research", "mail", "todoist" }, s, awful.layout.layouts[1])
 		elseif s.index == 1 then
-			awful.tag({ "git", "todoist", "whatsapp", "spotify" }, s, awful.layout.layouts[1])
+			awful.tag({ "opt", "git", "whatsapp", "messages", "spotify" }, s, awful.layout.layouts[1])
 		end
 	end
 
