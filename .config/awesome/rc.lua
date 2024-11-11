@@ -512,11 +512,15 @@ awful.rules.rules = {
 	-- Make pdf reader not maximized
 
 	{
-		rule = {
-			class = "Xreader",
+		rule_any = {
+			class = {
+				"Xreader",
+				"Code",
+			},
 		},
 		properties = {
 			maximized = false,
+			fullscreen = false,
 		},
 	},
 
