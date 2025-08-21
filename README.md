@@ -19,3 +19,7 @@ stow .
 ```
 
 See the [Dreams of Autonomy video](https://www.youtube.com/watch?v=y6XCebnB9gs) for more information.
+
+## Specifications
+
+The dunst and waybar configs are largely copied over from these [dotfiles](https://github.com/sameemul-haque/dotfiles).
