@@ -56,14 +56,8 @@ export PATH="$HOME/miniconda3/bin:$PATH"
 export EDITOR=nvim
 
 # --- Lazy-load NVM ---
-function nvm() {
-  unset -f nvm
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  nvm "$@"
-}
-function node() { nvm; node "$@"; }
-function npm() { nvm; npm "$@"; }
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # --- Lazy-load Conda ---
 function conda() {
