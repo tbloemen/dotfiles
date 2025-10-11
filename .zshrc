@@ -54,6 +54,7 @@ export PATH="$HOME/miniconda3/bin:$PATH"
 
 # --- Environment ---
 export EDITOR=nvim
+export GTK_THEME=Adwaita:light
 
 # --- Lazy-load NVM ---
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
