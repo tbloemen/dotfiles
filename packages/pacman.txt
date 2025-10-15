@@ -3,7 +3,6 @@ bat
 bitwarden
 bitwarden-cli
 btop
-calibre
 discord
 docker
 dunst
