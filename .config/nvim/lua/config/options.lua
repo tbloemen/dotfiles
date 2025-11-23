@@ -4,3 +4,9 @@
 vim.opt.wrap = true
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
+
+-- Enable spellchecking
+vim.opt.spell = true
+
+-- Set both English and Dutch as spell languages
+vim.opt.spelllang = { "en", "nl" }
