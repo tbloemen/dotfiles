@@ -6,6 +6,9 @@ return {
         pyright = {},
         ruff = {},
       },
+      diagnostics = {
+        virtual_text = false,
+      },
     },
   },
 }
