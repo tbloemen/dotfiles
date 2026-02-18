@@ -2,6 +2,12 @@ git:
   pagers:
     - externalDiffCommand: difft --color=always
 
+customCommands:
+  - key: "t"
+    command: "gh pr create --fill"
+    context: "localBranches"
+    description: "Create Pull Request"
+
 gui:
   theme:
     activeBorderColor:
