@@ -5,6 +5,11 @@ return {
       servers = {
         pyright = {},
         ruff = {},
+        tinymist = {
+          settings = {
+            typstExtraArgs = { "main.typ" },
+          },
+        },
         marksman = {
           -- Enable marksman for markdown files
           filetypes = { "markdown", "markdown.mdx" },
