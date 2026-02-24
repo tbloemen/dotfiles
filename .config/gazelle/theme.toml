@@ -1,24 +1,25 @@
-# Gazelle Theme Configuration
-# Uncomment and modify these values to customize your theme
-# Colors should be in hex format (#RRGGBB) or 0xRRGGBB
+# Gazelle Theme Configuration - Catppuccin Mocha
+# Colors in hex format (#RRGGBB)
 [colors.primary]
-#foreground = "#D8DEE9"
-#background = "#2E3440"
+foreground = "#CDD6F4"
+background = "#1E1E2E"
+
 [colors.normal]
-#black = "#3B4252"
-#red = "#BF616A"
-#green = "#A3BE8C"
-#yellow = "#EBCB8B"
-#blue = "#5E81AC"
-#magenta = "#B48EAD"
-#cyan = "#88C0D0"
-#white = "#E5E9F0"
+black = "#45475A"
+red = "#F38BA8"
+green = "#A6E3A1"
+yellow = "#F9E2AF"
+blue = "#89B4FA"
+magenta = "#F5C2E7"
+cyan = "#94E2D5"
+white = "#BAC2DE"
+
 [colors.bright]
-#black = "#4C566A"
-#red = "#D08770"
-#green = "#8FBCBB"
-#yellow = "#EBCB8B"
-#blue = "#81A1C1"
-#magenta = "#B48EAD"
-#cyan = "#8FBCBB"
-#white = "#ECEFF4"
+black = "#585B70"
+red = "#F38BA8"
+green = "#A6E3A1"
+yellow = "#F9E2AF"
+blue = "#89B4FA"
+magenta = "#F5C2E7"
+cyan = "#94E2D5"
+white = "#A6ADC8"
