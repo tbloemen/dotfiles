@@ -2,6 +2,5 @@ gitkraken
 hyprshot-gui-git
 jetbrains-toolbox
 spicetify-cli
-spotify
 zen-browser-bin
 zsh-antidote

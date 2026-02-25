@@ -28,6 +28,5 @@ thunderbird
 uv
 waybar
 yazi
-zellij
 zoxide
 zsh
