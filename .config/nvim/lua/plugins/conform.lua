@@ -4,6 +4,7 @@ return {
     formatters_by_ft = {
       python = { "black", "isort" },
       typst = { "typstyle" },
+      rust = { "rustfmt" },
     },
   },
 }
