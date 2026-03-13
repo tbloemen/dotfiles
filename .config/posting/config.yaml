@@ -1,1 +1,2 @@
-pager: jq
+keymap:
+  send-request: ctrl+enter
