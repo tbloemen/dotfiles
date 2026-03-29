@@ -64,7 +64,6 @@ alias vim='nvim'
 alias cd='z'
 
 # --- Path Setup ---
-export PATH="$PATH:/home/ties/.spicetify"
 export PATH="$HOME/miniconda3/bin:$PATH"
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
