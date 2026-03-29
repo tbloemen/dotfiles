@@ -31,6 +31,7 @@ function sesh-sessions() {
   }
 }
 
+# <Alt+s>
 zle     -N             sesh-sessions
 bindkey -M emacs '\es' sesh-sessions
 bindkey -M vicmd '\es' sesh-sessions

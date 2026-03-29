@@ -1,0 +1,53 @@
+#:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
+
+[default_session]
+preview_command = "eza -a -l -1 --git --icons=always --color=always {}"
+startup_command = "nvim"
+
+[[session]]
+name = "sc-website"
+path = "~/Documents/Development/salesclub/sales-battle-scoreboard"
+windows = ["claude", "git", "pages server", "kpi server", "leads server"]
+
+[[session]]
+name = "salesdock"
+path = "~/Documents/Development/salesclub/salesdock-worker"
+windows = ["claude", "git", "salesdock server"]
+
+[[session]]
+name = "kpi"
+path = "~/Documents/Development/salesclub/kpi-worker"
+windows = ["claude", "git", "kpi server"]
+
+[[session]]
+name = "leads"
+path = "~/Documents/Development/salesclub/leads-data"
+windows = ["claude", "git", "leads server"]
+
+[[window]]
+name = "git"
+startup_script = "git pull && lazygit"
+
+[[window]]
+name = "claude"
+startup_script = "claude --resume"
+
+[[window]]
+name = "pages server"
+path = "~/Documents/Development/salesclub/sales-battle-scoreboard"
+startup_script = "npm run pages"
+
+[[window]]
+name = "kpi server"
+path = "~/Documents/Development/salesclub/kpi-worker"
+startup_script = "npm run dev"
+
+[[window]]
+name = "leads server"
+path = "~/Documents/Development/salesclub/leads-data"
+startup_script = "npm run dev"
+
+[[window]]
+name = "salesdock server"
+path = "~/Documents/Development/salesclub/salesdock-worker"
+startup_script = "npm run dev"
