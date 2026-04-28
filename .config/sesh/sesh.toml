@@ -24,6 +24,16 @@ name = "leads"
 path = "~/Documents/Development/salesclub/leads-data"
 windows = ["claude", "git", "leads server"]
 
+[[session]]
+name = "thesis implementation"
+path = "~/Documents/Studie/thesis/rust-fitting-curvature"
+windows = ["git", "claude", "thesis webserver"]
+
+[[window]]
+name = "thesis webserver"
+path = "~/Documents/Studie/thesis/rust-fitting-curvature"
+startup_script = "./build.sh"
+
 [[window]]
 name = "git"
 startup_script = "git pull && lazygit"
