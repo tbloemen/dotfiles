@@ -7,7 +7,7 @@ startup_command = "nvim"
 [[session]]
 name = "sc-website"
 path = "~/Documents/Development/salesclub/sales-battle-scoreboard"
-windows = ["claude", "git", "pages server", "kpi server", "leads server"]
+windows = ["claude", "git", "pages server", "kpi server"]
 
 [[session]]
 name = "salesdock"
