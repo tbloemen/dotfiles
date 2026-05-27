@@ -39,6 +39,10 @@ path = "~/Documents/Studie/thesis/rust-fitting-curvature"
 startup_script = "./build.sh"
 
 [[window]]
+name = "dotfiles"
+path = "~/dotfiles"
+
+[[window]]
 name = "git"
 startup_script = "lazygit"
 
