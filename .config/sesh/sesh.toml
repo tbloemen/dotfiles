@@ -24,6 +24,10 @@ name = "leads"
 path = "~/Documents/Development/salesclub/leads-data"
 windows = ["claude", "git", "leads server"]
 
+[[wildcard]]
+pattern = "~/Documents/Development/salesclub/*"
+windows = ["claude", "git"]
+
 [[session]]
 name = "thesis implementation"
 path = "~/Documents/Studie/thesis/rust-fitting-curvature"
@@ -36,28 +40,28 @@ startup_script = "./build.sh"
 
 [[window]]
 name = "git"
-startup_script = "git pull && lazygit"
+startup_script = "lazygit"
 
 [[window]]
 name = "claude"
-startup_script = "claude --resume"
+startup_script = "claude"
 
 [[window]]
 name = "pages server"
 path = "~/Documents/Development/salesclub/sales-battle-scoreboard"
-startup_script = "npm run pages"
+startup_script = "npm run pages -- --port 8080"
 
 [[window]]
 name = "kpi server"
 path = "~/Documents/Development/salesclub/kpi-worker"
-startup_script = "npm run dev"
+startup_script = "npm run dev -- --port 8103"
 
 [[window]]
 name = "leads server"
 path = "~/Documents/Development/salesclub/leads-data"
-startup_script = "npm run dev"
+startup_script = "npm run dev -- --port 8102"
 
 [[window]]
 name = "salesdock server"
 path = "~/Documents/Development/salesclub/salesdock-worker"
-startup_script = "npm run dev"
+startup_script = "npm run dev -- --port 8101"
