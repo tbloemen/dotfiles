@@ -418,3 +418,10 @@ hl.window_rule({
 	move = "20 monitor_h-120",
 	float = true,
 })
+
+-- Screenshot fix
+hl.layer_rule({
+	name = "no-anim-for-selection",
+	match = { namespace = "selection" },
+	no_anim = true,
+})
