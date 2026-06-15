@@ -277,6 +277,7 @@ hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("dunstctl close-all"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("zen-browser"))
 
 -- Add screenshot binds
 hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -m window --clipboard-only"))
