@@ -51,6 +51,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("wlsunset -l 52.011578 -L 4.357068")
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 	hl.exec_cmd("hypridle")
+	hl.exec_cmd("darkman run")
 	hl.exec_cmd(
 		"sleep 2 && hyprctl dispatch 'hl.dsp.dpms({ action = disabled})' && sleep 0.5 && hyprctl dispatch 'hl.dsp.dpms({ action = enabled})'"
 	)
