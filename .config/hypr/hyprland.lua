@@ -47,7 +47,7 @@ local menu = "rofi -show drun"
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function()
-	hl.exec_cmd("waybar & dunst & hyprpaper")
+	hl.exec_cmd("waybar & dunst & hyprpaper & hyprsunset")
 	hl.exec_cmd("wlsunset -l 52.011578 -L 4.357068")
 	hl.exec_cmd(
 		"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE && systemctl --user start hyprland-session.target"
