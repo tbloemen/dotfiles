@@ -5,11 +5,11 @@ return {
   opts = {
     set_dark_mode = function()
       vim.o.background = "dark"
-      vim.cmd.colorscheme("catppuccin-mocha")
+      require("catppuccin").load()
     end,
     set_light_mode = function()
       vim.o.background = "light"
-      vim.cmd.colorscheme("catppuccin-latte")
+      require("catppuccin").load()
     end,
   },
 }

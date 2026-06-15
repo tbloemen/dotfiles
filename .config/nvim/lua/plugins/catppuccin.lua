@@ -5,7 +5,12 @@ return {
     priority = 1000,
     opts = {
       auto_integrations = true,
-      flavour = "mocha",
+      -- Pick the flavour from vim.o.background; auto-dark-mode toggles it.
+      flavour = "auto",
+      background = {
+        light = "latte",
+        dark = "mocha",
+      },
     },
   },
   {
