@@ -71,6 +71,10 @@ hl.env("HYPRCURSOR_THEME", "catppuccin-mocha-dark-cursors")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("GTK_IM_MODULE", "simple")
 
+-- lazygit: merge the base config with the Catppuccin preset (lavender accent)
+-- whose flavour is swapped per light/dark by ~/.local/share/darkman/lazygit.sh.
+hl.env("LG_CONFIG_FILE", "$HOME/.config/lazygit/config.yml,$HOME/.local/state/lazygit/theme.yml")
+
 -- nvidia stuff
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
