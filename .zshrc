@@ -61,7 +61,6 @@ alias ls='eza'
 alias ll='eza -l -a --icons=always'
 alias lst='eza -a -T -L 5'
 alias vim='nvim'
-alias cd='z'
 
 # --- Path Setup ---
 export PATH="$HOME/miniconda3/bin:$PATH"
