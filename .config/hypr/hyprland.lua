@@ -73,7 +73,8 @@ hl.env("GTK_IM_MODULE", "simple")
 
 -- lazygit: merge the base config with the Catppuccin preset (lavender accent)
 -- whose flavour is swapped per light/dark by ~/.local/share/darkman/lazygit.sh.
-hl.env("LG_CONFIG_FILE", "$HOME/.config/lazygit/config.yml,$HOME/.local/state/lazygit/theme.yml")
+-- Hyprland's `env` does not expand $HOME, so use an absolute path here.
+hl.env("LG_CONFIG_FILE", os.getenv("HOME") .. "/.config/lazygit/config.yml," .. os.getenv("HOME") .. "/.local/state/lazygit/theme.yml")
 
 -- nvidia stuff
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
