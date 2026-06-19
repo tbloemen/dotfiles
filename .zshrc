@@ -61,6 +61,8 @@ alias ls='eza'
 alias ll='eza -l -a --icons=always'
 alias lst='eza -a -T -L 5'
 alias vim='nvim'
+# btop has no live theme reload, so pick the mode-specific config (mocha/latte) at launch via darkman
+alias btop='btop -c "${HOME}/.config/btop/btop_$(darkman get).conf"'
 
 # --- Path Setup ---
 export PATH="$HOME/miniconda3/bin:$PATH"
