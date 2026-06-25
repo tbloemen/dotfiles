@@ -34,6 +34,11 @@ name = "wa service"
 path = "~/Documents/Development/salesclub/whatsapp-service"
 windows = ["claude", "git"]
 
+[[session]]
+name = "gebieden"
+path = "~/Documents/Development/salesclub/gebieden-worker"
+windows = ["claude", "git"]
+
 [[wildcard]]
 pattern = "~/Documents/Development/salesclub/*"
 windows = ["claude", "git"]
