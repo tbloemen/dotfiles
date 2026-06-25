@@ -54,6 +54,7 @@ windows = [
   "leads server",
   "wa worker server",
   "wa service server",
+  "gebieden server",
 ]
 
 [[session]]
@@ -114,3 +115,8 @@ name = "wa service server"
 path = "~/Documents/Development/salesclub/whatsapp-service"
 startup_script = "npm run mock"
 #This report runs on port 3100
+
+[[window]]
+name = "gebieden server"
+path = "~/Documents/Development/salesclub/gebieden-worker"
+startup_script = "npm run dev -- --port 8792 --inspector-port 9792"
