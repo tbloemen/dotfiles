@@ -51,6 +51,7 @@ window#waybar.hidden {
 }
 
 #memory,
+#idle_inhibitor,
 #custom-power,
 #battery,
 #backlight,
@@ -80,6 +81,16 @@ window#waybar.hidden {
 
 #memory {
   background-color: #fab387;
+}
+
+#idle_inhibitor {
+  background-color: #1e1e2e;
+  color: #6c7086;
+}
+
+#idle_inhibitor.activated {
+  background-color: #a6e3a1;
+  color: #181825;
 }
 
 #battery {
