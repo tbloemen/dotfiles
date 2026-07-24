@@ -21,7 +21,7 @@ return {
       },
     },
     attachments = {
-      img_folder = "Assets",
+      folder = "Assets",
     },
     notes_subdir = "Notes",
   },
