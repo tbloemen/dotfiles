@@ -74,7 +74,10 @@ hl.env("GTK_IM_MODULE", "simple")
 -- lazygit: merge the base config with the Catppuccin preset (lavender accent)
 -- whose flavour is swapped per light/dark by ~/.local/share/darkman/lazygit.sh.
 -- Hyprland's `env` does not expand $HOME, so use an absolute path here.
-hl.env("LG_CONFIG_FILE", os.getenv("HOME") .. "/.config/lazygit/config.yml," .. os.getenv("HOME") .. "/.local/state/lazygit/theme.yml")
+hl.env(
+	"LG_CONFIG_FILE",
+	os.getenv("HOME") .. "/.config/lazygit/config.yml," .. os.getenv("HOME") .. "/.local/state/lazygit/theme.yml"
+)
 
 -- nvidia stuff
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
@@ -160,7 +163,7 @@ hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1 }
 hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
 
 -- Default springs
-hl.curve("easy", { type = "spring", mass = 1, stiffness = 71.2633, dampening = 15.8273644 })
+hl.curve("easy", { type = "spring", mass = 1, stiffness = 238.1191, dampening = 24.21279333 })
 
 hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
 hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
@@ -179,7 +182,6 @@ hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almo
 hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
-
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 -- "Smart gaps" / "No gaps when only"
 -- uncomment all if you wish to use that.
