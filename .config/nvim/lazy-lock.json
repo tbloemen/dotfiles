@@ -1,7 +1,9 @@
 {
   "LazyVim": { "branch": "main", "commit": "c10948c50b18fae7f256433afdef09e432410480" },
+  "LuaSnip": { "branch": "master", "commit": "0abc8f390b278c3b4aabc4c004ac8a088b65cf24" },
   "SchemaStore.nvim": { "branch": "main", "commit": "3d2c297f7152208daf4a382ea7123f9e4ebf9da1" },
   "auto-dark-mode.nvim": { "branch": "main", "commit": "54058b4fe414bd64bd2904a6f8a63f1f14e3d8df" },
+  "beancount.nvim": { "branch": "main", "commit": "5a45ae7f1e704c413599416842d2fd821f0b9bc1" },
   "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
   "bufferline.nvim": { "branch": "main", "commit": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3" },
   "catppuccin": { "branch": "main", "commit": "c7c692a0ad3080710893abbae100171819a3e4be" },
