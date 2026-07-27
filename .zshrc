@@ -68,7 +68,9 @@ alias sc='sesh connect $(sesh list | fzf)'
 # --- Path Setup ---
 export PATH="$HOME/miniconda3/bin:$PATH"
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
 
 # --- Environment ---
 export EDITOR=nvim
