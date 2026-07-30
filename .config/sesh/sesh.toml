@@ -68,14 +68,19 @@ path = "~/Documents/finance"
 windows = ["fava"]
 startup_command = "nvim test.beancount"
 
+[[session]]
+name = "dotfiles"
+path = "~/dotfiles"
+
 [[window]]
 name = "thesis webserver"
 path = "~/Documents/Studie/thesis/rust-fitting-curvature"
 startup_script = "./build.sh"
 
 [[window]]
-name = "dotfiles"
-path = "~/dotfiles"
+name = "delftblue"
+path = "~/Documents/Studie/thesis/rust-fitting-curvature"
+startup_script = "ssh delftblue"
 
 [[window]]
 name = "git"
@@ -126,3 +131,8 @@ startup_script = "npm run mock"
 name = "gebieden server"
 path = "~/Documents/Development/salesclub/gebieden-worker"
 startup_script = "npm run dev -- --port 8792 --inspector-port 9792"
+
+[[window]]
+name = "fava"
+path = "~/Documents/finance"
+startup_script = "fava test.beancount"
