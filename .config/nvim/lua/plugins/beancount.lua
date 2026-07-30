@@ -25,12 +25,8 @@ return {
   },
   config = function()
     require("beancount").setup({})
-    -- Treesitter setup
-    require("nvim-treesitter.configs").setup({
+    require("nvim-treesitter").setup({
       ensure_installed = { "beancount" },
-      highlight = { enable = true },
-      incremental_selection = { enable = true },
-      indent = { enable = true },
     })
   end,
 }

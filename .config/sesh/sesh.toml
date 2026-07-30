@@ -62,6 +62,12 @@ name = "thesis implementation"
 path = "~/Documents/Studie/thesis/rust-fitting-curvature"
 windows = ["git", "claude", "thesis webserver"]
 
+[[session]]
+name = "finance"
+path = "~/Documents/finance"
+windows = ["fava"]
+startup_command = "nvim test.beancount"
+
 [[window]]
 name = "thesis webserver"
 path = "~/Documents/Studie/thesis/rust-fitting-curvature"
