@@ -60,7 +60,7 @@ windows = [
 [[session]]
 name = "thesis implementation"
 path = "~/Documents/Studie/thesis/rust-fitting-curvature"
-windows = ["git", "claude", "thesis webserver"]
+windows = ["git", "claude", "thesis webserver", "delftblue"]
 
 [[session]]
 name = "finance"
