@@ -9,7 +9,7 @@
 # Built-in themes: catppuccin, terminal, tokyo-night, dracula, nord,
 #                  gruvbox, one-dark, solarized, kanagawa, rose-pine,
 #                  vesper
-# name = "catppuccin"
+name = "catppuccin-latte"
 
 # Follow host terminal light/dark appearance and switch Herdr UI themes.
 # Existing manual behavior is unchanged unless this is true.
@@ -25,6 +25,7 @@
 # red = "#ff6188"
 # green = "#a6e3a1"
 
+auto_switch = false
 [terminal]
 # Executable used for new interactive panes.
 # Empty means $SHELL, then /bin/sh.
@@ -60,7 +61,7 @@
 # Named punctuation such as minus, comma, ampersand, plus, and backtick is also accepted.
 # Most reliable direct bindings are ctrl+letter, function keys, and explicit modified chords.
 # alt+..., cmd/super, and punctuation-with-modifiers may depend on your terminal/tmux setup.
-# prefix = "ctrl+b"
+prefix = "ctrl+space"
 
 # Prefix-mode actions
 # help = "prefix+?"
@@ -68,14 +69,14 @@
 # detach = "prefix+q"
 # reload_config = "prefix+shift+r"
 # open_notification_target = "prefix+o"
-# workspace_picker = "prefix+w"
+workspace_picker = "prefix+t"
 # goto = "prefix+g"
 # new_workspace = "prefix+shift+n"
 # new_worktree = "prefix+shift+g"
 # open_worktree = ""    # optional, unset by default
 # remove_worktree = ""  # optional, unset by default; opens confirmation
 # rename_workspace = "prefix+shift+w"
-# close_workspace = "prefix+shift+d"
+close_workspace = "prefix+shift+X"
 # previous_workspace = "" # optional, unset by default
 # next_workspace = ""     # optional, unset by default
 # previous_agent = ""     # optional, unset by default
@@ -98,7 +99,7 @@
 # cycle_pane_next = "prefix+tab"
 # cycle_pane_previous = "prefix+shift+tab"
 # last_pane = ""          # optional, unset by default; bind e.g. "prefix+tab" for global back-and-forth
-# split_vertical = "prefix+v"
+split_vertical = "prefix+|"
 # split_horizontal = "prefix+minus"
 # close_pane = "prefix+x"
 # zoom = "prefix+z"       # legacy alias: fullscreen
@@ -252,6 +253,7 @@
 # delivery = "off"
 # delay_seconds = 1
 
+delivery = "herdr"
 [ui.toast.herdr]
 # position = "bottom-right"
 
