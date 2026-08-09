@@ -36,6 +36,13 @@ return {
       -- never disagree.
       instant_alignment = false,
       auto_format_on_save = false,
+
+      -- bean-check only validates the file it's handed. Without this, the
+      -- plugin defaults to checking whichever buffer you're editing (e.g.
+      -- a monthly ledger), so every account looks "not opened" because it
+      -- never sees main.beancount's `include`s. Pin it to the real entry
+      -- point, matching `bean-check main.beancount`.
+      main_bean_file = vim.fn.expand("~/Documents/finance/main.beancount"),
     },
   },
   {
