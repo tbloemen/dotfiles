@@ -1,0 +1,16 @@
+/* Catppuccin Latte — light mode palette for waybar.
+ * Swapped in by ~/.local/share/darkman/waybar.sh (overwrites colors.css,
+ * which style.css @imports) whenever darkman switches to light mode. */
+
+@define-color base #eff1f5;
+@define-color mantle #e6e9ef;
+@define-color crust #dce0e8;
+@define-color text #4c4f69;
+@define-color overlay0 #9ca0b0;
+@define-color red #d20f39;
+@define-color peach #fe640b;
+@define-color yellow #df8e1d;
+@define-color green #40a02b;
+@define-color teal #179299;
+@define-color mauve #8839ef;
+@define-color flamingo #dd7878;
