@@ -55,7 +55,7 @@ hl.on("hyprland.start", function()
 	-- daemon/socket needed), so colors.css always exists before waybar
 	-- starts; darkman's own startup then re-runs it with the live mode.
 	hl.exec_cmd(
-		"~/.local/share/darkman/waybar.sh \"$(cat ~/.cache/darkman/mode.txt 2>/dev/null || echo dark)\"; waybar & dunst & hyprpaper & hyprsunset"
+		'~/.local/share/darkman/waybar.sh "$(cat ~/.cache/darkman/mode.txt 2>/dev/null || echo dark)"; waybar & dunst & hyprpaper & hyprsunset'
 	)
 	hl.exec_cmd("wlsunset -l 52.011578 -L 4.357068")
 	hl.exec_cmd(
