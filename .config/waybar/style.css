@@ -53,6 +53,7 @@ window#waybar.hidden {
 #memory,
 #idle_inhibitor,
 #custom-power,
+#custom-darkman,
 #battery,
 #backlight,
 #wireplumber,
@@ -129,6 +130,16 @@ window#waybar.hidden {
 
 #custom-power {
   background-color: #f2cdcd;
+}
+
+#custom-darkman.dark {
+  background-color: #cba6f7;
+  color: #181825;
+}
+
+#custom-darkman.light {
+  background-color: #f9e2af;
+  color: #181825;
 }
 
 

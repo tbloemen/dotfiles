@@ -7,6 +7,7 @@
   "modules-center": ["clock"],
   "modules-right": [
     "tray",
+    "custom/darkman",
     "memory",
     "idle_inhibitor",
     "network",
@@ -112,5 +113,13 @@
     "format": "󰤆",
     "tooltip": false,
     "on-click": "~/.config/rofi/powermenu/type-2/powermenu.sh &"
+  },
+  "custom/darkman": {
+    "exec": "~/.config/waybar/scripts/darkman-status.sh",
+    "return-type": "json",
+    "interval": "once",
+    "signal": 8,
+    "on-click": "darkman toggle",
+    "tooltip": true
   }
 }
