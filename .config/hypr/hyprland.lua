@@ -47,7 +47,16 @@ local menu = "rofi -show drun"
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function()
-	hl.exec_cmd("waybar & dunst & hyprpaper & hyprsunset")
+	-- waybar's style.css @imports a colors.css that darkman's waybar.sh hook
+	-- writes; darkman itself is started below and won't have run that hook
+	-- yet by the time waybar launches, and waybar treats a missing @import
+	-- as fatal (it exits instead of drawing unstyled). Run the hook
+	-- synchronously first, seeded from darkman's last persisted mode (no
+	-- daemon/socket needed), so colors.css always exists before waybar
+	-- starts; darkman's own startup then re-runs it with the live mode.
+	hl.exec_cmd(
+		"~/.local/share/darkman/waybar.sh \"$(cat ~/.cache/darkman/mode.txt 2>/dev/null || echo dark)\"; waybar & dunst & hyprpaper & hyprsunset"
+	)
 	hl.exec_cmd("wlsunset -l 52.011578 -L 4.357068")
 	hl.exec_cmd(
 		"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE && systemctl --user start hyprland-session.target"
