@@ -60,6 +60,7 @@ window#waybar.hidden {
 #idle_inhibitor,
 #custom-power,
 #custom-darkman,
+#custom-voxtype,
 #battery,
 #backlight,
 #wireplumber,
@@ -86,6 +87,35 @@ window#waybar.hidden {
   color: #1793d1;
 }
 
+#custom-voxtype.recording {
+  color: @red;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+#custom-voxtype.transcribing {
+  color: @yellow;
+}
+
+#custom-voxtype.idle {
+  color: @green;
+}
+
+#custom-voxtype.stopped {
+  color: @overlay0;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 #memory {
   background-color: @peach;
 }
@@ -108,7 +138,7 @@ window#waybar.hidden {
 #battery.critical,
 #battery.urgent {
   background-color: #ff0000;
-  color: #FFFF00;
+  color: #ffff00;
 }
 
 #battery.charging {
@@ -147,7 +177,6 @@ window#waybar.hidden {
   background-color: @yellow;
   color: @mantle;
 }
-
 
 tooltip {
   border-radius: 8px;

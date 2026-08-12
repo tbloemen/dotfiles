@@ -8,6 +8,7 @@
   "modules-center": ["clock"],
   "modules-right": [
     "tray",
+    "custom/voxtype",
     "custom/darkman",
     "memory",
     "idle_inhibitor",
@@ -122,5 +123,18 @@
     "signal": 8,
     "on-click": "darkman toggle",
     "tooltip": true
+  },
+  "custom/voxtype": {
+    "exec": "voxtype status --follow --format json",
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": {
+      "idle": "",
+      "recording": "",
+      "transcribing": "",
+      "stopped": ""
+    },
+    "tooltip": true,
+    "on-click": "systemctl --user restart voxtype"
   }
 }
