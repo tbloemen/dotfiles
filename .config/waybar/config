@@ -8,7 +8,7 @@
   "modules-center": ["clock"],
   "modules-right": [
     "tray",
-    "custom/voxtype",
+    "custom/hyprwhspr",
     "custom/darkman",
     "memory",
     "idle_inhibitor",
@@ -124,17 +124,14 @@
     "on-click": "darkman toggle",
     "tooltip": true
   },
-  "custom/voxtype": {
-    "exec": "voxtype status --follow --format json",
+  "custom/hyprwhspr": {
+    "format": "{}",
+    "exec": "/usr/lib/hyprwhspr/config/hyprland/hyprwhspr-tray.sh status",
+    "interval": 1,
     "return-type": "json",
-    "format": "{icon}",
-    "format-icons": {
-      "idle": "",
-      "recording": "",
-      "transcribing": "",
-      "stopped": ""
-    },
-    "tooltip": true,
-    "on-click": "systemctl --user restart voxtype"
+    "exec-on-event": true,
+    "on-click": "/usr/lib/hyprwhspr/config/hyprland/hyprwhspr-tray.sh record",
+    "on-click-right": "/usr/lib/hyprwhspr/config/hyprland/hyprwhspr-tray.sh restart",
+    "tooltip": true
   }
 }

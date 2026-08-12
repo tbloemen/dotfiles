@@ -3,6 +3,7 @@
  * ~/.local/share/darkman/waybar.sh). It's gitignored — generated on first
  * darkman run. */
 @import "colors.css";
+@import "/usr/lib/hyprwhspr/config/waybar/hyprwhspr-style.css";
 
 * {
   border: none;
@@ -60,7 +61,7 @@ window#waybar.hidden {
 #idle_inhibitor,
 #custom-power,
 #custom-darkman,
-#custom-voxtype,
+#custom-hyprwhspr,
 #battery,
 #backlight,
 #wireplumber,
@@ -87,21 +88,21 @@ window#waybar.hidden {
   color: #1793d1;
 }
 
-#custom-voxtype.recording {
+#custom-hyprwhspr.recording {
   color: @red;
   animation: pulse 1s ease-in-out infinite;
 }
 
-#custom-voxtype.transcribing {
-  color: @yellow;
-}
-
-#custom-voxtype.idle {
+#custom-hyprwhspr.ready {
   color: @green;
 }
 
-#custom-voxtype.stopped {
+#custom-hyprwhspr.stopped {
   color: @overlay0;
+}
+
+#custom-hyprwhspr.error {
+  color: @peach;
 }
 
 @keyframes pulse {
