@@ -21,7 +21,10 @@
     progress_bar_max_width = 300
     separator_height = 2
     frame_width = 2
-    frame_color = "#313244" 
+    # Colors are Catppuccin Mocha here as a fallback only — the active palette
+    # comes from dunstrc.d/99-colors.conf, written per mode by
+    # ~/.local/share/darkman/dunst.sh (see colors-{latte,mocha}.conf).
+    frame_color = "#313244"
     separator_color = "frame" 
     corner_radius = 8 
     transparency = 0 
@@ -33,7 +36,7 @@
     show_age_threshold = 60 
     markup = "full" 
     font = "JetBrainsMono Regular 10" 
-    format = "<b>%s</b>\n%b: 
+    format = "<b>%s</b>\n%b"
     word_wrap = "yes" 
     sort = "yes" 
     shrink = "no" 
