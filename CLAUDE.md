@@ -41,6 +41,7 @@ Place config files at the same relative path as they appear under `$HOME`. For e
 | Yazi (file manager)   | `.config/yazi/`                            |
 | Rofi (launcher)       | `.config/rofi/`                            |
 | Darkman (light/dark)  | `.config/darkman/`, `.local/share/darkman/`|
+| Notulen (meetings)    | `.config/notulen/config.toml`              |
 
 ## Architecture Notes
 
@@ -62,6 +63,8 @@ Place config files at the same relative path as they appear under `$HOME`. For e
 - **Neovim** is not script-driven: `auto-dark-mode.nvim` polls the same system color-scheme and toggles `vim.o.background`; catppuccin is set up with `flavour = "auto"` + a `background = { light = "latte", dark = "mocha" }` map, so `require("catppuccin").load()` resolves the flavour from the background.
 
 When adding a new app, prefer letting it follow the portal color-scheme; only add a `~/.local/share/darkman/*.sh` script if it can't.
+
+**Notulen (meeting recorder)**: `SUPER+R` runs `notulen toggle` in a floating ghostty window (`--class=notulen`, matched by the `float-notulen` window rule) — press once to start recording, again to stop and file the note. The code lives in its own repo at `~/Documents/Development/notulen` and installs with `cargo install --path . --root ~/.local`; only the config is stowed from here. It records two tracks (mic + the default sink's `.monitor`), transcribes with `whisper-cli`, diarizes the room track, summarizes with a local ollama model, and writes a note into an Obsidian vault directory. Needs `ollama` running (`systemctl enable --now ollama`).
 
 **Packages**: `packages/pacman.txt` and `packages/aur.txt` list all managed packages. Edit these before running `install.sh` to add/remove software.
 

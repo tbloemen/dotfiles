@@ -297,6 +297,8 @@ hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("dunstctl close-all"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("zen-browser"))
+-- Meeting recorder: press once to start, again to stop and file the note
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("ghostty --class=notulen -e notulen toggle"))
 
 -- Add screenshot binds
 hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -m window --clipboard-only"))
@@ -380,6 +382,13 @@ hl.window_rule({
 	match = { class = "GitKraken" },
 
 	suppress_event = "fullscreen",
+})
+
+hl.window_rule({
+	name = "float-notulen",
+	match = { class = "notulen" },
+
+	float = true,
 })
 
 hl.window_rule({

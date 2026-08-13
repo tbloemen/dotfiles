@@ -1,0 +1,20 @@
+speaker_name = "Ties"
+keep_audio   = true
+
+[dirs]                       # picker entries; the key becomes the note's `up:` link
+"Victor Watt" = "/home/ties/Documents/my_vault/Notes/Sales Club/VictorWatt/Meetings"
+
+[transcribe]
+binary   = "whisper-cli"
+model    = "~/.local/share/notulen/models/ggml-large-v3-turbo-q5_0.bin"
+language = "auto"
+threads  = 16
+
+[diarize]
+enabled = true
+device  = "cuda"          # needs the cudnn package; "cpu" is ~6x slower
+
+[summarize]
+model      = "gemma3:4b"
+num_ctx    = 16384           # ~85 min of speech at ~190 tok/min; 32768 forces heavy CPU offload
+keep_alive = "0"             # release VRAM immediately after summarizing
