@@ -2,5 +2,6 @@ gitkraken
 hyprshot-gui-git
 jetbrains-toolbox
 spicetify-cli
+whisper.cpp-cuda
 zen-browser-bin
 zsh-antidote

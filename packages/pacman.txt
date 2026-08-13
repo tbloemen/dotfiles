@@ -3,6 +3,7 @@ bat
 bitwarden
 bitwarden-cli
 btop
+cudnn
 discord
 docker
 dunst
@@ -19,8 +20,10 @@ neovim
 npm
 obs-studio
 obsidian
+ollama-cuda
 python
 rofi
+rust
 speedtest-cli
 starship
 stow
