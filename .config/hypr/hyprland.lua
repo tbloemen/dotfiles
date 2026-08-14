@@ -69,8 +69,14 @@ hl.on("hyprland.start", function()
 	)
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd("darkman run")
+	-- Wake the panel with an off/on cycle a couple of seconds into the session.
+	-- `action` is parsed from a *string*: an unquoted `disabled`/`enabled` is an
+	-- undefined Lua global, i.e. nil, and anything the parser doesn't recognise
+	-- silently falls back to "toggle" rather than erroring. Two toggles happened
+	-- to produce the same off/on cycle, so this worked by accident -- and would
+	-- have broken the moment only one of the two got quoted.
 	hl.exec_cmd(
-		"sleep 2 && hyprctl dispatch 'hl.dsp.dpms({ action = disabled})' && sleep 0.5 && hyprctl dispatch 'hl.dsp.dpms({ action = enabled})'"
+		"sleep 2 && hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })' && sleep 0.5 && hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'"
 	)
 end)
 

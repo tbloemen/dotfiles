@@ -14,7 +14,8 @@
     "idle_inhibitor",
     "network",
     "wireplumber",
-    "battery"
+    "battery",
+    "custom/power"
   ],
   "wlr/taskbar": {
     "format": "{icon}",
@@ -114,7 +115,7 @@
   "custom/power": {
     "format": "󰤆",
     "tooltip": false,
-    "on-click": "~/.config/rofi/powermenu/type-2/powermenu.sh &"
+    "on-click": "~/.config/rofi/powermenu/powermenu.sh &"
   },
   "custom/darkman": {
     "exec": "~/.config/waybar/scripts/darkman-status.sh",
