@@ -3,7 +3,7 @@
  * ~/.local/share/darkman/waybar.sh). It's gitignored — generated on first
  * darkman run. */
 @import "colors.css";
-@import "/usr/lib/hyprwhspr/config/waybar/hyprwhspr-style.css";
+/* @import "/usr/lib/hyprwhspr/config/waybar/hyprwhspr-style.css"; */
 
 * {
   border: none;
