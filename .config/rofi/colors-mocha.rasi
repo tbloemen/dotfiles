@@ -1,0 +1,16 @@
+/**
+ * Catppuccin Mocha — dark mode palette for rofi.
+ * Copied to colors.rasi by ~/.local/share/darkman/rofi.sh whenever darkman
+ * switches to dark mode. Both theme.rasi and style-1.rasi @import colors.rasi,
+ * so every rofi menu shares one palette.
+ */
+
+* {
+    background:     #1e1e2e;   /* base */
+    background-alt: #313244;   /* surface0 */
+    foreground:     #cdd6f4;   /* text */
+    foreground-alt: #7f849c;   /* overlay1 */
+    selected:       #cba6f7;   /* mauve */
+    urgent:         #f38ba8;   /* red */
+    border:         #cba6f7;   /* mauve */
+}

@@ -1,0 +1,14 @@
+/**
+ * Shared rofi palette — imported by every theme in this directory
+ * (theme.rasi, style-1.rasi).
+ *
+ * colors.rasi is written by ~/.local/share/darkman/rofi.sh on every mode
+ * change (a copy of colors-latte.rasi or colors-mocha.rasi) and is gitignored.
+ * Mocha is imported first as a fallback for the window between a fresh stow
+ * and the first `darkman run`; a later definition wins in rasi, so the
+ * generated file overrides it whenever it exists. A missing @import is
+ * silently ignored by rofi, which is what makes the fallback work.
+ */
+
+@import "colors-mocha.rasi"
+@import "colors.rasi"

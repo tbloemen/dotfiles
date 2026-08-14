@@ -23,8 +23,11 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
-@import                          "shared/fonts.rasi"
+@import                          "palette.rasi"
+
+* {
+    font:                        "JetBrainsMono Nerd Font 12";
+}
 
 /*****----- Main Window -----*****/
 window {

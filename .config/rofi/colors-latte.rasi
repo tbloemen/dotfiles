@@ -1,0 +1,16 @@
+/**
+ * Catppuccin Latte — light mode palette for rofi.
+ * Copied to colors.rasi by ~/.local/share/darkman/rofi.sh whenever darkman
+ * switches to light mode. Both theme.rasi and style-1.rasi @import colors.rasi,
+ * so every rofi menu shares one palette.
+ */
+
+* {
+    background:     #eff1f5;   /* base */
+    background-alt: #ccd0da;   /* surface0 */
+    foreground:     #4c4f69;   /* text */
+    foreground-alt: #8c8fa1;   /* overlay1 */
+    selected:       #8839ef;   /* mauve */
+    urgent:         #d20f39;   /* red */
+    border:         #8839ef;   /* mauve */
+}
