@@ -38,7 +38,14 @@ bindkey -M emacs '\es' sesh-sessions
 bindkey -M vicmd '\es' sesh-sessions
 bindkey -M viins '\es' sesh-sessions
 
+# <Ctrl+r>
+# Atuin history search
+bindkey -M emacs '^R' atuin-search
+bindkey -M viins '^R' atuin-search-viins
+bindkey -M vicmd '^R' atuin-search-vicmd
+
 # --- History Settings ---
+# Mostly deprecated after atuin, kept for now as fallback
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
