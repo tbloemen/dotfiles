@@ -1,5 +1,6 @@
 # --- Antidote Plugin Manager ---
-source ~/.zsh_plugins.zsh
+source '/usr/share/zsh-antidote/antidote.zsh'
+antidote load
 
 # --- Starship Prompt (optimize via `starship.toml`) ---
 eval "$(starship init zsh)"

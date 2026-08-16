@@ -1,0 +1,9 @@
+# Plugins
+Aloxaf/fzf-tab
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
+
+# OMZ plugins (via ohmyzsh/ohmyzsh path)
+ohmyzsh/ohmyzsh path:plugins/command-not-found
+ohmyzsh/ohmyzsh path:plugins/sudo
