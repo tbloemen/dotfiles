@@ -1,6 +1,8 @@
 git:
-  pagers:
-    - externalDiffCommand: difft --color=always
+  diffRenderers:
+    - command: delta --dark --paging=never
+    - type: extDiff
+      command: difft --color=always --context={{diffContext}}
 
 customCommands:
   - key: "t"
