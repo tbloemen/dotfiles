@@ -1,0 +1,8 @@
+#!/bin/sh
+mode=$(darkman get)
+case "$mode" in
+  dark)  flag="--dark"  ;;
+  light) flag="--light" ;;
+  *)     flag=""        ;;
+esac
+exec delta "$flag" "$@"

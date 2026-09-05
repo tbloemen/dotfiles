@@ -1,6 +1,6 @@
 git:
   diffRenderers:
-    - command: delta --dark --paging=never
+    - command: /home/ties/.local/bin/delta-darkman --paging=never
     - type: extDiff
       command: difft --color=always --context={{diffContext}}
 
