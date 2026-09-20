@@ -14,3 +14,12 @@
 	defaultBranch = main
 [core]
   editor = nvim
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[diff]
+  algorithm = histogram
+[rerere]
+  enabled = true
+[merge]
+  conflictStyle = zdiff3
