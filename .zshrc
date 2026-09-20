@@ -72,6 +72,7 @@ alias vim='nvim'
 # btop has no live theme reload, so pick the mode-specific config (mocha/latte) at launch via darkman
 alias btop='btop -c "${HOME}/.config/btop/btop_$(darkman get).conf"'
 alias sc='sesh connect $(sesh list | fzf)'
+alias lg='lazygit'
 
 # --- Path Setup ---
 export PATH="$HOME/miniconda3/bin:$PATH"
