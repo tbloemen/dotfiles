@@ -1,4 +1,5 @@
 git:
+  overrideGpg: true
   diffRenderers:
     - command: /home/ties/.local/bin/delta-darkman --paging=never
     - type: extDiff
