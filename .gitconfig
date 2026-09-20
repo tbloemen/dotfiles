@@ -6,7 +6,6 @@
 	format = ssh
 [commit]
 	gpgSign = true
-  verbose = true
 [tag]
   gpgsign = true
 [url "git@github.com:"]
