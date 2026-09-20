@@ -1,27 +1,11 @@
 return {
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        pyright = {},
-        ruff = {},
-        tinymist = {
-          settings = {
-            typstExtraArgs = { "main.typ" },
-          },
-        },
-        marksman = {
-          -- Enable marksman for markdown files
-          filetypes = { "markdown", "markdown.mdx" },
-          root_dir = function(fname)
-            local util = require("lspconfig.util")
-            return util.root_pattern(".obsidian", ".git")(fname)
-          end,
-        },
-      },
-      diagnostics = {
-        virtual_text = false,
-      },
+  "neovim/nvim-lspconfig",
+  opts = {
+    -- Diagnostics as virtual lines below the code instead of inline text
+    -- (native since nvim 0.11). Toggle with <leader>uk (config/keymaps.lua).
+    diagnostics = {
+      virtual_text = false,
+      virtual_lines = true,
     },
   },
 }
