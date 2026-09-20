@@ -1,0 +1,15 @@
+[user]
+	name = Ties Bloemen
+	email = t.t.j.bloemen@student.tudelft.nl
+	signingKey = ~/.ssh/id_ed25519.pub
+[gpg]
+	format = ssh
+[commit]
+	gpgSign = true
+  verbose = true
+[tag]
+  gpgsign = true
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[init]
+	defaultBranch = main
