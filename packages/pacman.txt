@@ -22,12 +22,14 @@ obs-studio
 obsidian
 ollama-cuda
 python
+quickshell
 rofi
 rust
 speedtest-cli
 starship
 stow
 thunderbird
+ttf-material-symbols-variable
 uv
 waybar
 yazi
