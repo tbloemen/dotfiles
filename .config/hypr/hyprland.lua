@@ -50,12 +50,15 @@ hl.on("hyprland.start", function()
 	-- waybar's style.css @imports a colors.css that darkman's waybar.sh hook
 	-- writes; darkman itself is started below and won't have run that hook
 	-- yet by the time waybar launches, and waybar treats a missing @import
-	-- as fatal (it exits instead of drawing unstyled). Run the hook
-	-- synchronously first, seeded from darkman's last persisted mode (no
-	-- daemon/socket needed), so colors.css always exists before waybar
-	-- starts; darkman's own startup then re-runs it with the live mode.
+	-- as fatal (it exits instead of drawing unstyled). Likewise hyprpaper.conf
+	-- points both monitors at a symlink that hyprpaper.sh swaps, and hyprpaper
+	-- only reads it at its own startup. Run both hooks synchronously first,
+	-- seeded from darkman's last persisted mode (no daemon/socket needed), so
+	-- colors.css and the wallpaper symlink are already correct before waybar
+	-- and hyprpaper start; darkman's own startup then re-runs them with the
+	-- live mode.
 	hl.exec_cmd(
-		'~/.local/share/darkman/waybar.sh "$(cat ~/.cache/darkman/mode.txt 2>/dev/null || echo dark)"; waybar & dunst & hyprpaper & hyprsunset'
+		'mode="$(cat ~/.cache/darkman/mode.txt 2>/dev/null || echo dark)"; ~/.local/share/darkman/waybar.sh "$mode"; ~/.local/share/darkman/hyprpaper.sh "$mode"; waybar & dunst & hyprpaper & hyprsunset'
 	)
 	hl.exec_cmd("wlsunset -l 52.011578 -L 4.357068")
 	-- GTK_IM_MODULE has to cross into the systemd user manager: ghostty runs as
