@@ -3,7 +3,6 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
 import "Theme"
-import "Modules"
 
 ShellRoot {
     id: shellRoot
@@ -28,7 +27,7 @@ ShellRoot {
     // just runs: qs ipc -c bar call darkman setMode dark|light
     IpcHandler {
         target: "darkman"
-        function setMode(mode: string): void {
+        function setMode(mode: string) {
             Colors.mode = mode === "light" ? "light" : "dark";
         }
     }
@@ -52,7 +51,7 @@ ShellRoot {
             Bar {
                 id: bar
                 anchors.fill: parent
-                screenName: modelData.name
+                screenName: panel.modelData.name
 
                 // Animation idea #5: reveal the panel on startup instead of
                 // snapping in (PanelWindow itself has no `opacity` property,
