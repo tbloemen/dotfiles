@@ -49,8 +49,75 @@ Item {
         }
     }
 
+    Row {
+        id: row
+        spacing: Metrics.gap
+
+        Repeater {
+            model: root.ids
+
+            delegate: Rectangle {
+                id: delegate
+                required property int modelData
+                property var ws: root.workspaceFor(modelData)
+                // ws.active means "active on ITS OWN monitor" -- a global
+                // fact about the workspace, not scoped to whichever bar
+                // instance is asking. Without the belongsHere() check, a
+                // pinned id that's actually active on the OTHER monitor
+                // would steal this bar's sliding indicator and highlight
+                // color (confirmed live: workspace 4, active on HDMI-A-1,
+                // was rendering as "active" on the eDP-1 bar too).
+                property bool active: ws ? (ws.active && root.belongsHere(ws)) : false
+                property bool urgent: ws ? ws.urgent : false
+
+                width: label.implicitWidth + Metrics.workspacePaddingH * 2
+                height: Metrics.pillHeight
+                radius: Metrics.radius
+                color: urgent ? Colors.red : Colors.base
+                // Unlike waybar, outline the pills so they read against the
+                // bar's mantle. Hidden on the active one, which the indicator
+                // covers anyway, so its corners don't fringe.
+                border.width: 1
+                border.color: active ? "transparent" : Colors.surface1
+
+                Behavior on color {
+                    ColorAnimation {
+                        duration: Metrics.animMedium
+                    }
+                }
+
+                onActiveChanged: if (active)
+                    root.activeDelegate = delegate
+                Component.onCompleted: if (active)
+                    root.activeDelegate = delegate
+
+                Text {
+                    id: label
+                    parent: labels
+                    x: delegate.x + Math.round((delegate.width - width) / 2)
+                    y: Math.round((labels.height - height) / 2)
+                    text: delegate.urgent ? "priority_high" : String(delegate.modelData)
+                    font.family: delegate.urgent ? Metrics.iconFont : Metrics.uiFont
+                    font.pixelSize: delegate.urgent ? Metrics.iconSize : Metrics.textSize
+                    color: delegate.active ? Colors.base : Colors.text
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: Metrics.animFast
+                        }
+                    }
+                }
+
+                TapHandler {
+                    onTapped: Hyprland.dispatch("hl.dsp.focus({ workspace = " + delegate.modelData + " })")
+                }
+            }
+        }
+    }
+
     // Animation idea #1: a solid indicator that slides/resizes to the active
-    // workspace instead of each pill just recoloring instantly.
+    // workspace instead of each pill just recoloring instantly. Stacked
+    // between the pill backgrounds (the Row above) and the labels (below), so
+    // it slides over the opaque inactive pills without hiding the numbers.
     Rectangle {
         id: indicator
         radius: Metrics.radius
@@ -79,61 +146,10 @@ Item {
         }
     }
 
-    Row {
-        id: row
-        spacing: 4
-
-        Repeater {
-            model: root.ids
-
-            delegate: Rectangle {
-                id: delegate
-                required property int modelData
-                property var ws: root.workspaceFor(modelData)
-                // ws.active means "active on ITS OWN monitor" -- a global
-                // fact about the workspace, not scoped to whichever bar
-                // instance is asking. Without the belongsHere() check, a
-                // pinned id that's actually active on the OTHER monitor
-                // would steal this bar's sliding indicator and highlight
-                // color (confirmed live: workspace 4, active on HDMI-A-1,
-                // was rendering as "active" on the eDP-1 bar too).
-                property bool active: ws ? (ws.active && root.belongsHere(ws)) : false
-                property bool urgent: ws ? ws.urgent : false
-
-                width: label.implicitWidth + Metrics.paddingH
-                height: Metrics.pillHeight
-                radius: Metrics.radius
-                color: urgent ? Colors.red : "transparent"
-
-                Behavior on color {
-                    ColorAnimation {
-                        duration: Metrics.animMedium
-                    }
-                }
-
-                onActiveChanged: if (active)
-                    root.activeDelegate = delegate
-                Component.onCompleted: if (active)
-                    root.activeDelegate = delegate
-
-                Text {
-                    id: label
-                    anchors.centerIn: parent
-                    text: delegate.urgent ? "priority_high" : String(delegate.modelData)
-                    font.family: delegate.urgent ? Metrics.iconFont : Metrics.uiFont
-                    font.pixelSize: delegate.urgent ? Metrics.iconSize : Metrics.textSize
-                    color: delegate.active ? Colors.base : Colors.text
-                    Behavior on color {
-                        ColorAnimation {
-                            duration: Metrics.animFast
-                        }
-                    }
-                }
-
-                TapHandler {
-                    onTapped: Hyprland.dispatch("hl.dsp.focus({ workspace = " + delegate.modelData + " })")
-                }
-            }
-        }
+    // The delegates' labels are reparented here so they draw above the
+    // indicator; QML z-order only applies among siblings.
+    Item {
+        id: labels
+        anchors.fill: parent
     }
 }

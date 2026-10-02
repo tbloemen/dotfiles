@@ -27,7 +27,7 @@ Item {
         anchors.right: parent.right
         anchors.rightMargin: Metrics.gap
         anchors.verticalCenter: parent.verticalCenter
-        spacing: Metrics.gap / 2
+        spacing: Metrics.gap
         layoutDirection: Qt.LeftToRight
 
         Tray {}

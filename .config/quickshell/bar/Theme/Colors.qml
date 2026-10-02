@@ -16,6 +16,7 @@ Singleton {
         readonly property color base: "#1e1e2e"
         readonly property color mantle: "#181825"
         readonly property color crust: "#11111b"
+        readonly property color surface1: "#45475a"
         readonly property color text: "#cdd6f4"
         readonly property color overlay0: "#6c7086"
         readonly property color red: "#f38ba8"
@@ -31,6 +32,7 @@ Singleton {
         readonly property color base: "#eff1f5"
         readonly property color mantle: "#e6e9ef"
         readonly property color crust: "#dce0e8"
+        readonly property color surface1: "#bcc0cc"
         readonly property color text: "#4c4f69"
         readonly property color overlay0: "#9ca0b0"
         readonly property color red: "#d20f39"
@@ -47,6 +49,7 @@ Singleton {
     property color base: active.base
     property color mantle: active.mantle
     property color crust: active.crust
+    property color surface1: active.surface1
     property color text: active.text
     property color overlay0: active.overlay0
     property color red: active.red
