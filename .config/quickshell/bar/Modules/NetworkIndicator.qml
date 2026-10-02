@@ -7,10 +7,10 @@ import "../Theme"
 // the existing rofi scripts (deliberately deferred scope, see migration
 // plan) rather than a native quickshell network popup.
 //
-// Signal-strength bars from the old format-icons ramp are dropped: Quickshell
-// v0.3.1's WifiNetwork only exposes signalStrength on discovered networks,
-// not a documented direct link from WifiDevice to its currently-active
-// network, so this shows connected/disconnected + wifi-vs-wired only.
+// The Wi-Fi label shows the SSID of the active network: a device has no direct
+// link to it, so it's the entry in the device's discovered `networks` with
+// `connected` set (falls back to the interface name while that resolves).
+// Its signalStrength (0-1) drives the same five-step bars ramp waybar used.
 Pill {
     id: root
     bg: Colors.teal
@@ -26,9 +26,26 @@ Pill {
         return null;
     }
 
-    icon: connectedDevice === null ? "wifi_off" : connectedDevice.type === 2 ? "lan" : "wifi"
+    readonly property var activeNetwork: {
+        if (connectedDevice === null)
+            return null;
+        const networks = connectedDevice.networks.values;
+        for (let i = 0; i < networks.length; i++)
+            if (networks[i].connected)
+                return networks[i];
+        return null;
+    }
 
-    label: connectedDevice === null ? "Disconnected" : connectedDevice.type === 2 ? "Wired — " + connectedDevice.name : "Wi-Fi — " + connectedDevice.name
+    readonly property string wifiGlyph: {
+        if (activeNetwork === null)
+            return "wifi";
+        const strength = activeNetwork.signalStrength;
+        return strength >= 0.8 ? "signal_wifi_4_bar" : strength >= 0.6 ? "network_wifi_3_bar" : strength >= 0.4 ? "network_wifi_2_bar" : strength >= 0.2 ? "network_wifi_1_bar" : "signal_wifi_0_bar";
+    }
+
+    icon: connectedDevice === null ? "wifi_off" : connectedDevice.type === 2 ? "lan" : wifiGlyph
+
+    label: connectedDevice === null ? "Disconnected" : connectedDevice.type === 2 ? "Wired — " + connectedDevice.name : (activeNetwork && activeNetwork.name || connectedDevice.name)
 
     onClicked: wifiProc.startDetached()
     onRightClicked: wifiNewProc.startDetached()
