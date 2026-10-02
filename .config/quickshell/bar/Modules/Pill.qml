@@ -61,6 +61,7 @@ Item {
             visible: root.value.length > 0
             anchors.verticalCenter: parent.verticalCenter
             color: root.fg
+            font.family: Metrics.uiFont
             font.pixelSize: Metrics.textSize
         }
 
@@ -70,6 +71,7 @@ Item {
             opacity: visible ? 1 : 0
             anchors.verticalCenter: parent.verticalCenter
             color: root.fg
+            font.family: Metrics.uiFont
             font.pixelSize: Metrics.textSize
 
             Behavior on opacity {

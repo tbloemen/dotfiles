@@ -10,7 +10,7 @@ Singleton {
     readonly property int iconSize: 16
     readonly property int textSize: 13
     readonly property string iconFont: "Material Symbols Rounded"
-    readonly property string uiFont: "sans-serif"
+    readonly property string uiFont: "JetBrainsMono Nerd Font"
 
     readonly property int animFast: 160 // hover-expand, workspace pill slide
     readonly property int animMedium: 220 // theme crossfade, icon state morph
