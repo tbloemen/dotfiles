@@ -1,3 +1,4 @@
+//@ pragma NativeTextRendering
 import QtQuick
 import Quickshell
 import "bar" as BarConfig // qmllint disable unused-imports
