@@ -23,20 +23,32 @@ Pill {
     icon: {
         const p = pct;
         if (charging) {
-            if (p >= 95) return "battery_charging_full";
-            if (p >= 80) return "battery_charging_90";
-            if (p >= 60) return "battery_charging_60";
-            if (p >= 50) return "battery_charging_50";
-            if (p >= 30) return "battery_charging_30";
+            if (p >= 95)
+                return "battery_charging_full";
+            if (p >= 80)
+                return "battery_charging_90";
+            if (p >= 60)
+                return "battery_charging_60";
+            if (p >= 50)
+                return "battery_charging_50";
+            if (p >= 30)
+                return "battery_charging_30";
             return "battery_charging_20";
         }
-        if (p >= 95) return "battery_full";
-        if (p >= 80) return "battery_6_bar";
-        if (p >= 60) return "battery_5_bar";
-        if (p >= 45) return "battery_4_bar";
-        if (p >= 30) return "battery_3_bar";
-        if (p >= 15) return "battery_2_bar";
-        if (p >= 5) return "battery_1_bar";
+        if (p >= 95)
+            return "battery_full";
+        if (p >= 80)
+            return "battery_6_bar";
+        if (p >= 60)
+            return "battery_5_bar";
+        if (p >= 45)
+            return "battery_4_bar";
+        if (p >= 30)
+            return "battery_3_bar";
+        if (p >= 15)
+            return "battery_2_bar";
+        if (p >= 5)
+            return "battery_1_bar";
         return "battery_alert";
     }
     value: Math.round(pct) + "%"

@@ -17,15 +17,18 @@ Item {
     property bool forceExpanded: false
     readonly property bool expanded: forceExpanded || hoverHandler.hovered
 
-    signal clicked()
-    signal rightClicked()
+    signal clicked
+    signal rightClicked
     signal wheel(real delta)
 
     implicitHeight: Metrics.pillHeight
     implicitWidth: row.implicitWidth + Metrics.paddingH * 2
 
     Behavior on implicitWidth {
-        NumberAnimation { duration: Metrics.animFast; easing.type: Easing.OutCubic }
+        NumberAnimation {
+            duration: Metrics.animFast
+            easing.type: Easing.OutCubic
+        }
     }
 
     Rectangle {
@@ -33,7 +36,10 @@ Item {
         radius: Metrics.radius
         color: root.bg
         Behavior on color {
-            ColorAnimation { duration: Metrics.animMedium; easing.type: Easing.OutCubic }
+            ColorAnimation {
+                duration: Metrics.animMedium
+                easing.type: Easing.OutCubic
+            }
         }
     }
 
@@ -67,12 +73,16 @@ Item {
             font.pixelSize: Metrics.textSize
 
             Behavior on opacity {
-                NumberAnimation { duration: Metrics.animFast }
+                NumberAnimation {
+                    duration: Metrics.animFast
+                }
             }
         }
     }
 
-    HoverHandler { id: hoverHandler }
+    HoverHandler {
+        id: hoverHandler
+    }
 
     TapHandler {
         acceptedButtons: Qt.LeftButton

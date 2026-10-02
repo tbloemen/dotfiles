@@ -20,17 +20,15 @@ Pill {
     // Networking.devices[].type is 1 for Wifi, 2 for Wired.
     readonly property var connectedDevice: {
         const devices = Networking.devices.values;
-        for (let i = 0; i < devices.length; i++) if (devices[i].connected) return devices[i];
+        for (let i = 0; i < devices.length; i++)
+            if (devices[i].connected)
+                return devices[i];
         return null;
     }
 
-    icon: connectedDevice === null ? "wifi_off"
-        : connectedDevice.type === 2 ? "lan"
-        : "wifi"
+    icon: connectedDevice === null ? "wifi_off" : connectedDevice.type === 2 ? "lan" : "wifi"
 
-    label: connectedDevice === null ? "Disconnected"
-        : connectedDevice.type === 2 ? "Wired — " + connectedDevice.name
-        : "Wi-Fi — " + connectedDevice.name
+    label: connectedDevice === null ? "Disconnected" : connectedDevice.type === 2 ? "Wired — " + connectedDevice.name : "Wi-Fi — " + connectedDevice.name
 
     onClicked: wifiProc.startDetached()
     onRightClicked: wifiNewProc.startDetached()
