@@ -1,5 +1,5 @@
 import QtQuick
-import Quickshell
+import Quickshell // qmllint disable unused-imports
 import Quickshell.Services.SystemTray
 import "../Theme"
 
@@ -32,10 +32,15 @@ Item {
                 }
 
                 Behavior on opacity {
-                    NumberAnimation { duration: Metrics.animMedium }
+                    NumberAnimation {
+                        duration: Metrics.animMedium
+                    }
                 }
                 Behavior on scale {
-                    NumberAnimation { duration: Metrics.animMedium; easing.type: Easing.OutBack }
+                    NumberAnimation {
+                        duration: Metrics.animMedium
+                        easing.type: Easing.OutBack
+                    }
                 }
 
                 Image {
@@ -50,11 +55,7 @@ Item {
                 }
                 TapHandler {
                     acceptedButtons: Qt.RightButton
-                    onTapped: trayDelegate.modelData.display(
-                        trayDelegate.Window.window,
-                        trayDelegate.x,
-                        trayDelegate.y + trayDelegate.height
-                    )
+                    onTapped: trayDelegate.modelData.display(trayDelegate.Window.window, trayDelegate.x, trayDelegate.y + trayDelegate.height)
                 }
             }
         }

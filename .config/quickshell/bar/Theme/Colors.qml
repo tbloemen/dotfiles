@@ -57,16 +57,76 @@ Singleton {
     property color mauve: active.mauve
     property color flamingo: active.flamingo
 
-    Behavior on base { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
-    Behavior on mantle { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
-    Behavior on crust { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
-    Behavior on text { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
-    Behavior on overlay0 { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
-    Behavior on red { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
-    Behavior on peach { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
-    Behavior on yellow { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
-    Behavior on green { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
-    Behavior on teal { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
-    Behavior on mauve { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
-    Behavior on flamingo { ColorAnimation { duration: 220; easing.type: Easing.OutCubic } }
+    Behavior on base {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on mantle {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on crust {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on text {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on overlay0 {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on red {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on peach {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on yellow {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on green {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on teal {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on mauve {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on flamingo {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
 }

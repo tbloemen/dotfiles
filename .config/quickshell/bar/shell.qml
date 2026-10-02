@@ -5,7 +5,7 @@ import Quickshell.Wayland
 import "Theme"
 
 ShellRoot {
-    id: shellRoot
+    id: root
 
     // Seed the initial theme from darkman's last persisted mode so there's no
     // flash-of-wrong-theme on launch. Quickshell has no waybar-style fatal
@@ -24,7 +24,7 @@ ShellRoot {
 
     // Replaces .local/share/darkman/waybar.sh's colors.css swap + SIGRTMIN+8
     // signal dance. The new darkman hook (.local/share/darkman/quickshell.sh)
-    // just runs: qs ipc -c bar call darkman setMode dark|light
+    // just runs: qs ipc call darkman setMode dark|light
     IpcHandler {
         target: "darkman"
         function setMode(mode: string) {

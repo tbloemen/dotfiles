@@ -14,21 +14,34 @@ Pill {
     property string state: "stopped" // recording | ready | stopped | error
 
     bg: Colors.base
-    fg: state === "recording" ? Colors.red
-        : state === "ready" ? Colors.green
-        : state === "error" ? Colors.peach
-        : Colors.overlay0
+    fg: state === "recording" ? Colors.red : state === "ready" ? Colors.green : state === "error" ? Colors.peach : Colors.overlay0
     icon: state === "recording" ? "mic" : state === "error" ? "error" : "mic_off"
 
-    onClicked: actionProc.exec({ command: [scriptPath, "record"] })
-    onRightClicked: actionProc.exec({ command: [scriptPath, "restart"] })
+    onClicked: actionProc.exec({
+        command: [scriptPath, "record"]
+    })
+    onRightClicked: actionProc.exec({
+        command: [scriptPath, "restart"]
+    })
 
     // Ports waybar's CSS "@keyframes pulse" on #custom-hyprwhspr.recording.
     SequentialAnimation {
         running: root.state === "recording"
         loops: Animation.Infinite
-        NumberAnimation { target: root; property: "opacity"; from: 1; to: 0.4; duration: 500 }
-        NumberAnimation { target: root; property: "opacity"; from: 0.4; to: 1; duration: 500 }
+        NumberAnimation {
+            target: root
+            property: "opacity"
+            from: 1
+            to: 0.4
+            duration: 500
+        }
+        NumberAnimation {
+            target: root
+            property: "opacity"
+            from: 0.4
+            to: 1
+            duration: 500
+        }
     }
 
     Process {
@@ -36,10 +49,13 @@ Pill {
         stdout: StdioCollector {}
         onExited: exitCode => {
             root.available = exitCode === 0;
-            if (root.available) pollTimer.start();
+            if (root.available)
+                pollTimer.start();
         }
     }
-    Component.onCompleted: availabilityCheck.exec({ command: ["test", "-x", root.scriptPath] })
+    Component.onCompleted: availabilityCheck.exec({
+        command: ["test", "-x", root.scriptPath]
+    })
 
     Process {
         id: statusProc
@@ -47,7 +63,8 @@ Pill {
             onStreamFinished: {
                 try {
                     const data = JSON.parse(text);
-                    if (data.class) root.state = data.class;
+                    if (data.class)
+                        root.state = data.class;
                 } catch (e) {
                     // malformed/partial output -- keep the last known state
                 }
@@ -59,8 +76,12 @@ Pill {
         id: pollTimer
         interval: 1000
         repeat: true
-        onTriggered: statusProc.exec({ command: [root.scriptPath, "status"] })
+        onTriggered: statusProc.exec({
+            command: [root.scriptPath, "status"]
+        })
     }
 
-    Process { id: actionProc }
+    Process {
+        id: actionProc
+    }
 }
