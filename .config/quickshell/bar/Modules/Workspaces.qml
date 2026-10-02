@@ -9,45 +9,21 @@ Item {
     implicitWidth: row.implicitWidth
     implicitHeight: Metrics.pillHeight
 
-    readonly property var pinnedIds: [1, 2, 3, 4, 5]
-
-    function workspaceList() {
-        return Hyprland.workspaces.values;
-    }
-
     function belongsHere(ws) {
         // No monitor info yet (still loading) -- don't hide it.
         return !ws.monitor || !root.screenName || ws.monitor.name === root.screenName;
     }
 
-    function computeIds() {
-        const ids = new Set(pinnedIds);
-        const list = workspaceList();
-        for (let i = 0; i < list.length; i++) {
-            const ws = list[i];
-            if (pinnedIds.includes(ws.id) || belongsHere(ws))
-                ids.add(ws.id);
-        }
-        return Array.from(ids).sort((a, b) => a - b);
-    }
-
     function workspaceFor(id) {
-        const list = workspaceList();
+        const list = Hyprland.workspaces.values;
         for (let i = 0; i < list.length; i++)
             if (list[i].id === id)
                 return list[i];
         return null;
     }
 
-    property var ids: computeIds()
+    readonly property var ids: Hyprland.workspaces.values.filter(ws => ws.id > 0 && root.belongsHere(ws)).map(ws => ws.id).sort((a, b) => a - b)
     property var activeDelegate: null
-
-    Connections {
-        target: Hyprland.workspaces
-        function onValuesChanged() {
-            root.ids = root.computeIds();
-        }
-    }
 
     Row {
         id: row
@@ -60,14 +36,9 @@ Item {
                 id: delegate
                 required property int modelData
                 property var ws: root.workspaceFor(modelData)
-                // ws.active means "active on ITS OWN monitor" -- a global
-                // fact about the workspace, not scoped to whichever bar
-                // instance is asking. Without the belongsHere() check, a
-                // pinned id that's actually active on the OTHER monitor
-                // would steal this bar's sliding indicator and highlight
-                // color (confirmed live: workspace 4, active on HDMI-A-1,
-                // was rendering as "active" on the eDP-1 bar too).
-                property bool active: ws ? (ws.active && root.belongsHere(ws)) : false
+                // ws.active means "active on ITS OWN monitor"; every id shown
+                // here lives on this bar's monitor, so that's the right scope.
+                property bool active: ws ? ws.active : false
                 property bool urgent: ws ? ws.urgent : false
 
                 width: label.implicitWidth + Metrics.workspacePaddingH * 2
