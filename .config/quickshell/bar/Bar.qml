@@ -37,6 +37,8 @@ Item {
         NetworkIndicator {}
         Volume {}
         Battery {}
-        PowerButton {}
+        PowerButton {
+            screenName: root.screenName
+        }
     }
 }
