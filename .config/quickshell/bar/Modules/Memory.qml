@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell
 import Quickshell.Io
 import "../Theme"
 
@@ -12,6 +13,10 @@ Pill {
     value: percent + "%"
 
     property int percent: 0
+
+    // Preset 4 in the btop configs is mem + proc only.
+    // The config is picked per darkman mode, same as the `btop` alias in .zshrc.
+    onClicked: Quickshell.execDetached(["ghostty", "-e", "sh", "-c", "exec btop -c \"$HOME/.config/btop/btop_$(darkman get).conf\" -p 4"])
 
     Process {
         id: proc
