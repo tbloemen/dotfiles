@@ -31,7 +31,6 @@ Item {
         layoutDirection: Qt.LeftToRight
 
         Tray {}
-        HyprWhspr {}
         DarkmanIndicator {}
         Memory {}
         IdleInhibitorButton {}
