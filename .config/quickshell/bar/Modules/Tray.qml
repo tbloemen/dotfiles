@@ -21,6 +21,8 @@ Rectangle {
     // Same outline as the inactive workspace pills.
     border.width: 1
     border.color: Colors.surface1
+    layer.enabled: true
+    layer.effect: PillShadow {}
 
     function glyphFor(iconUrl) {
         const m = String(iconUrl).match(/^image:\/\/icon\/([^?]+)/);

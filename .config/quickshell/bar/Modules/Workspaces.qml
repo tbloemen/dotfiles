@@ -50,6 +50,8 @@ Item {
                 // covers anyway, so its corners don't fringe.
                 border.width: 1
                 border.color: active ? "transparent" : Colors.surface1
+                layer.enabled: true
+                layer.effect: PillShadow {}
 
                 Behavior on color {
                     ColorAnimation {

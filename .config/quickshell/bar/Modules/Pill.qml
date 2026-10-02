@@ -35,6 +35,8 @@ Item {
         anchors.fill: parent
         radius: Metrics.radius
         color: root.bg
+        layer.enabled: true
+        layer.effect: PillShadow {}
         Behavior on color {
             ColorAnimation {
                 duration: Metrics.animMedium
