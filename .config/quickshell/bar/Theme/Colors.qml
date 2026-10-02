@@ -2,8 +2,8 @@ pragma Singleton
 import QtQuick
 import Quickshell
 
-// Catppuccin Latte (light) / Mocha (dark) palette, mirroring the hex values
-// from .config/waybar/colors-latte.css / colors-mocha.css. `mode` is pushed
+// Catppuccin Latte (light) / Mocha (dark) palette, ported from the hex values
+// of the former waybar colors-latte.css / colors-mocha.css. `mode` is pushed
 // by the "darkman" IpcHandler in shell.qml (see .local/share/darkman/quickshell.sh)
 // rather than polled, and every resolved color below animates on change, so a
 // theme toggle crossfades instead of the hard cut waybar's CSS swap produced.

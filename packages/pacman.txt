@@ -31,7 +31,6 @@ stow
 thunderbird
 ttf-material-symbols-variable
 uv
-waybar
 yazi
 zoxide
 zsh
