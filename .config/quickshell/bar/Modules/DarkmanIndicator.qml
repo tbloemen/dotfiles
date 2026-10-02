@@ -10,7 +10,6 @@ Pill {
     bg: Colors.mode === "dark" ? Colors.mauve : Colors.yellow
     fg: Colors.mantle
     icon: Colors.mode === "dark" ? "dark_mode" : "light_mode"
-    label: Colors.mode === "dark" ? "Dark mode — click to switch to light" : "Light mode — click to switch to dark"
 
     onClicked: toggleProc.exec({
         command: ["darkman", "toggle"]
