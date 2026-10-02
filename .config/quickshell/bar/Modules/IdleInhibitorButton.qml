@@ -8,7 +8,6 @@ Pill {
     bg: UiState.idleInhibited ? Colors.green : Colors.base
     fg: UiState.idleInhibited ? Colors.mantle : Colors.overlay0
     icon: UiState.idleInhibited ? "coffee" : "nights_stay"
-    label: UiState.idleInhibited ? "Caffeinated — staying awake" : "Decaffeinated — normal idle"
 
     onClicked: UiState.idleInhibited = !UiState.idleInhibited
 }
