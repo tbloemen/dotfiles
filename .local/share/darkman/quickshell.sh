@@ -9,9 +9,9 @@
 case "$1" in
 dark | light) mode="$1" ;;
 *)
-	echo "usage: $0 {dark|light}" >&2
-	exit 1
-	;;
+  echo "usage: $0 {dark|light}" >&2
+  exit 1
+  ;;
 esac
 
-qs -c bar ipc call darkman setMode "$mode"
+qs ipc call darkman setMode "$mode"
