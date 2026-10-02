@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import Quickshell.Hyprland
 import Quickshell.Wayland
 import "Theme"
 
@@ -32,46 +33,70 @@ ShellRoot {
         }
     }
 
+    // For a keybind: qs ipc call powermenu toggle. Opens on the focused
+    // monitor.
+    IpcHandler {
+        target: "powermenu"
+        function toggle() {
+            const name = Hyprland.focusedMonitor?.name ?? "";
+            UiState.powerMenuScreen = UiState.powerMenuScreen === "" ? name : "";
+        }
+        function close() {
+            UiState.powerMenuScreen = "";
+        }
+    }
+
     Variants {
         model: Quickshell.screens
 
-        PanelWindow { // qmllint disable uncreatable-type
-            id: panel
+        // One bar + one power menu per screen. They share a scope so the
+        // menu's focus grab can whitelist its own bar (see PowerMenu.qml).
+        Scope {
+            id: screenScope
             required property var modelData
-            screen: modelData
-            anchors {
-                top: true
-                left: true
-                right: true
-            }
-            implicitHeight: Metrics.barHeight
-            color: "transparent"
-            exclusiveZone: Metrics.barHeight
 
-            Bar {
-                id: bar
-                anchors.fill: parent
-                screenName: panel.modelData.name
+            PanelWindow { // qmllint disable uncreatable-type
+                id: panel
+                screen: screenScope.modelData
+                anchors {
+                    top: true
+                    left: true
+                    right: true
+                }
+                implicitHeight: Metrics.barHeight
+                color: "transparent"
+                exclusiveZone: Metrics.barHeight
 
-                // Animation idea #5: reveal the panel on startup instead of
-                // snapping in (PanelWindow itself has no `opacity` property,
-                // so this animates the content Item instead).
-                opacity: 0
-                Component.onCompleted: revealAnim.start()
-                NumberAnimation {
-                    id: revealAnim
-                    target: bar
-                    property: "opacity"
-                    from: 0
-                    to: 1
-                    duration: Metrics.animSlow
-                    easing.type: Easing.OutCubic
+                Bar {
+                    id: bar
+                    anchors.fill: parent
+                    screenName: screenScope.modelData.name
+
+                    // Animation idea #5: reveal the panel on startup instead of
+                    // snapping in (PanelWindow itself has no `opacity` property,
+                    // so this animates the content Item instead).
+                    opacity: 0
+                    Component.onCompleted: revealAnim.start()
+                    NumberAnimation {
+                        id: revealAnim
+                        target: bar
+                        property: "opacity"
+                        from: 0
+                        to: 1
+                        duration: Metrics.animSlow
+                        easing.type: Easing.OutCubic
+                    }
+                }
+
+                IdleInhibitor {
+                    window: panel
+                    enabled: UiState.idleInhibited
                 }
             }
 
-            IdleInhibitor {
-                window: panel
-                enabled: UiState.idleInhibited
+            PowerMenu {
+                modelData: screenScope.modelData
+                barWindow: panel
             }
         }
     }

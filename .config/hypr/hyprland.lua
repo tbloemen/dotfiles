@@ -304,6 +304,7 @@ hl.bind(
 	mainMod .. " + M",
 	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
 )
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("qs ipc call powermenu toggle"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
@@ -467,5 +468,13 @@ hl.window_rule({
 hl.layer_rule({
 	name = "no-anim-for-selection",
 	match = { namespace = "selection" },
+	no_anim = true,
+})
+
+-- The quickshell power menu animates itself; Hyprland's layer fade on top of
+-- that doubles the fade-in.
+hl.layer_rule({
+	name = "no-anim-for-powermenu",
+	match = { namespace = "quickshell:powermenu" },
 	no_anim = true,
 })
