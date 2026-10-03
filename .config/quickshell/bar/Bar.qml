@@ -10,6 +10,7 @@ Item {
     // so the network card can unfold right under it. Plain x/width sums
     // rather than mapToItem, which a binding wouldn't re-evaluate.
     readonly property real networkAnchorRight: width - (rightRow.x + networkPill.x + networkPill.width)
+    readonly property real mediaAnchorLeft: mediaPill.x
 
     Rectangle {
         anchors.fill: parent
@@ -17,8 +18,17 @@ Item {
     }
 
     Workspaces {
+        id: workspaces
         anchors.left: parent.left
         anchors.leftMargin: Metrics.gap / 2
+        anchors.verticalCenter: parent.verticalCenter
+        screenName: root.screenName
+    }
+
+    MediaIndicator {
+        id: mediaPill
+        anchors.left: workspaces.right
+        anchors.leftMargin: Metrics.gap
         anchors.verticalCenter: parent.verticalCenter
         screenName: root.screenName
     }
