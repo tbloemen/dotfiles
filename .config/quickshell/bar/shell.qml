@@ -92,6 +92,22 @@ ShellRoot {
         }
     }
 
+    // The lock screen (LockScreen.qml). hypridle's lock_cmd calls this and
+    // falls back to hyprlock unless the answer is "locked" -- so a qs that's
+    // down, or running a config without this handler, still gets you locked.
+    IpcHandler {
+        target: "lock"
+        function lock(): string {
+            UiState.closePanels();
+            lockScreen.lock();
+            return "locked";
+        }
+    }
+
+    LockScreen {
+        id: lockScreen
+    }
+
     // hyprland.lua's brightness binds call this after brightnessctl; volume
     // needs no hook, Osd watches Pipewire itself.
     IpcHandler {

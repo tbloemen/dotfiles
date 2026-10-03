@@ -12,6 +12,7 @@ fastfetch
 git
 git-lfs
 hyprland
+hyprlock
 hyprpaper
 hyprshot
 kitty
