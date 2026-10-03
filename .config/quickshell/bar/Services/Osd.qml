@@ -6,7 +6,8 @@ import Quickshell.Hyprland
 import Quickshell.Services.Pipewire
 
 // State for the volume/brightness OSD (../OsdWindow.qml renders it, one per
-// screen, only on `screen`). Shown for a moment after every change, then
+// screen, only on `screen`), which doubles as the track-change toast (kind
+// "track", fed by Media.qml). Shown for a moment after every change, then
 // hides itself.
 //
 // Volume is observed rather than signalled: any change to the default sink
@@ -19,6 +20,11 @@ Singleton {
 
     property bool shown: false
     property string screen: ""
+    property string kind: "level" // "level" (volume/brightness) | "track"
+    // kind "track": what's now playing.
+    property string title: ""
+    property string subtitle: ""
+    property string art: ""
     property string icon: ""
     property real value: 0 // 0..1
     property bool muted: false
@@ -41,11 +47,25 @@ Singleton {
     }
 
     function show(icon: string, value: real, muted: bool) {
+        kind = "level";
         root.icon = icon;
         root.value = Math.max(0, Math.min(1, value));
         root.muted = muted;
+        popUp(1500);
+    }
+
+    function showTrack(title: string, subtitle: string, art: string) {
+        kind = "track";
+        root.title = title;
+        root.subtitle = subtitle;
+        root.art = art;
+        popUp(3000);
+    }
+
+    function popUp(duration: int) {
         screen = Hyprland.focusedMonitor?.name ?? Quickshell.screens[0]?.name ?? "";
         shown = true;
+        hideTimer.interval = duration;
         hideTimer.restart();
     }
 
@@ -91,7 +111,6 @@ Singleton {
 
     Timer {
         id: hideTimer
-        interval: 1500
         onTriggered: root.shown = false
     }
 }
