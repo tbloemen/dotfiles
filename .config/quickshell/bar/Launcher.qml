@@ -16,6 +16,12 @@ import "Services"
 // Unlike the cards it isn't tied to a pill, so it drops in centered under
 // the bar instead of unfolding from a corner.
 //
+// Typing a calculation ("2^10", "sqrt(2)*3") puts its result on top
+// (Services/Calc.qml); Enter on it copies the result.
+//
+// Rows are plain items -- {kind, title, subtitle, icon, glyph, ...} -- so
+// apps and calculator results share one list and one delegate.
+//
 // Keys: type to filter, ↑↓ / Tab / Ctrl+j k n p move, Enter launches.
 PanelWindow { // qmllint disable uncreatable-type
     id: root
@@ -29,16 +35,41 @@ PanelWindow { // qmllint disable uncreatable-type
 
     readonly property int rowHeight: 44
     readonly property int maxRows: 8
-    readonly property var results: Apps.search(search.text)
+    readonly property var results: {
+        const items = [];
+        const calc = Calc.evaluate(search.text);
+        if (calc !== null)
+            items.push({
+                kind: "calc",
+                title: "= " + calc.text,
+                subtitle: calc.expr + "  ·  Enter copies the result",
+                icon: "",
+                glyph: "calculate",
+                value: calc.text
+            });
+        for (const e of Apps.search(search.text))
+            items.push({
+                kind: "app",
+                title: e.name,
+                subtitle: e.genericName || e.comment || "",
+                icon: e.icon ? Quickshell.iconPath(e.icon, true) : "",
+                glyph: "apps",
+                entry: e
+            });
+        return items;
+    }
 
     function close() {
         UiState.launcherScreen = "";
     }
 
-    function launch(entry) {
-        if (!entry)
+    function launch(item) {
+        if (!item)
             return;
-        Apps.launch(entry);
+        if (item.kind === "calc")
+            Quickshell.execDetached(["wl-copy", "--", item.value]);
+        else
+            Apps.launch(item.entry);
         close();
     }
 
@@ -258,8 +289,6 @@ PanelWindow { // qmllint disable uncreatable-type
                     required property var modelData
                     required property int index
                     readonly property bool current: ListView.isCurrentItem
-                    readonly property string iconSource: modelData.icon ? Quickshell.iconPath(modelData.icon, true) : ""
-                    readonly property string subtitle: modelData.genericName || modelData.comment || ""
 
                     width: list.width
                     height: root.rowHeight
@@ -290,7 +319,7 @@ PanelWindow { // qmllint disable uncreatable-type
                             Image {
                                 id: appIcon
                                 anchors.fill: parent
-                                source: row.iconSource
+                                source: row.modelData.icon
                                 sourceSize.width: 56
                                 sourceSize.height: 56
                                 asynchronous: true
@@ -301,10 +330,10 @@ PanelWindow { // qmllint disable uncreatable-type
                             Text {
                                 anchors.centerIn: parent
                                 visible: appIcon.status !== Image.Ready
-                                text: "apps"
+                                text: row.modelData.glyph
                                 font.family: Metrics.iconFont
                                 font.pixelSize: 22
-                                color: Colors.overlay0
+                                color: row.modelData.kind === "calc" ? Colors.lavender : Colors.overlay0
                             }
                         }
 
@@ -319,9 +348,10 @@ PanelWindow { // qmllint disable uncreatable-type
                             Text {
                                 width: parent.width
                                 elide: Text.ElideRight
-                                text: row.modelData.name
+                                text: row.modelData.title
                                 font.family: Metrics.uiFont
                                 font.pixelSize: Metrics.textSize
+                                font.bold: row.modelData.kind === "calc"
                                 color: Colors.text
                             }
 
@@ -329,7 +359,7 @@ PanelWindow { // qmllint disable uncreatable-type
                                 width: parent.width
                                 visible: text !== ""
                                 elide: Text.ElideRight
-                                text: row.subtitle
+                                text: row.modelData.subtitle
                                 font.family: Metrics.uiFont
                                 font.pixelSize: 11
                                 color: row.current ? Colors.subtext0 : Colors.overlay0
