@@ -229,8 +229,12 @@ ShellRoot {
 
     // Singletons are created lazily on first use. The notification server
     // has to own the D-Bus name from launch, not from whenever a toast or
-    // the pill first happens to touch it.
-    Component.onCompleted: Notifs.popupCount
+    // the pill first happens to touch it, and Displays has to be watching
+    // hotplugs to turn the laptop panel back on when the last screen goes.
+    Component.onCompleted: {
+        Notifs.popupCount;
+        Displays.enabledCount;
+    }
 
     Variants {
         model: Quickshell.screens

@@ -55,8 +55,10 @@ Singleton {
         return 'hl.monitor({ output = "' + m.name + '", ' + extra + ' })';
     }
 
+    // `disabled = false` has to be explicit: a monitor that was switched off
+    // stays off under a rule that leaves it out (hyprctl still says "ok").
     function enabledRule(m, mode: string): string {
-        return rule(m, 'mode = "' + (mode || "preferred") + '", ' + placement(m));
+        return rule(m, 'mode = "' + (mode || "preferred") + '", ' + placement(m) + ', disabled = false');
     }
 
     function apply(rules: var) {
@@ -92,6 +94,15 @@ Singleton {
         apply([enabled ? enabledRule(m) : rule(m, "disabled = true")]);
     }
 
+    // Unplugging the only enabled screen (e.g. HDMI in "external only")
+    // leaves just disabled ones behind, i.e. a black screen with no way to
+    // reach the card. Turn the laptop panel (or whatever is left) back on.
+    function ensureOneEnabled() {
+        if (monitors.length === 0 || enabledCount > 0)
+            return;
+        apply([enabledRule(internal ?? monitors[0])]);
+    }
+
     function setMode(m, mode: string) {
         apply([enabledRule(m, mode.replace(/Hz$/, ""))]);
     }
@@ -102,8 +113,14 @@ Singleton {
         stdout: StdioCollector {
             onStreamFinished: {
                 try {
-                    root.monitors = JSON.parse(text);
-                } catch (e) {}
+                    // When the last real output goes, Hyprland puts in a
+                    // headless "FALLBACK" monitor, which would otherwise
+                    // count as an enabled screen.
+                    root.monitors = JSON.parse(text).filter(m => m.name !== "FALLBACK");
+                } catch (e) {
+                    return;
+                }
+                root.ensureOneEnabled();
             }
         }
     }
