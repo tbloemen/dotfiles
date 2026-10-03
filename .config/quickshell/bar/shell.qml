@@ -162,6 +162,9 @@ ShellRoot {
         id: lockScreen
     }
 
+    // The polkit authentication agent; registers itself on startup.
+    PolkitDialog {}
+
     // After repointing ~/wallpapers/active (see Services/Wallpaper.qml).
     IpcHandler {
         target: "wallpaper"

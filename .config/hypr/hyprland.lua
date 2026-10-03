@@ -494,6 +494,6 @@ hl.layer_rule({
 -- launcher and wallpaper.
 hl.layer_rule({
 	name = "no-anim-for-quickshell-notifications",
-	match = { namespace = "^quickshell:(notifications|notifcenter|osd|networkcard|launcher|wallpaper|mediacard|bluetoothcard|audiocard|calendarcard)$" },
+	match = { namespace = "^quickshell:(notifications|notifcenter|osd|networkcard|launcher|wallpaper|mediacard|bluetoothcard|audiocard|calendarcard|polkit)$" },
 	no_anim = true,
 })
