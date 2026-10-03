@@ -9,6 +9,9 @@ import "../Theme"
 // `active` is a player picked in the card's switcher (until the card
 // closes), else whichever is playing, else the one that played last, else
 // the first one there is.
+//
+// A new track on the active player pops a toast through the OSD
+// (Osd.showTrack) -- unless the card is open and already shows it.
 Singleton {
     id: root
 
@@ -46,6 +49,30 @@ Singleton {
         const m = Math.floor(s % 3600 / 60);
         const ss = String(s % 60).padStart(2, "0");
         return h > 0 ? h + ":" + String(m).padStart(2, "0") + ":" + ss : m + ":" + ss;
+    }
+
+    // Players often send title, artist and art as separate updates; wait for
+    // them to settle, and don't repeat a toast for the same track.
+    property string lastToast: ""
+    Connections {
+        target: root.active
+        function onTrackTitleChanged() {
+            toastDelay.restart();
+        }
+    }
+    Timer {
+        id: toastDelay
+        interval: 300
+        onTriggered: {
+            const p = root.active;
+            if (p === null || !p.isPlaying || root.cardOpen || !p.trackTitle)
+                return;
+            const key = p.trackTitle + "\n" + p.trackArtist;
+            if (key === root.lastToast)
+                return;
+            root.lastToast = key;
+            Osd.showTrack(p.trackTitle, p.trackArtist, p.trackArtUrl);
+        }
     }
 
     // MPRIS doesn't push position updates; poll it while someone's looking.
