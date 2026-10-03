@@ -11,6 +11,7 @@ Item {
     // rather than mapToItem, which a binding wouldn't re-evaluate.
     readonly property real networkAnchorRight: width - (rightRow.x + networkPill.x + networkPill.width)
     readonly property real mediaAnchorLeft: mediaPill.x
+    readonly property real clockCenter: clockPill.x + clockPill.width / 2
     readonly property real volumeAnchorRight: width - (rightRow.x + volumePill.x + volumePill.width)
     readonly property real bluetoothAnchorRight: width - (rightRow.x + bluetoothPill.x + bluetoothPill.width)
 
@@ -36,6 +37,8 @@ Item {
     }
 
     Clock {
+        id: clockPill
+        screenName: root.screenName
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
     }
