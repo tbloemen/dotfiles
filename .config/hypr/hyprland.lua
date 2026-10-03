@@ -484,9 +484,9 @@ hl.layer_rule({
 	no_anim = true,
 })
 
--- Same for the notification toasts, notification center and OSD.
+-- Same for the notification toasts, notification center, OSD and network card.
 hl.layer_rule({
 	name = "no-anim-for-quickshell-notifications",
-	match = { namespace = "^quickshell:(notifications|notifcenter|osd)$" },
+	match = { namespace = "^quickshell:(notifications|notifcenter|osd|networkcard)$" },
 	no_anim = true,
 })

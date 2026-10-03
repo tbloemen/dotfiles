@@ -6,6 +6,11 @@ Item {
     id: root
     property string screenName: ""
 
+    // Distance from the network pill's right edge to the screen's right edge,
+    // so the network card can unfold right under it. Plain x/width sums
+    // rather than mapToItem, which a binding wouldn't re-evaluate.
+    readonly property real networkAnchorRight: width - (rightRow.x + networkPill.x + networkPill.width)
+
     Rectangle {
         anchors.fill: parent
         color: Colors.mantle
@@ -24,6 +29,7 @@ Item {
     }
 
     Row {
+        id: rightRow
         anchors.right: parent.right
         anchors.rightMargin: Metrics.gap
         anchors.verticalCenter: parent.verticalCenter
@@ -34,7 +40,10 @@ Item {
         DarkmanIndicator {}
         Memory {}
         IdleInhibitorButton {}
-        NetworkIndicator {}
+        NetworkIndicator {
+            id: networkPill
+            screenName: root.screenName
+        }
         Volume {}
         Battery {}
         Notifications {

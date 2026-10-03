@@ -40,8 +40,9 @@ ShellRoot {
         target: "powermenu"
         function toggle() {
             const name = Hyprland.focusedMonitor?.name ?? "";
-            UiState.notifCenterScreen = "";
-            UiState.powerMenuScreen = UiState.powerMenuScreen === "" ? name : "";
+            const open = UiState.powerMenuScreen !== "";
+            UiState.closePanels();
+            UiState.powerMenuScreen = open ? "" : name;
         }
         function close() {
             UiState.powerMenuScreen = "";
@@ -54,8 +55,9 @@ ShellRoot {
         target: "notifications"
         function toggleCenter() {
             const name = Hyprland.focusedMonitor?.name ?? "";
-            UiState.powerMenuScreen = "";
-            UiState.notifCenterScreen = UiState.notifCenterScreen === "" ? name : "";
+            const open = UiState.notifCenterScreen !== "";
+            UiState.closePanels();
+            UiState.notifCenterScreen = open ? "" : name;
         }
         function clearPopups() {
             Notifs.clearPopups();
@@ -65,6 +67,17 @@ ShellRoot {
         }
         function toggleDnd() {
             Notifs.dnd = !Notifs.dnd;
+        }
+    }
+
+    // The network card (NetworkCard.qml), on the focused monitor.
+    IpcHandler {
+        target: "network"
+        function toggleCard() {
+            const name = Hyprland.focusedMonitor?.name ?? "";
+            const open = UiState.networkCardScreen !== "";
+            UiState.closePanels();
+            UiState.networkCardScreen = open ? "" : name;
         }
     }
 
@@ -85,7 +98,7 @@ ShellRoot {
     Variants {
         model: Quickshell.screens
 
-        // One bar, power menu, notification center, toast window and OSD per
+        // One bar, power menu, notification center, network card, toast window and OSD per
         // screen. They share a scope so the menus' focus grabs can whitelist
         // their own bar (see PowerMenu.qml).
         Scope {
@@ -139,6 +152,12 @@ ShellRoot {
             NotificationCenter {
                 modelData: screenScope.modelData
                 barWindow: panel
+            }
+
+            NetworkCard {
+                modelData: screenScope.modelData
+                barWindow: panel
+                anchorRight: bar.networkAnchorRight
             }
 
             NotificationPopups {

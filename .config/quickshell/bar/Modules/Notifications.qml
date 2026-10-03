@@ -17,8 +17,9 @@ Pill {
     label: Notifs.dnd ? "DND" : ""
 
     onClicked: {
-        UiState.powerMenuScreen = "";
-        UiState.notifCenterScreen = centerOpen ? "" : screenName;
+        const open = centerOpen;
+        UiState.closePanels();
+        UiState.notifCenterScreen = open ? "" : screenName;
     }
     onRightClicked: Notifs.dnd = !Notifs.dnd
 }

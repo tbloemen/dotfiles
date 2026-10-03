@@ -11,8 +11,16 @@ Singleton {
     // name rather than a bool so only the monitor you clicked on shows it.
     property string powerMenuScreen: ""
 
-    // Same idea for the notification center (NotificationCenter.qml). Only
-    // one of the two cards is open at a time; whoever opens one clears the
-    // other.
+    // Same idea for the notification center (NotificationCenter.qml) and the
+    // network card (NetworkCard.qml).
     property string notifCenterScreen: ""
+    property string networkCardScreen: ""
+
+    // Only one of the cards is open at a time: whoever opens one calls this
+    // first.
+    function closePanels() {
+        powerMenuScreen = "";
+        notifCenterScreen = "";
+        networkCardScreen = "";
+    }
 }

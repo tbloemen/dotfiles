@@ -13,7 +13,8 @@ Pill {
     icon: menuOpen ? "close" : "power_settings_new"
 
     onClicked: {
-        UiState.notifCenterScreen = "";
-        UiState.powerMenuScreen = menuOpen ? "" : screenName;
+        const open = menuOpen;
+        UiState.closePanels();
+        UiState.powerMenuScreen = open ? "" : screenName;
     }
 }
