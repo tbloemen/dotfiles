@@ -108,6 +108,14 @@ ShellRoot {
         id: lockScreen
     }
 
+    // After repointing ~/wallpapers/active (see Services/Wallpaper.qml).
+    IpcHandler {
+        target: "wallpaper"
+        function reload() {
+            Wallpaper.reload();
+        }
+    }
+
     // hyprland.lua's brightness binds call this after brightnessctl; volume
     // needs no hook, Osd watches Pipewire itself.
     IpcHandler {
@@ -125,7 +133,7 @@ ShellRoot {
     Variants {
         model: Quickshell.screens
 
-        // One bar, power menu, notification center, network card, launcher, toast window and OSD per
+        // One wallpaper, bar, power menu, notification center, network card, launcher, toast window and OSD per
         // screen. They share a scope so the menus' focus grabs can whitelist
         // their own bar (see PowerMenu.qml).
         Scope {
@@ -169,6 +177,10 @@ ShellRoot {
                     window: panel
                     enabled: UiState.idleInhibited
                 }
+            }
+
+            WallpaperWindow {
+                modelData: screenScope.modelData
             }
 
             PowerMenu {

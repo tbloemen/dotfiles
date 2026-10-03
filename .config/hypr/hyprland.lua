@@ -47,15 +47,9 @@ local menu = "qs ipc call launcher toggle"
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function()
-	-- hyprpaper.conf points both monitors at a symlink that hyprpaper.sh
-	-- swaps, and hyprpaper only reads it at its own startup. darkman itself is
-	-- started below and won't have run that hook yet, so run it synchronously
-	-- first, seeded from darkman's last persisted mode (no daemon/socket
-	-- needed); darkman's own startup then re-runs it with the live mode. The
-	-- quickshell bar needs no such seeding: it reads mode.txt itself on start.
-	hl.exec_cmd(
-		'mode="$(cat ~/.cache/darkman/mode.txt 2>/dev/null || echo dark)"; ~/.local/share/darkman/hyprpaper.sh "$mode"; qs & hyprpaper & hyprsunset'
-	)
+	-- quickshell is also the wallpaper (bar/WallpaperWindow.qml); it reads
+	-- darkman's last mode from mode.txt itself, so nothing needs seeding.
+	hl.exec_cmd("qs & hyprsunset")
 	hl.exec_cmd("wlsunset -l 52.011578 -L 4.357068")
 	-- GTK_IM_MODULE has to cross into the systemd user manager: ghostty runs as
 	-- app-com.mitchellh.ghostty.service (app.slice), not as a Hyprland child, so
@@ -496,10 +490,10 @@ hl.layer_rule({
 	no_anim = true,
 })
 
--- Same for the notification toasts, notification center, OSD, network card and
--- launcher.
+-- Same for the notification toasts, notification center, OSD, network card,
+-- launcher and wallpaper.
 hl.layer_rule({
 	name = "no-anim-for-quickshell-notifications",
-	match = { namespace = "^quickshell:(notifications|notifcenter|osd|networkcard|launcher)$" },
+	match = { namespace = "^quickshell:(notifications|notifcenter|osd|networkcard|launcher|wallpaper)$" },
 	no_anim = true,
 })

@@ -3,13 +3,13 @@ import QtQuick.Effects
 import Quickshell
 import Quickshell.Services.UPower
 import "Theme"
+import "Services"
 
 // What one monitor shows while locked (see LockScreen.qml, which owns the
 // lock, PAM and the state every screen shares). Laid out like the old
 // hyprlock.conf: big clock and date above center, password field below, over
-// a blurred and dimmed copy of the wallpaper -- the darkman-driven one
-// hyprpaper shows (~/.cache/hyprpaper/current.png), so the lock follows
-// light/dark like everything else.
+// a blurred and dimmed copy of the desktop wallpaper (Services/Wallpaper.qml),
+// so the lock follows light/dark like everything else.
 //
 // The real input is an invisible TextInput; the field draws one dot per
 // character instead, so nothing about the password's content is rendered.
@@ -99,10 +99,11 @@ Item {
     Image {
         id: wallpaper
         anchors.fill: parent
-        source: "file://" + Quickshell.env("HOME") + "/.cache/hyprpaper/current.png"
+        source: Wallpaper.source
         fillMode: Image.PreserveAspectCrop
         asynchronous: true
-        // The symlink is swapped by darkman; always read the current target.
+        sourceSize.width: root.width
+        sourceSize.height: root.height
         cache: false
         visible: false
     }
