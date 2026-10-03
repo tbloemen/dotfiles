@@ -6,3 +6,4 @@ singleton Wallpaper 1.0 Wallpaper.qml
 singleton Media 1.0 Media.qml
 singleton Bt 1.0 Bt.qml
 singleton Audio 1.0 Audio.qml
+singleton Displays 1.0 Displays.qml
