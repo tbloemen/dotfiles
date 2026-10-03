@@ -93,6 +93,42 @@ Singleton {
                 })).sort((a, b) => b.score - a.score || byUse(a.entry, b.entry)).map(r => r.entry);
     }
 
+    // Web search / URLs go to $BROWSER, which hyprland.lua sets (and
+    // overrides /etc/environment's value with).
+    readonly property string browser: Quickshell.env("BROWSER") || "xdg-open"
+    // Its desktop entry, for the name and icon. $BROWSER is a command, which
+    // need not match the entry's id or Exec (zen-browser is zen.desktop,
+    // running /opt/zen-browser-bin/zen-bin), so also try the icon name.
+    readonly property var browserEntry: {
+        const bin = browser.split(" ")[0].split("/").pop();
+        return entries.find(e => e.id === bin || e.icon === bin || (e.command[0] ?? "").split("/").pop() === bin) ?? DesktopEntries.heuristicLookup(bin);
+    }
+    // Firefox-family browsers can search with whatever engine you picked
+    // in them; others get a DuckDuckGo URL.
+    readonly property bool browserSearches: /firefox|zen|librewolf|floorp|waterfox/i.test(browser)
+
+    // "example.com", "localhost:3000/x", "https://…" -- something to open
+    // rather than search for.
+    function asUrl(query: string): string {
+        const q = query.trim();
+        if (/^https?:\/\/\S+$/i.test(q))
+            return q;
+        if (/^(localhost|[\w-]+(\.[\w-]+)*\.[a-z]{2,})(:\d+)?(\/\S*)?$/i.test(q))
+            return "https://" + q;
+        return "";
+    }
+
+    function openWeb(query: string) {
+        const url = asUrl(query);
+        const cmd = browser.split(" ").filter(s => s.length > 0);
+        if (url !== "")
+            Quickshell.execDetached(cmd.concat([url]));
+        else if (browserSearches)
+            Quickshell.execDetached(cmd.concat(["--search", query.trim()]));
+        else
+            Quickshell.execDetached(cmd.concat(["https://duckduckgo.com/?q=" + encodeURIComponent(query.trim())]));
+    }
+
     function launch(entry) {
         const counts = Object.assign({}, usage.counts);
         counts[entry.id] = (counts[entry.id] ?? 0) + 1;
