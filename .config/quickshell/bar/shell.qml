@@ -124,6 +124,17 @@ ShellRoot {
         }
     }
 
+    // The calendar card (CalendarCard.qml), on the focused monitor.
+    IpcHandler {
+        target: "calendar"
+        function toggleCard() {
+            const name = Hyprland.focusedMonitor?.name ?? "";
+            const open = UiState.calendarCardScreen !== "";
+            UiState.closePanels();
+            UiState.calendarCardScreen = open ? "" : name;
+        }
+    }
+
     // The app launcher (Launcher.qml), SUPER+SPACE. On the focused monitor.
     IpcHandler {
         target: "launcher"
@@ -263,6 +274,12 @@ ShellRoot {
                 modelData: screenScope.modelData
                 barWindow: panel
                 anchorX: bar.volumeAnchorRight
+            }
+
+            CalendarCard {
+                modelData: screenScope.modelData
+                barWindow: panel
+                anchorX: bar.clockCenter
             }
 
             NotificationPopups {

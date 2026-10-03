@@ -1,19 +1,25 @@
 import QtQuick
 import "../Theme"
 
-// Replaces waybar's clock module. waybar's {calendar} tooltip (a full month
-// grid) is deliberately not reimplemented -- out of scope for this pass, see
-// the migration plan's open risks; the full date is available on hover via
-// the shared Pill hover-expand instead.
+// Replaces waybar's clock module; the full date shows on hover. Click opens
+// the calendar card (../CalendarCard.qml) on this bar's screen.
 Pill {
     id: root
-    bg: Colors.mauve
+    property string screenName: ""
+    readonly property bool cardOpen: UiState.calendarCardScreen === screenName
+    bg: cardOpen ? Colors.red : Colors.mauve
     fg: Colors.mantle
-    icon: "schedule"
+    icon: cardOpen ? "close" : "schedule"
     value: Qt.formatDateTime(now, "HH:mm")
     label: Qt.formatDateTime(now, "ddd, d MMM yyyy")
 
     property date now: new Date()
+
+    onClicked: {
+        const open = cardOpen;
+        UiState.closePanels();
+        UiState.calendarCardScreen = open ? "" : screenName;
+    }
 
     Timer {
         interval: 1000
