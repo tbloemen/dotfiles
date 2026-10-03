@@ -71,98 +71,98 @@ Singleton {
 
     Behavior on base {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on mantle {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on crust {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on text {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on overlay0 {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on red {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on peach {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on yellow {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on green {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on teal {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on mauve {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on flamingo {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on surface0 {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on surface1 {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on subtext0 {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
     Behavior on lavender {
         ColorAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
+            duration: Metrics.animTheme
+            easing.type: Metrics.animThemeEasing
         }
     }
 }

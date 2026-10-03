@@ -1,4 +1,5 @@
 pragma Singleton
+import QtQuick
 import Quickshell
 
 Singleton {
@@ -14,6 +15,10 @@ Singleton {
     readonly property string uiFont: "JetBrainsMono Nerd Font"
 
     readonly property int animFast: 160 // hover-expand, workspace pill slide
-    readonly property int animMedium: 220 // theme crossfade, icon state morph
+    readonly property int animMedium: 220 // icon state morph, highlight slide
+    // Light/dark switch: the bar's colors (Colors.qml) and the wallpaper
+    // crossfade (WallpaperWindow.qml) share this so they move as one.
+    readonly property int animTheme: 500
+    readonly property int animThemeEasing: Easing.InOutCubic
     readonly property int animSlow: 400 // startup reveal
 }
