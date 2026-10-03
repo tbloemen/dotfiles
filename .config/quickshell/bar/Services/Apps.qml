@@ -127,7 +127,10 @@ Singleton {
     // activation request (misc:focus_on_activate is off). With no browser
     // window around it just starts the browser.
     function openWeb(query: string) {
-        const url = asUrl(query) || searchUrl.replace("%s", encodeURIComponent(query.trim()));
+        openUrl(asUrl(query) || searchUrl.replace("%s", encodeURIComponent(query.trim())));
+    }
+
+    function openUrl(url: string) {
         const cmd = browser.split(" ").filter(s => s.length > 0).concat(geckoBrowser ? ["--new-tab", url] : [url]);
         const cls = browserEntry?.startupClass || browserEntry?.id || cmd[0];
         Quickshell.execDetached(["sh", "-c", `

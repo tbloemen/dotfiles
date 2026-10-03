@@ -135,6 +135,20 @@ ShellRoot {
         }
     }
 
+    // The Todoist card (TodoistCard.qml), on the focused monitor.
+    IpcHandler {
+        target: "todoist"
+        function toggleCard() {
+            const name = Hyprland.focusedMonitor?.name ?? "";
+            const open = UiState.todoistCardScreen !== "";
+            UiState.closePanels();
+            UiState.todoistCardScreen = open ? "" : name;
+        }
+        function refresh() {
+            Todoist.refresh();
+        }
+    }
+
     // The display card (DisplayCard.qml), SUPER+P, on the focused monitor;
     // `layout` applies a preset directly (SUPER+O: external only).
     IpcHandler {
@@ -313,6 +327,12 @@ ShellRoot {
                 modelData: screenScope.modelData
                 barWindow: panel
                 anchorX: bar.clockCenter
+            }
+
+            TodoistCard {
+                modelData: screenScope.modelData
+                barWindow: panel
+                anchorX: bar.todoistAnchorRight
             }
 
             DisplayCard {

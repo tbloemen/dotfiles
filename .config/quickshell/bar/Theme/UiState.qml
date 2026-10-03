@@ -26,6 +26,7 @@ Singleton {
     property string audioCardScreen: ""
     property string calendarCardScreen: ""
     property string displayCardScreen: ""
+    property string todoistCardScreen: ""
 
     // Only one of the cards (or the launcher) is open at a time: whoever opens one calls this
     // first.
@@ -39,5 +40,6 @@ Singleton {
         audioCardScreen = "";
         calendarCardScreen = "";
         displayCardScreen = "";
+        todoistCardScreen = "";
     }
 }
