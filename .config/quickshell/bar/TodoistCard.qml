@@ -183,7 +183,7 @@ Card {
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 visible: input.text.length === 0
-                text: "Add task — tomorrow 5pm #Project @label p1"
+                text: "Add task"
                 font: input.font
                 color: Colors.overlay0
                 elide: Text.ElideRight
