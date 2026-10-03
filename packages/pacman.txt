@@ -24,7 +24,6 @@ obsidian
 ollama-cuda
 python
 quickshell
-rofi
 rust
 speedtest-cli
 starship

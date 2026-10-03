@@ -35,7 +35,7 @@ hl.monitor({
 -- Set programs that you use
 local terminal = "ghostty"
 local fileManager = "nautilus"
-local menu = "rofi -show drun"
+local menu = "qs ipc call launcher toggle"
 
 -------------------
 ---- AUTOSTART ----
@@ -492,9 +492,10 @@ hl.layer_rule({
 	no_anim = true,
 })
 
--- Same for the notification toasts, notification center, OSD and network card.
+-- Same for the notification toasts, notification center, OSD, network card and
+-- launcher.
 hl.layer_rule({
 	name = "no-anim-for-quickshell-notifications",
-	match = { namespace = "^quickshell:(notifications|notifcenter|osd|networkcard)$" },
+	match = { namespace = "^quickshell:(notifications|notifcenter|osd|networkcard|launcher)$" },
 	no_anim = true,
 })

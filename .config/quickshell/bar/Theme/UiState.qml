@@ -16,11 +16,15 @@ Singleton {
     property string notifCenterScreen: ""
     property string networkCardScreen: ""
 
-    // Only one of the cards is open at a time: whoever opens one calls this
+    // And the app launcher (Launcher.qml).
+    property string launcherScreen: ""
+
+    // Only one of the cards (or the launcher) is open at a time: whoever opens one calls this
     // first.
     function closePanels() {
         powerMenuScreen = "";
         notifCenterScreen = "";
         networkCardScreen = "";
+        launcherScreen = "";
     }
 }

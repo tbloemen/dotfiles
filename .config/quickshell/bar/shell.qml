@@ -81,6 +81,17 @@ ShellRoot {
         }
     }
 
+    // The app launcher (Launcher.qml), SUPER+SPACE. On the focused monitor.
+    IpcHandler {
+        target: "launcher"
+        function toggle() {
+            const name = Hyprland.focusedMonitor?.name ?? "";
+            const open = UiState.launcherScreen !== "";
+            UiState.closePanels();
+            UiState.launcherScreen = open ? "" : name;
+        }
+    }
+
     // hyprland.lua's brightness binds call this after brightnessctl; volume
     // needs no hook, Osd watches Pipewire itself.
     IpcHandler {
@@ -98,7 +109,7 @@ ShellRoot {
     Variants {
         model: Quickshell.screens
 
-        // One bar, power menu, notification center, network card, toast window and OSD per
+        // One bar, power menu, notification center, network card, launcher, toast window and OSD per
         // screen. They share a scope so the menus' focus grabs can whitelist
         // their own bar (see PowerMenu.qml).
         Scope {
@@ -158,6 +169,11 @@ ShellRoot {
                 modelData: screenScope.modelData
                 barWindow: panel
                 anchorRight: bar.networkAnchorRight
+            }
+
+            Launcher {
+                modelData: screenScope.modelData
+                barWindow: panel
             }
 
             NotificationPopups {
