@@ -19,6 +19,12 @@ Singleton {
     // And the app launcher (Launcher.qml).
     property string launcherScreen: ""
 
+    // The cards built on Card.qml.
+    property string mediaCardScreen: ""
+    property string bluetoothCardScreen: ""
+    property string audioCardScreen: ""
+    property string calendarCardScreen: ""
+
     // Only one of the cards (or the launcher) is open at a time: whoever opens one calls this
     // first.
     function closePanels() {
@@ -26,5 +32,9 @@ Singleton {
         notifCenterScreen = "";
         networkCardScreen = "";
         launcherScreen = "";
+        mediaCardScreen = "";
+        bluetoothCardScreen = "";
+        audioCardScreen = "";
+        calendarCardScreen = "";
     }
 }
