@@ -81,6 +81,27 @@ ShellRoot {
         }
     }
 
+    // The media card (MediaCard.qml), on the focused monitor, plus transport
+    // controls for whichever player the card shows.
+    IpcHandler {
+        target: "media"
+        function toggleCard() {
+            const name = Hyprland.focusedMonitor?.name ?? "";
+            const open = UiState.mediaCardScreen !== "";
+            UiState.closePanels();
+            UiState.mediaCardScreen = open ? "" : name;
+        }
+        function playPause() {
+            Media.active?.togglePlaying();
+        }
+        function next() {
+            Media.active?.next();
+        }
+        function previous() {
+            Media.active?.previous();
+        }
+    }
+
     // The app launcher (Launcher.qml), SUPER+SPACE. On the focused monitor.
     IpcHandler {
         target: "launcher"
@@ -202,6 +223,12 @@ ShellRoot {
             Launcher {
                 modelData: screenScope.modelData
                 barWindow: panel
+            }
+
+            MediaCard {
+                modelData: screenScope.modelData
+                barWindow: panel
+                anchorX: bar.mediaAnchorLeft
             }
 
             NotificationPopups {
