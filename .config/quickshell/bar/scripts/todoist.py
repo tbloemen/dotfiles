@@ -14,7 +14,8 @@ Subcommands, each printing JSON:
     todoist.py meta           {"projects": [{"name", "color"}], "labels": [...]}
     todoist.py close ID       complete a task -> {"ok": true}
     todoist.py quick TEXT     quick add (Todoist parses dates, #project,
-                              @label, p1..p4) -> {"ok": true, "content"}
+                              @label, p1..p4; no date means today)
+                              -> {"ok": true, "content"}
 
 Failures print {"error": "..."} (exit 0, so the caller always gets JSON);
 "no-token" means the keyring has no token.
@@ -177,8 +178,17 @@ def cmd_close(tok, task_id):
 
 
 def cmd_quick(tok, text):
-    task = request(tok, "POST", "/tasks/quick", body={"text": text})
-    return {"ok": True, "content": (task or {}).get("content", text)}
+    task = request(tok, "POST", "/tasks/quick", body={"text": text}) or {}
+    # The card lists today | overdue, so an undated task would vanish from
+    # it; default to today like Todoist's own Today view does.
+    if not task.get("due") and task.get("id"):
+        task = request(
+            tok,
+            "POST",
+            f"/tasks/{urllib.parse.quote(task['id'])}",
+            body={"due_string": "today"},
+        ) or task
+    return {"ok": True, "content": task.get("content", text)}
 
 
 def main(argv):
