@@ -102,6 +102,17 @@ ShellRoot {
         }
     }
 
+    // The Bluetooth card (BluetoothCard.qml), on the focused monitor.
+    IpcHandler {
+        target: "bluetooth"
+        function toggleCard() {
+            const name = Hyprland.focusedMonitor?.name ?? "";
+            const open = UiState.bluetoothCardScreen !== "";
+            UiState.closePanels();
+            UiState.bluetoothCardScreen = open ? "" : name;
+        }
+    }
+
     // The app launcher (Launcher.qml), SUPER+SPACE. On the focused monitor.
     IpcHandler {
         target: "launcher"
@@ -229,6 +240,12 @@ ShellRoot {
                 modelData: screenScope.modelData
                 barWindow: panel
                 anchorX: bar.mediaAnchorLeft
+            }
+
+            BluetoothCard {
+                modelData: screenScope.modelData
+                barWindow: panel
+                anchorX: bar.bluetoothAnchorRight
             }
 
             NotificationPopups {
