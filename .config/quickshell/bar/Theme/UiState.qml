@@ -18,6 +18,7 @@ Singleton {
 
     // And the app launcher (Launcher.qml).
     property string launcherScreen: ""
+    property string launcherMode: "apps" // "apps" | "clipboard"
 
     // The cards built on Card.qml.
     property string mediaCardScreen: ""

@@ -61,6 +61,9 @@ hl.on("hyprland.start", function()
 		"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE GTK_IM_MODULE && systemctl --user start hyprland-session.target"
 	)
 	hl.exec_cmd("hypridle")
+	-- Clipboard history for the launcher's clipboard mode (SUPER+SHIFT+V).
+	hl.exec_cmd("wl-paste --type text --watch cliphist store")
+	hl.exec_cmd("wl-paste --type image --watch cliphist store")
 	hl.exec_cmd("darkman run")
 	-- Wake the panel with an off/on cycle a couple of seconds into the session.
 	-- `action` is parsed from a *string*: an unquoted `disabled`/`enabled` is an
@@ -309,6 +312,7 @@ hl.bind(
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("qs ipc call powermenu toggle"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("qs ipc call launcher clipboard"))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
