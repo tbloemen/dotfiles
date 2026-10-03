@@ -53,7 +53,7 @@ local menu = "qs ipc call launcher toggle"
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function()
-	-- quickshell is also the wallpaper (bar/WallpaperWindow.qml); it reads
+	-- quickshell is also the wallpaper (quickshell/WallpaperWindow.qml); it reads
 	-- darkman's last mode from mode.txt itself, so nothing needs seeding.
 	hl.exec_cmd("qs & hyprsunset")
 	hl.exec_cmd("wlsunset -l 52.011578 -L 4.357068")

@@ -98,7 +98,7 @@ Card {
         const first = new Date(Math.min(gridStart.getTime(), dayStart(today).getTime()));
         const last = new Date(Math.max(addDays(gridStart, 41).getTime(), addDays(today, upcomingDays).getTime()));
         loading = true;
-        eventsProc.command = [Quickshell.shellPath("bar/scripts/thunderbird-events.py"), "--from", dayKey(first), "--to", dayKey(last)];
+        eventsProc.command = [Quickshell.shellPath("scripts/thunderbird-events.py"), "--from", dayKey(first), "--to", dayKey(last)];
         eventsProc.running = true;
     }
 

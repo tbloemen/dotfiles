@@ -27,7 +27,7 @@ Singleton {
     // A quick add went through; Todoist's parsed title for the task.
     signal added(content: string)
 
-    readonly property string script: Quickshell.shellPath("bar/scripts/todoist.py")
+    readonly property string script: Quickshell.shellPath("scripts/todoist.py")
 
     // A refresh asked for while one runs (say, right after completing a
     // task) runs again afterwards, so the list can't come back stale.
