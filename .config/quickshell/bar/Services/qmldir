@@ -9,3 +9,4 @@ singleton Audio 1.0 Audio.qml
 singleton Displays 1.0 Displays.qml
 singleton Calc 1.0 Calc.qml
 singleton Clipboard 1.0 Clipboard.qml
+singleton Todoist 1.0 Todoist.qml

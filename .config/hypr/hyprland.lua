@@ -509,7 +509,7 @@ hl.layer_rule({
 hl.layer_rule({
 	name = "no-anim-for-quickshell-notifications",
 	match = {
-		namespace = "^quickshell:(notifications|notifcenter|osd|networkcard|launcher|wallpaper|mediacard|bluetoothcard|audiocard|calendarcard|displaycard|polkit)$",
+		namespace = "^quickshell:(notifications|notifcenter|osd|networkcard|launcher|wallpaper|mediacard|bluetoothcard|audiocard|calendarcard|displaycard|todoistcard|polkit)$",
 	},
 	no_anim = true,
 })

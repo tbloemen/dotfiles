@@ -13,6 +13,7 @@ Item {
     readonly property real mediaAnchorLeft: mediaPill.x
     readonly property real clockCenter: clockPill.x + clockPill.width / 2
     readonly property real volumeAnchorRight: width - (rightRow.x + volumePill.x + volumePill.width)
+    readonly property real todoistAnchorRight: width - (rightRow.x + todoistPill.x + todoistPill.width)
     readonly property real bluetoothAnchorRight: width - (rightRow.x + bluetoothPill.x + bluetoothPill.width)
 
     Rectangle {
@@ -52,6 +53,10 @@ Item {
         layoutDirection: Qt.LeftToRight
 
         Tray {}
+        TodoistIndicator {
+            id: todoistPill
+            screenName: root.screenName
+        }
         DarkmanIndicator {}
         Memory {}
         IdleInhibitorButton {}

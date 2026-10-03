@@ -13,6 +13,9 @@ import "Services"
 // Events come from Thunderbird's calendar cache via
 // scripts/thunderbird-events.py, so they're as fresh as Thunderbird's last
 // sync. It runs when the card opens and when the month changes.
+//
+// Todoist tasks due today or overdue (Services/Todoist.qml) show between
+// the grid and the list, while it lists upcoming days or today.
 Card {
     id: root
 
@@ -49,7 +52,11 @@ Card {
     // First grid cell: the Monday on or before the 1st.
     readonly property date gridStart: addDays(viewMonth, -((viewMonth.getDay() + 6) % 7))
 
+    readonly property int maxTasks: 5
+    readonly property bool showTasks: Todoist.count > 0 && (selectedDay === null || sameDay(selectedDay, today))
+
     onOpened: {
+        Todoist.refresh();
         today = new Date();
         selectedDay = null;
         if (viewMonth.getTime() === firstOfMonth(today).getTime())
@@ -276,6 +283,42 @@ Card {
         Layout.fillWidth: true
         implicitHeight: 1
         color: Colors.surface1
+    }
+
+    RowLayout {
+        Layout.fillWidth: true
+        Layout.leftMargin: 4
+        visible: root.showTasks
+
+        Text {
+            Layout.fillWidth: true
+            text: "Tasks"
+            font.family: Metrics.uiFont
+            font.pixelSize: 11
+            font.bold: true
+            color: Colors.overlay0
+        }
+
+        HeaderButton {
+            visible: Todoist.count > root.maxTasks
+            label: "+" + (Todoist.count - root.maxTasks) + " more"
+            accent: Colors.green
+            onClicked: {
+                const name = root.modelData.name;
+                UiState.closePanels();
+                UiState.todoistCardScreen = name;
+            }
+        }
+    }
+
+    Repeater {
+        model: root.showTasks ? Todoist.tasks.slice(0, root.maxTasks) : []
+
+        TodoistTask {
+            required property var modelData
+            Layout.fillWidth: true
+            task: modelData
+        }
     }
 
     RowLayout {
