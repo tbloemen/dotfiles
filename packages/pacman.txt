@@ -2,11 +2,11 @@
 bat
 bitwarden
 bitwarden-cli
+brightnessctl
 btop
 cudnn
 discord
 docker
-dunst
 eza
 fastfetch
 git
@@ -15,6 +15,7 @@ hyprland
 hyprpaper
 hyprshot
 kitty
+libnotify
 luarocks
 neovim
 npm

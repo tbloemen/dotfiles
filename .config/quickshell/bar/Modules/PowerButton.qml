@@ -12,5 +12,8 @@ Pill {
     fg: Colors.mantle
     icon: menuOpen ? "close" : "power_settings_new"
 
-    onClicked: UiState.powerMenuScreen = menuOpen ? "" : screenName
+    onClicked: {
+        UiState.notifCenterScreen = "";
+        UiState.powerMenuScreen = menuOpen ? "" : screenName;
+    }
 }

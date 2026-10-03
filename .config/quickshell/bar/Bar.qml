@@ -37,6 +37,9 @@ Item {
         NetworkIndicator {}
         Volume {}
         Battery {}
+        Notifications {
+            screenName: root.screenName
+        }
         PowerButton {
             screenName: root.screenName
         }

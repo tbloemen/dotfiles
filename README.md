@@ -16,7 +16,3 @@ Then run the install script: `sh install.sh`.
 This will install the packages from pacman and the AUR as specified in the `packages` directory, and `stow` all the dotfiles into the users config.
 
 See the [Dreams of Autonomy video](https://www.youtube.com/watch?v=y6XCebnB9gs) for more information.
-
-## Specifications
-
-The dunst config is largely copied over from these [dotfiles](https://github.com/sameemul-haque/dotfiles).

@@ -4,6 +4,7 @@ import Quickshell.Io
 import Quickshell.Hyprland
 import Quickshell.Wayland
 import "Theme"
+import "Services"
 
 ShellRoot {
     id: root
@@ -39,6 +40,7 @@ ShellRoot {
         target: "powermenu"
         function toggle() {
             const name = Hyprland.focusedMonitor?.name ?? "";
+            UiState.notifCenterScreen = "";
             UiState.powerMenuScreen = UiState.powerMenuScreen === "" ? name : "";
         }
         function close() {
@@ -46,11 +48,46 @@ ShellRoot {
         }
     }
 
+    // Notifications (Services/Notifs.qml, which also owns the D-Bus server).
+    // SUPER+N clears the toasts, SUPER+SHIFT+N opens the center.
+    IpcHandler {
+        target: "notifications"
+        function toggleCenter() {
+            const name = Hyprland.focusedMonitor?.name ?? "";
+            UiState.powerMenuScreen = "";
+            UiState.notifCenterScreen = UiState.notifCenterScreen === "" ? name : "";
+        }
+        function clearPopups() {
+            Notifs.clearPopups();
+        }
+        function clearAll() {
+            Notifs.clearAll();
+        }
+        function toggleDnd() {
+            Notifs.dnd = !Notifs.dnd;
+        }
+    }
+
+    // hyprland.lua's brightness binds call this after brightnessctl; volume
+    // needs no hook, Osd watches Pipewire itself.
+    IpcHandler {
+        target: "osd"
+        function brightness() {
+            Osd.brightness();
+        }
+    }
+
+    // Singletons are created lazily on first use. The notification server
+    // has to own the D-Bus name from launch, not from whenever a toast or
+    // the pill first happens to touch it.
+    Component.onCompleted: Notifs.popupCount
+
     Variants {
         model: Quickshell.screens
 
-        // One bar + one power menu per screen. They share a scope so the
-        // menu's focus grab can whitelist its own bar (see PowerMenu.qml).
+        // One bar, power menu, notification center, toast window and OSD per
+        // screen. They share a scope so the menus' focus grabs can whitelist
+        // their own bar (see PowerMenu.qml).
         Scope {
             id: screenScope
             required property var modelData
@@ -97,6 +134,19 @@ ShellRoot {
             PowerMenu {
                 modelData: screenScope.modelData
                 barWindow: panel
+            }
+
+            NotificationCenter {
+                modelData: screenScope.modelData
+                barWindow: panel
+            }
+
+            NotificationPopups {
+                modelData: screenScope.modelData
+            }
+
+            OsdWindow {
+                modelData: screenScope.modelData
             }
         }
     }

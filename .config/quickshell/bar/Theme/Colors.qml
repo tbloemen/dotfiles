@@ -16,8 +16,10 @@ Singleton {
         readonly property color base: "#1e1e2e"
         readonly property color mantle: "#181825"
         readonly property color crust: "#11111b"
+        readonly property color surface0: "#313244"
         readonly property color surface1: "#45475a"
         readonly property color text: "#cdd6f4"
+        readonly property color subtext0: "#a6adc8"
         readonly property color overlay0: "#6c7086"
         readonly property color red: "#f38ba8"
         readonly property color peach: "#fab387"
@@ -26,14 +28,17 @@ Singleton {
         readonly property color teal: "#94e2d5"
         readonly property color mauve: "#cba6f7"
         readonly property color flamingo: "#f2cdcd"
+        readonly property color lavender: "#b4befe"
     }
 
     readonly property QtObject latte: QtObject {
         readonly property color base: "#eff1f5"
         readonly property color mantle: "#e6e9ef"
         readonly property color crust: "#dce0e8"
+        readonly property color surface0: "#ccd0da"
         readonly property color surface1: "#bcc0cc"
         readonly property color text: "#4c4f69"
+        readonly property color subtext0: "#6c6f85"
         readonly property color overlay0: "#9ca0b0"
         readonly property color red: "#d20f39"
         readonly property color peach: "#fe640b"
@@ -42,6 +47,7 @@ Singleton {
         readonly property color teal: "#179299"
         readonly property color mauve: "#8839ef"
         readonly property color flamingo: "#dd7878"
+        readonly property color lavender: "#7287fd"
     }
 
     readonly property QtObject active: mode === "light" ? latte : mocha
@@ -49,8 +55,10 @@ Singleton {
     property color base: active.base
     property color mantle: active.mantle
     property color crust: active.crust
+    property color surface0: active.surface0
     property color surface1: active.surface1
     property color text: active.text
+    property color subtext0: active.subtext0
     property color overlay0: active.overlay0
     property color red: active.red
     property color peach: active.peach
@@ -59,6 +67,7 @@ Singleton {
     property color teal: active.teal
     property color mauve: active.mauve
     property color flamingo: active.flamingo
+    property color lavender: active.lavender
 
     Behavior on base {
         ColorAnimation {
@@ -127,6 +136,30 @@ Singleton {
         }
     }
     Behavior on flamingo {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on surface0 {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on surface1 {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on subtext0 {
+        ColorAnimation {
+            duration: 220
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on lavender {
         ColorAnimation {
             duration: 220
             easing.type: Easing.OutCubic

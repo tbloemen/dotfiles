@@ -54,7 +54,7 @@ hl.on("hyprland.start", function()
 	-- needed); darkman's own startup then re-runs it with the live mode. The
 	-- quickshell bar needs no such seeding: it reads mode.txt itself on start.
 	hl.exec_cmd(
-		'mode="$(cat ~/.cache/darkman/mode.txt 2>/dev/null || echo dark)"; ~/.local/share/darkman/hyprpaper.sh "$mode"; qs & dunst & hyprpaper & hyprsunset'
+		'mode="$(cat ~/.cache/darkman/mode.txt 2>/dev/null || echo dark)"; ~/.local/share/darkman/hyprpaper.sh "$mode"; qs & hyprpaper & hyprsunset'
 	)
 	hl.exec_cmd("wlsunset -l 52.011578 -L 4.357068")
 	-- GTK_IM_MODULE has to cross into the systemd user manager: ghostty runs as
@@ -315,7 +315,8 @@ hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("dunstctl close-all"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("qs ipc call notifications clearPopups"))
+hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("qs ipc call notifications toggleCenter"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("zen-browser"))
 -- Meeting recorder: press once to start, again to stop and file the note
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("ghostty --class=notulen -e notulen toggle"))
@@ -381,8 +382,8 @@ hl.bind(
 	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
 	{ locked = true, repeating = true }
 )
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+ && qs ipc call osd brightness"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%- && qs ipc call osd brightness"), { locked = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
@@ -480,5 +481,12 @@ hl.layer_rule({
 hl.layer_rule({
 	name = "no-anim-for-powermenu",
 	match = { namespace = "quickshell:powermenu" },
+	no_anim = true,
+})
+
+-- Same for the notification toasts, notification center and OSD.
+hl.layer_rule({
+	name = "no-anim-for-quickshell-notifications",
+	match = { namespace = "^quickshell:(notifications|notifcenter|osd)$" },
 	no_anim = true,
 })
