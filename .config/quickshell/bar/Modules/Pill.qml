@@ -45,40 +45,52 @@ Item {
         }
     }
 
-    Row {
-        id: row
-        anchors.centerIn: parent
-        spacing: 6
+    // While the pill's width animates the row is already at its new size, so
+    // keep it pinned to the left edge and clipped to the pill: centered and
+    // unclipped, the revealed label spilled out over the neighbouring
+    // pills (e.g. the media pill's track over the workspaces).
+    Item {
+        anchors.fill: parent
+        anchors.leftMargin: Metrics.paddingH
+        anchors.rightMargin: Metrics.paddingH
+        clip: true
 
-        Text {
-            id: iconText
+        Row {
+            id: row
+            anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
-            font.family: Metrics.iconFont
-            font.pixelSize: Metrics.iconSize
-            color: root.fg
-        }
+            spacing: 6
 
-        Text {
-            text: root.value
-            visible: root.value.length > 0
-            anchors.verticalCenter: parent.verticalCenter
-            color: root.fg
-            font.family: Metrics.uiFont
-            font.pixelSize: Metrics.textSize
-        }
+            Text {
+                id: iconText
+                anchors.verticalCenter: parent.verticalCenter
+                font.family: Metrics.iconFont
+                font.pixelSize: Metrics.iconSize
+                color: root.fg
+            }
 
-        Text {
-            text: root.label
-            visible: root.label.length > 0 && root.expanded
-            opacity: visible ? 1 : 0
-            anchors.verticalCenter: parent.verticalCenter
-            color: root.fg
-            font.family: Metrics.uiFont
-            font.pixelSize: Metrics.textSize
+            Text {
+                text: root.value
+                visible: root.value.length > 0
+                anchors.verticalCenter: parent.verticalCenter
+                color: root.fg
+                font.family: Metrics.uiFont
+                font.pixelSize: Metrics.textSize
+            }
 
-            Behavior on opacity {
-                NumberAnimation {
-                    duration: Metrics.animFast
+            Text {
+                text: root.label
+                visible: root.label.length > 0 && root.expanded
+                opacity: visible ? 1 : 0
+                anchors.verticalCenter: parent.verticalCenter
+                color: root.fg
+                font.family: Metrics.uiFont
+                font.pixelSize: Metrics.textSize
+
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: Metrics.animFast
+                    }
                 }
             }
         }
