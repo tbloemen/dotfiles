@@ -35,6 +35,10 @@ hl.monitor({
 -- Set programs that you use
 local terminal = "ghostty"
 local fileManager = "nautilus"
+-- The default browser: SUPER+B, and exported as $BROWSER (see ENVIRONMENT
+-- VARIABLES) for everything started from here -- the quickshell launcher's
+-- web search uses it.
+local browser = "zen-browser"
 local menu = "qs ipc call launcher toggle"
 
 -------------------
@@ -56,9 +60,10 @@ hl.on("hyprland.start", function()
 	-- it never inherits the `hl.env` above. Without it GTK4 falls back to the
 	-- Wayland text-input-v3 IM context, which leaves dead-key composition to the
 	-- compositor -- and Hyprland does not compose, so us(intl) dead keys
-	-- (' " ` ^ ~) get swallowed and never emit a character.
+	-- (' " ` ^ ~) get swallowed and never emit a character. BROWSER crosses
+	-- over for the same reason, so terminal tools agree with the launcher.
 	hl.exec_cmd(
-		"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE GTK_IM_MODULE && systemctl --user start hyprland-session.target"
+		"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE GTK_IM_MODULE BROWSER && systemctl --user start hyprland-session.target"
 	)
 	hl.exec_cmd("hypridle")
 	-- Clipboard history for the launcher's clipboard mode (SUPER+SHIFT+V).
@@ -87,6 +92,8 @@ hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_THEME", "catppuccin-mocha-dark-cursors")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("GTK_IM_MODULE", "simple")
+-- Overrides /etc/environment's BROWSER=firefox.
+hl.env("BROWSER", browser)
 
 -- lazygit: merge the base config with the Catppuccin preset (lavender accent)
 -- whose flavour is swapped per light/dark by ~/.local/share/darkman/lazygit.sh.
@@ -319,7 +326,7 @@ hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("qs ipc call notifications clearPopups"))
 hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("qs ipc call notifications toggleCenter"))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("zen-browser"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 -- Meeting recorder: press once to start, again to stop and file the note
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("ghostty --class=notulen -e notulen toggle"))
 

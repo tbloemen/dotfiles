@@ -22,7 +22,8 @@ import "Services"
 // Shift+Delete removes it.
 //
 // Typing a calculation ("2^10", "sqrt(2)*3") puts its result on top
-// (Services/Calc.qml); Enter on it copies the result.
+// (Services/Calc.qml); Enter on it copies the result. The last row searches
+// the web for the query in $BROWSER (or opens it, if it's an address).
 //
 // Rows are plain items -- {kind, title, subtitle, icon, glyph, ...} -- so
 // apps and calculator results share one list and one delegate.
@@ -77,6 +78,20 @@ PanelWindow { // qmllint disable uncreatable-type
                 glyph: "apps",
                 entry: e
             });
+        // Always offer the web last -- first when no app matches.
+        const q = search.text.trim();
+        if (q !== "") {
+            const url = Apps.asUrl(q);
+            const browserName = Apps.browserEntry?.name ?? Apps.browser;
+            items.push({
+                kind: "web",
+                title: url !== "" ? "Open " + url.replace(/^https?:\/\//, "") : "Search the web for “" + q + "”",
+                subtitle: browserName,
+                icon: Apps.browserEntry?.icon ? Quickshell.iconPath(Apps.browserEntry.icon, true) : "",
+                glyph: url !== "" ? "language" : "travel_explore",
+                query: q
+            });
+        }
         return items;
     }
 
@@ -91,6 +106,8 @@ PanelWindow { // qmllint disable uncreatable-type
             Quickshell.execDetached(["wl-copy", "--", item.value]);
         else if (item.kind === "clip")
             Clipboard.copy(item.id);
+        else if (item.kind === "web")
+            Apps.openWeb(item.query);
         else
             Apps.launch(item.entry);
         close();
