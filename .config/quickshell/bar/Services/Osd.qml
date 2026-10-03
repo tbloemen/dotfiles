@@ -11,7 +11,8 @@ import Quickshell.Services.Pipewire
 // hides itself.
 //
 // Volume is observed rather than signalled: any change to the default sink
-// -- media keys, scrolling the bar's volume pill, pavucontrol -- pops it.
+// -- media keys, scrolling the bar's volume pill, pavucontrol -- pops it, and
+// so does muting the default source (the mic-mute key, the audio card).
 // Brightness has no Quickshell service and sysfs `brightness` doesn't emit
 // inotify events, so hyprland.lua's brightness binds poke it over IPC
 // (`qs ipc call osd brightness`) and it reads the level back from brightnessctl.
@@ -31,11 +32,17 @@ Singleton {
 
     readonly property var sink: Pipewire.defaultAudioSink
     readonly property bool sinkReady: sink !== null && sink.ready
+    readonly property var source: Pipewire.defaultAudioSource
+    readonly property bool sourceReady: source !== null && source.ready
 
-    // Pipewire reports the initial volume (and the default sink switching)
-    // as a change, so only react once the sink has settled.
+    // Pipewire reports the initial volume (and the default sink or source
+    // switching) as a change, so only react once they have settled.
     property bool armed: false
     onSinkChanged: {
+        armed = false;
+        armTimer.restart();
+    }
+    onSourceChanged: {
         armed = false;
         armTimer.restart();
     }
@@ -77,6 +84,15 @@ Singleton {
         show(muted ? "volume_off" : vol <= 0 ? "volume_mute" : vol < 0.5 ? "volume_down" : "volume_up", vol, muted);
     }
 
+    // Only mute, not the mic's volume: apps with automatic gain control
+    // move that around constantly.
+    function showMic() {
+        if (!armed || !sourceReady)
+            return;
+        const muted = source.audio.muted;
+        show(muted ? "mic_off" : "mic", source.audio.volume, muted);
+    }
+
     function brightness() {
         brightnessProc.running = true;
     }
@@ -91,8 +107,15 @@ Singleton {
         }
     }
 
+    Connections {
+        target: root.sourceReady ? root.source.audio : null
+        function onMutedChanged() {
+            root.showMic();
+        }
+    }
+
     PwObjectTracker {
-        objects: [Pipewire.defaultAudioSink]
+        objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSource]
     }
 
     // `brightnessctl -m` prints e.g. "amdgpu_bl2,backlight,123,48%,255".
