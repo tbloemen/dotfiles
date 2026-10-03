@@ -113,6 +113,17 @@ ShellRoot {
         }
     }
 
+    // The audio card (AudioCard.qml), on the focused monitor.
+    IpcHandler {
+        target: "audio"
+        function toggleCard() {
+            const name = Hyprland.focusedMonitor?.name ?? "";
+            const open = UiState.audioCardScreen !== "";
+            UiState.closePanels();
+            UiState.audioCardScreen = open ? "" : name;
+        }
+    }
+
     // The app launcher (Launcher.qml), SUPER+SPACE. On the focused monitor.
     IpcHandler {
         target: "launcher"
@@ -246,6 +257,12 @@ ShellRoot {
                 modelData: screenScope.modelData
                 barWindow: panel
                 anchorX: bar.bluetoothAnchorRight
+            }
+
+            AudioCard {
+                modelData: screenScope.modelData
+                barWindow: panel
+                anchorX: bar.volumeAnchorRight
             }
 
             NotificationPopups {
