@@ -1,6 +1,6 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
-import Quickshell
 import Quickshell.Services.Mpris
 import Quickshell.Widgets
 import "Theme"

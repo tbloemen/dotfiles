@@ -1,4 +1,5 @@
 pragma Singleton
+pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -25,11 +26,14 @@ Singleton {
             if (err === FileViewError.FileNotFound)
                 writeAdapter();
         }
+        adapter: usage // qmllint disable missing-type
+    }
 
-        JsonAdapter {
-            id: usage
-            property var counts: ({})
-        }
+    // Outside the FileView, so qmllint (which can't resolve the type of its
+    // `adapter` property) still sees the `usage` id.
+    JsonAdapter {
+        id: usage
+        property var counts: ({})
     }
 
     function count(entry): int {

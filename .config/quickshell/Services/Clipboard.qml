@@ -79,11 +79,11 @@ Singleton {
             for id in "$@"; do
                 [ -s "$dir/$id.png" ] || cliphist decode "$id" > "$dir/$id.png"
             done`, "sh", root.thumbDir, ...ids]
-        onExited: root.thumbRevision++
+        onExited: root.thumbRevision++ // qmllint disable signal-handler-parameters
     }
 
     Process {
         id: removeProc
-        onExited: root.refresh()
+        onExited: root.refresh() // qmllint disable signal-handler-parameters
     }
 }

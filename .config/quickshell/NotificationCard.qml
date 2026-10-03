@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
-import Quickshell
 import Quickshell.Services.Notifications
 import "Theme"
 import "Services"
@@ -31,8 +30,8 @@ Item {
     readonly property bool critical: notification.urgency === NotificationUrgency.Critical
     readonly property color accent: critical ? Colors.red : notification.urgency === NotificationUrgency.Low ? Colors.overlay0 : Colors.mauve
     readonly property string iconSource: Notifs.iconSource(notification)
-    readonly property var defaultAction: Array.from(notification.actions).find(a => a.identifier === "default") ?? null
-    readonly property var buttons: Array.from(notification.actions).filter(a => a.identifier !== "default")
+    readonly property var defaultAction: Array.from(notification.actions).find(a => a.identifier === "default") ?? null // qmllint disable unresolved-type
+    readonly property var buttons: Array.from(notification.actions).filter(a => a.identifier !== "default") // qmllint disable unresolved-type
     readonly property bool hovered: hover.hovered
 
     // Bumped by Notifs whenever this notification is (re)shown as a toast.

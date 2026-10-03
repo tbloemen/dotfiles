@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell // qmllint disable unused-imports
 import Quickshell.Services.SystemTray

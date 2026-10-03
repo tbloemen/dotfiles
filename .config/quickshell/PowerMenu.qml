@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Effects
 import Quickshell
@@ -117,11 +118,11 @@ PanelWindow { // qmllint disable uncreatable-type
             pendingCommand = [];
             uptimeProc.running = true;
             for (let i = 0; i < rows.count; i++)
-                rows.itemAt(i).reset(60 + i * 28);
+                (rows.itemAt(i) as PowerMenuItem).reset(60 + i * 28);
             openAnim.restart();
         } else {
             for (let i = 0; i < rows.count; i++)
-                rows.itemAt(i).cancel();
+                (rows.itemAt(i) as PowerMenuItem).cancel();
             openAnim.stop();
             closeAnim.restart();
         }

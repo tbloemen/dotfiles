@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Widgets
@@ -29,7 +28,7 @@ PanelWindow { // qmllint disable uncreatable-type
     visible: wanted || progress > 0
     color: "transparent"
     anchors.bottom: true
-    margins.bottom: 80
+    margins.bottom: 80 // qmllint disable unqualified unresolved-type
     implicitWidth: pill.width + 24
     implicitHeight: pill.height + 24
     exclusionMode: ExclusionMode.Ignore

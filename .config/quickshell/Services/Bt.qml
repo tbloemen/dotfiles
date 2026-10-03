@@ -10,7 +10,7 @@ import "../Theme"
 Singleton {
     id: root
 
-    readonly property var adapter: Bluetooth.defaultAdapter
+    readonly property var adapter: Bluetooth.defaultAdapter // qmllint disable unresolved-type
     readonly property bool enabled: adapter !== null && adapter.enabled
 
     // Connected first, then paired, then nearby devices that report a name

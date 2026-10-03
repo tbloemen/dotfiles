@@ -12,45 +12,65 @@ Singleton {
 
     property string mode: "dark" // "dark" | "light"
 
-    readonly property QtObject mocha: QtObject {
-        readonly property color base: "#1e1e2e"
-        readonly property color mantle: "#181825"
-        readonly property color crust: "#11111b"
-        readonly property color surface0: "#313244"
-        readonly property color surface1: "#45475a"
-        readonly property color text: "#cdd6f4"
-        readonly property color subtext0: "#a6adc8"
-        readonly property color overlay0: "#6c7086"
-        readonly property color red: "#f38ba8"
-        readonly property color peach: "#fab387"
-        readonly property color yellow: "#f9e2af"
-        readonly property color green: "#a6e3a1"
-        readonly property color teal: "#94e2d5"
-        readonly property color mauve: "#cba6f7"
-        readonly property color flamingo: "#f2cdcd"
-        readonly property color lavender: "#b4befe"
+    // One flavour's colors, typed so `active.<name>` resolves for qmllint.
+    component Palette: QtObject {
+        property color base
+        property color mantle
+        property color crust
+        property color surface0
+        property color surface1
+        property color text
+        property color subtext0
+        property color overlay0
+        property color red
+        property color peach
+        property color yellow
+        property color green
+        property color teal
+        property color mauve
+        property color flamingo
+        property color lavender
     }
 
-    readonly property QtObject latte: QtObject {
-        readonly property color base: "#eff1f5"
-        readonly property color mantle: "#e6e9ef"
-        readonly property color crust: "#dce0e8"
-        readonly property color surface0: "#ccd0da"
-        readonly property color surface1: "#bcc0cc"
-        readonly property color text: "#4c4f69"
-        readonly property color subtext0: "#6c6f85"
-        readonly property color overlay0: "#9ca0b0"
-        readonly property color red: "#d20f39"
-        readonly property color peach: "#fe640b"
-        readonly property color yellow: "#df8e1d"
-        readonly property color green: "#40a02b"
-        readonly property color teal: "#179299"
-        readonly property color mauve: "#8839ef"
-        readonly property color flamingo: "#dd7878"
-        readonly property color lavender: "#7287fd"
+    readonly property Palette mocha: Palette {
+        base: "#1e1e2e"
+        mantle: "#181825"
+        crust: "#11111b"
+        surface0: "#313244"
+        surface1: "#45475a"
+        text: "#cdd6f4"
+        subtext0: "#a6adc8"
+        overlay0: "#6c7086"
+        red: "#f38ba8"
+        peach: "#fab387"
+        yellow: "#f9e2af"
+        green: "#a6e3a1"
+        teal: "#94e2d5"
+        mauve: "#cba6f7"
+        flamingo: "#f2cdcd"
+        lavender: "#b4befe"
     }
 
-    readonly property QtObject active: mode === "light" ? latte : mocha
+    readonly property Palette latte: Palette {
+        base: "#eff1f5"
+        mantle: "#e6e9ef"
+        crust: "#dce0e8"
+        surface0: "#ccd0da"
+        surface1: "#bcc0cc"
+        text: "#4c4f69"
+        subtext0: "#6c6f85"
+        overlay0: "#9ca0b0"
+        red: "#d20f39"
+        peach: "#fe640b"
+        yellow: "#df8e1d"
+        green: "#40a02b"
+        teal: "#179299"
+        mauve: "#8839ef"
+        flamingo: "#dd7878"
+        lavender: "#7287fd"
+    }
+
+    readonly property Palette active: mode === "light" ? latte : mocha
 
     property color base: active.base
     property color mantle: active.mantle

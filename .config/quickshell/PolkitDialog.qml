@@ -20,7 +20,7 @@ import "Theme"
 Scope {
     id: root
 
-    readonly property var flow: agent.flow
+    readonly property var flow: agent.flow // qmllint disable unresolved-type
     readonly property bool active: flow !== null && !flow.isCompleted
     // Pinned to whichever monitor had focus when the request came in.
     property var targetScreen: null
