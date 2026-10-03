@@ -93,19 +93,23 @@ Singleton {
                 })).sort((a, b) => b.score - a.score || byUse(a.entry, b.entry)).map(r => r.entry);
     }
 
-    // Web search / URLs go to $BROWSER, which hyprland.lua sets (and
-    // overrides /etc/environment's value with).
+    // Web search / URLs go to $BROWSER, with the search URL from
+    // $BROWSER_SEARCH -- both set in hyprland.lua (BROWSER overriding
+    // /etc/environment's value).
     readonly property string browser: Quickshell.env("BROWSER") || "xdg-open"
-    // Its desktop entry, for the name and icon. $BROWSER is a command, which
-    // need not match the entry's id or Exec (zen-browser is zen.desktop,
-    // running /opt/zen-browser-bin/zen-bin), so also try the icon name.
+    readonly property string searchUrl: Quickshell.env("BROWSER_SEARCH") || "https://www.google.com/search?q=%s"
+    // Its desktop entry, for the name, icon and window class. $BROWSER is a
+    // command, which need not match the entry's id or Exec (zen-browser is
+    // zen.desktop, running /opt/zen-browser-bin/zen-bin), so also try the
+    // icon name.
     readonly property var browserEntry: {
         const bin = browser.split(" ")[0].split("/").pop();
         return entries.find(e => e.id === bin || e.icon === bin || (e.command[0] ?? "").split("/").pop() === bin) ?? DesktopEntries.heuristicLookup(bin);
     }
-    // Firefox-family browsers can search with whatever engine you picked
-    // in them; others get a DuckDuckGo URL.
-    readonly property bool browserSearches: /firefox|zen|librewolf|floorp|waterfox/i.test(browser)
+    // Firefox-family browsers open a URL in a new window unless told
+    // --new-tab (and their --search always opens a window, which is why the
+    // search goes through a URL).
+    readonly property bool geckoBrowser: /firefox|zen|librewolf|floorp|waterfox/i.test(browser)
 
     // "example.com", "localhost:3000/x", "https://…" -- something to open
     // rather than search for.
@@ -118,15 +122,21 @@ Singleton {
         return "";
     }
 
+    // Opens the query (or address) as a tab in the browser's last used
+    // window, then focuses that window: Hyprland ignores the browser's own
+    // activation request (misc:focus_on_activate is off). With no browser
+    // window around it just starts the browser.
     function openWeb(query: string) {
-        const url = asUrl(query);
-        const cmd = browser.split(" ").filter(s => s.length > 0);
-        if (url !== "")
-            Quickshell.execDetached(cmd.concat([url]));
-        else if (browserSearches)
-            Quickshell.execDetached(cmd.concat(["--search", query.trim()]));
-        else
-            Quickshell.execDetached(cmd.concat(["https://duckduckgo.com/?q=" + encodeURIComponent(query.trim())]));
+        const url = asUrl(query) || searchUrl.replace("%s", encodeURIComponent(query.trim()));
+        const cmd = browser.split(" ").filter(s => s.length > 0).concat(geckoBrowser ? ["--new-tab", url] : [url]);
+        const cls = browserEntry?.startupClass || browserEntry?.id || cmd[0];
+        Quickshell.execDetached(["sh", "-c", `
+            cls="$1"; shift
+            addr=$(hyprctl clients -j | jq -r --arg c "$cls" '[.[] | select(.class == $c)] | min_by(.focusHistoryID) | .address // empty')
+            "$@" &
+            [ -n "$addr" ] || exit 0
+            sleep 0.3
+            hyprctl dispatch "hl.dsp.focus({ window = 'address:$addr' })"`, "sh", cls, ...cmd]);
     }
 
     function launch(entry) {

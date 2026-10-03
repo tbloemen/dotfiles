@@ -39,6 +39,8 @@ local fileManager = "nautilus"
 -- VARIABLES) for everything started from here -- the quickshell launcher's
 -- web search uses it.
 local browser = "zen-browser"
+-- Where the launcher's web search goes (%s = the query), as $BROWSER_SEARCH.
+local search_url = "https://www.google.com/search?q=%s"
 local menu = "qs ipc call launcher toggle"
 
 -------------------
@@ -94,6 +96,7 @@ hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("GTK_IM_MODULE", "simple")
 -- Overrides /etc/environment's BROWSER=firefox.
 hl.env("BROWSER", browser)
+hl.env("BROWSER_SEARCH", search_url)
 
 -- lazygit: merge the base config with the Catppuccin preset (lavender accent)
 -- whose flavour is swapped per light/dark by ~/.local/share/darkman/lazygit.sh.
