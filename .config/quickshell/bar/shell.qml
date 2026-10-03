@@ -135,6 +135,21 @@ ShellRoot {
         }
     }
 
+    // The display card (DisplayCard.qml), SUPER+P, on the focused monitor;
+    // `layout` applies a preset directly (SUPER+O: external only).
+    IpcHandler {
+        target: "display"
+        function toggleCard() {
+            const name = Hyprland.focusedMonitor?.name ?? "";
+            const open = UiState.displayCardScreen !== "";
+            UiState.closePanels();
+            UiState.displayCardScreen = open ? "" : name;
+        }
+        function layout(name: string) {
+            Displays.setLayout(name);
+        }
+    }
+
     // The app launcher (Launcher.qml), SUPER+SPACE. On the focused monitor.
     IpcHandler {
         target: "launcher"
@@ -283,6 +298,12 @@ ShellRoot {
                 modelData: screenScope.modelData
                 barWindow: panel
                 anchorX: bar.clockCenter
+            }
+
+            DisplayCard {
+                modelData: screenScope.modelData
+                barWindow: panel
+                anchorX: screenScope.modelData.width / 2
             }
 
             NotificationPopups {

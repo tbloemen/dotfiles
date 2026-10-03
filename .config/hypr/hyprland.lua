@@ -324,8 +324,8 @@ hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -m window --clipboard-only"))
 hl.bind("SHIFT + PRINT", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
 
 -- Add external monitor mode bindings
-hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("~/scripts/external_only.sh"))
-hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("~/scripts/restore_default.sh"))
+hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("qs ipc call display layout external"))
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("qs ipc call display toggleCard"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
@@ -494,6 +494,6 @@ hl.layer_rule({
 -- launcher and wallpaper.
 hl.layer_rule({
 	name = "no-anim-for-quickshell-notifications",
-	match = { namespace = "^quickshell:(notifications|notifcenter|osd|networkcard|launcher|wallpaper|mediacard|bluetoothcard|audiocard|calendarcard|polkit)$" },
+	match = { namespace = "^quickshell:(notifications|notifcenter|osd|networkcard|launcher|wallpaper|mediacard|bluetoothcard|audiocard|calendarcard|displaycard|polkit)$" },
 	no_anim = true,
 })
