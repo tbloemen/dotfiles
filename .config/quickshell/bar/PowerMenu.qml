@@ -250,7 +250,7 @@ PanelWindow { // qmllint disable uncreatable-type
         }
     }
 
-    Rectangle {
+    Item {
         id: card
 
         anchors.top: parent.top
@@ -259,10 +259,6 @@ PanelWindow { // qmllint disable uncreatable-type
         anchors.rightMargin: Metrics.gap
         width: 224
         height: column.implicitHeight + 12
-        radius: 10
-        color: Colors.base
-        border.width: 1
-        border.color: Colors.surface1
 
         // Unfold out of the power pill, which sits right above the card's
         // top-right corner.
@@ -270,12 +266,22 @@ PanelWindow { // qmllint disable uncreatable-type
         scale: 0.9 + 0.1 * root.progress
         opacity: root.progress
 
-        layer.enabled: true
-        layer.effect: MultiEffect {
-            shadowEnabled: true
-            shadowColor: Qt.rgba(0, 0, 0, Colors.mode === "light" ? 0.18 : 0.45)
-            shadowBlur: 0.9
-            shadowVerticalOffset: 4
+        // The shadow sits on a background of its own: a layer on the whole
+        // card would render the text into a texture and resample it, which
+        // blurs it.
+        Rectangle {
+            anchors.fill: parent
+            radius: 10
+            color: Colors.base
+            border.width: 1
+            border.color: Colors.surface1
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                shadowEnabled: true
+                shadowColor: Qt.rgba(0, 0, 0, Colors.mode === "light" ? 0.18 : 0.45)
+                shadowBlur: 0.9
+                shadowVerticalOffset: 4
+            }
         }
 
         // Swallow clicks on the card's own padding so they don't reach the

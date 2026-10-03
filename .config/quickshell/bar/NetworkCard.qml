@@ -122,31 +122,37 @@ PanelWindow { // qmllint disable uncreatable-type
         }
     }
 
-    Rectangle {
+    Item {
         id: panel
 
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.topMargin: Metrics.gap - 10 * (1 - root.progress)
         // Line the card's right edge up with the pill's, but keep it on screen.
-        anchors.rightMargin: Math.max(Metrics.gap, Math.min(root.anchorRight, root.width - width - Metrics.gap))
+        anchors.rightMargin: Math.round(Math.max(Metrics.gap, Math.min(root.anchorRight, root.width - width - Metrics.gap)))
         width: root.cardWidth + 16
         height: header.height + status.height + body.height + 28
-        radius: 10
-        color: Colors.mantle
-        border.width: 1
-        border.color: Colors.surface1
 
         transformOrigin: Item.TopRight
         scale: 0.9 + 0.1 * root.progress
         opacity: root.progress
 
-        layer.enabled: true
-        layer.effect: MultiEffect {
-            shadowEnabled: true
-            shadowColor: Qt.rgba(0, 0, 0, Colors.mode === "light" ? 0.18 : 0.45)
-            shadowBlur: 0.9
-            shadowVerticalOffset: 4
+        // The shadow sits on a background of its own: a layer on the whole
+        // card would render the text into a texture and resample it, which
+        // blurs it.
+        Rectangle {
+            anchors.fill: parent
+            radius: 10
+            color: Colors.mantle
+            border.width: 1
+            border.color: Colors.surface1
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                shadowEnabled: true
+                shadowColor: Qt.rgba(0, 0, 0, Colors.mode === "light" ? 0.18 : 0.45)
+                shadowBlur: 0.9
+                shadowVerticalOffset: 4
+            }
         }
 
         // Keep clicks on the panel's own padding away from the scrim.
