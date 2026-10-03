@@ -11,6 +11,7 @@ Item {
     // rather than mapToItem, which a binding wouldn't re-evaluate.
     readonly property real networkAnchorRight: width - (rightRow.x + networkPill.x + networkPill.width)
     readonly property real mediaAnchorLeft: mediaPill.x
+    readonly property real bluetoothAnchorRight: width - (rightRow.x + bluetoothPill.x + bluetoothPill.width)
 
     Rectangle {
         anchors.fill: parent
@@ -50,6 +51,10 @@ Item {
         DarkmanIndicator {}
         Memory {}
         IdleInhibitorButton {}
+        BluetoothIndicator {
+            id: bluetoothPill
+            screenName: root.screenName
+        }
         NetworkIndicator {
             id: networkPill
             screenName: root.screenName
