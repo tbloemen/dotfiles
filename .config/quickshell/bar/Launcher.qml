@@ -16,6 +16,11 @@ import "Services"
 // Unlike the cards it isn't tied to a pill, so it drops in centered under
 // the bar instead of unfolding from a corner.
 //
+// A second mode lists the clipboard history (Services/Clipboard.qml,
+// cliphist): SUPER+SHIFT+V opens straight into it, or switch with the
+// Apps / Clipboard chips or Ctrl+Tab. Enter copies the entry back,
+// Shift+Delete removes it.
+//
 // Typing a calculation ("2^10", "sqrt(2)*3") puts its result on top
 // (Services/Calc.qml); Enter on it copies the result.
 //
@@ -35,7 +40,23 @@ PanelWindow { // qmllint disable uncreatable-type
 
     readonly property int rowHeight: 44
     readonly property int maxRows: 8
-    readonly property var results: {
+    property string mode: "apps" // "apps" | "clipboard"
+
+    readonly property var results: mode === "clipboard" ? clipboardResults : appResults
+
+    readonly property var clipboardResults: {
+        const q = search.text.trim().toLowerCase();
+        return Clipboard.entries.filter(e => q === "" || e.text.toLowerCase().includes(q)).map(e => ({
+                    kind: "clip",
+                    title: e.image ? "Image" : e.text,
+                    subtitle: e.image ? e.text : "",
+                    icon: e.image ? e.thumb + "?" + Clipboard.thumbRevision : "",
+                    glyph: e.image ? "image" : "content_paste",
+                    id: e.id
+                }));
+    }
+
+    readonly property var appResults: {
         const items = [];
         const calc = Calc.evaluate(search.text);
         if (calc !== null)
@@ -68,9 +89,21 @@ PanelWindow { // qmllint disable uncreatable-type
             return;
         if (item.kind === "calc")
             Quickshell.execDetached(["wl-copy", "--", item.value]);
+        else if (item.kind === "clip")
+            Clipboard.copy(item.id);
         else
             Apps.launch(item.entry);
         close();
+    }
+
+    function setMode(m: string) {
+        mode = m;
+        search.text = "";
+        list.currentIndex = 0;
+        list.positionViewAtBeginning();
+        if (m === "clipboard")
+            Clipboard.refresh();
+        search.forceActiveFocus();
     }
 
     function move(delta) {
@@ -82,10 +115,7 @@ PanelWindow { // qmllint disable uncreatable-type
     onOpenChanged: {
         if (open) {
             closeAnim.stop();
-            search.text = "";
-            list.currentIndex = 0;
-            list.positionViewAtBeginning();
-            search.forceActiveFocus();
+            setMode(UiState.launcherMode);
             openAnim.restart();
         } else {
             openAnim.stop();
@@ -93,8 +123,18 @@ PanelWindow { // qmllint disable uncreatable-type
         }
     }
 
-    // A new query starts back at the best match.
-    onResultsChanged: list.currentIndex = 0
+    // A removed clipboard entry keeps the highlight in place (clamped); a
+    // new query starts back at the best match (search.onTextChanged).
+    onResultsChanged: list.currentIndex = Math.max(0, Math.min(list.currentIndex, results.length - 1))
+
+    // SUPER+SHIFT+V while it's already open switches mode instead.
+    Connections {
+        target: UiState
+        function onLauncherModeChanged() {
+            if (root.open)
+                root.setMode(UiState.launcherMode);
+        }
+    }
 
     NumberAnimation {
         id: openAnim
@@ -194,7 +234,7 @@ PanelWindow { // qmllint disable uncreatable-type
                     anchors.left: parent.left
                     anchors.leftMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
-                    text: "search"
+                    text: root.mode === "clipboard" ? "content_paste" : "search"
                     font.family: Metrics.iconFont
                     font.pixelSize: 20
                     color: Colors.lavender
@@ -203,7 +243,7 @@ PanelWindow { // qmllint disable uncreatable-type
                 TextInput {
                     id: search
                     anchors.left: searchIcon.right
-                    anchors.right: countText.left
+                    anchors.right: modeChips.left
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
@@ -215,11 +255,17 @@ PanelWindow { // qmllint disable uncreatable-type
                     selectedTextColor: Colors.text
 
                     onAccepted: root.launch(root.results[list.currentIndex])
+                    onTextChanged: list.currentIndex = 0
 
                     Keys.onPressed: event => {
                         const ctrl = event.modifiers & Qt.ControlModifier;
+                        const shift = event.modifiers & Qt.ShiftModifier;
                         if (event.key === Qt.Key_Escape)
                             root.close();
+                        else if (ctrl && (event.key === Qt.Key_Tab || event.key === Qt.Key_Backtab))
+                            root.setMode(root.mode === "apps" ? "clipboard" : "apps");
+                        else if (shift && event.key === Qt.Key_Delete && root.results[list.currentIndex]?.kind === "clip")
+                            Clipboard.remove(root.results[list.currentIndex].id);
                         else if (event.key === Qt.Key_Down || event.key === Qt.Key_Tab || ctrl && (event.key === Qt.Key_J || event.key === Qt.Key_N))
                             root.move(1);
                         else if (event.key === Qt.Key_Up || event.key === Qt.Key_Backtab || ctrl && (event.key === Qt.Key_K || event.key === Qt.Key_P))
@@ -236,9 +282,57 @@ PanelWindow { // qmllint disable uncreatable-type
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
                         visible: search.text.length === 0
-                        text: "Search apps"
+                        text: root.mode === "clipboard" ? "Search clipboard" : "Search apps"
                         font: search.font
                         color: Colors.overlay0
+                    }
+                }
+
+                Row {
+                    id: modeChips
+                    anchors.right: countText.left
+                    anchors.rightMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: 4
+
+                    Repeater {
+                        model: [
+                            {
+                                id: "apps",
+                                label: "Apps"
+                            },
+                            {
+                                id: "clipboard",
+                                label: "Clipboard"
+                            }
+                        ]
+
+                        Rectangle {
+                            id: chip
+                            required property var modelData
+                            readonly property bool current: root.mode === modelData.id
+                            width: chipText.implicitWidth + 16
+                            height: 22
+                            radius: 11
+                            color: current ? Colors.lavender : chipArea.containsMouse ? Colors.surface0 : "transparent"
+
+                            Text {
+                                id: chipText
+                                anchors.centerIn: parent
+                                text: chip.modelData.label
+                                font.family: Metrics.uiFont
+                                font.pixelSize: 11
+                                color: chip.current ? Colors.mantle : Colors.subtext0
+                            }
+
+                            MouseArea {
+                                id: chipArea
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: root.setMode(chip.modelData.id)
+                            }
+                        }
                     }
                 }
 
@@ -379,7 +473,7 @@ PanelWindow { // qmllint disable uncreatable-type
                 Text {
                     anchors.centerIn: parent
                     visible: list.count === 0
-                    text: "No matches"
+                    text: root.mode === "clipboard" && Clipboard.entries.length === 0 ? "Clipboard history is empty" : "No matches"
                     font.family: Metrics.uiFont
                     font.pixelSize: 12
                     color: Colors.overlay0

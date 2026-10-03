@@ -4,6 +4,7 @@ bitwarden
 bitwarden-cli
 brightnessctl
 btop
+cliphist
 cudnn
 discord
 docker
@@ -31,6 +32,7 @@ stow
 thunderbird
 ttf-material-symbols-variable
 uv
+wl-clipboard
 yazi
 zoxide
 zsh

@@ -154,11 +154,26 @@ ShellRoot {
     IpcHandler {
         target: "launcher"
         function toggle() {
-            const name = Hyprland.focusedMonitor?.name ?? "";
-            const open = UiState.launcherScreen !== "";
-            UiState.closePanels();
-            UiState.launcherScreen = open ? "" : name;
+            root.toggleLauncher("apps");
         }
+        // SUPER+SHIFT+V: clipboard history.
+        function clipboard() {
+            root.toggleLauncher("clipboard");
+        }
+    }
+
+    // Opens the launcher in `mode`; closes it if it's already open in that
+    // mode, switches mode if it's open in the other one.
+    function toggleLauncher(mode: string) {
+        const name = Hyprland.focusedMonitor?.name ?? "";
+        const open = UiState.launcherScreen !== "";
+        if (open && UiState.launcherMode !== mode) {
+            UiState.launcherMode = mode;
+            return;
+        }
+        UiState.closePanels();
+        UiState.launcherMode = mode;
+        UiState.launcherScreen = open ? "" : name;
     }
 
     // The lock screen (LockScreen.qml). hypridle's lock_cmd calls this and
