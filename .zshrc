@@ -73,6 +73,7 @@ alias vim='nvim'
 alias btop='btop -c "${HOME}/.config/btop/btop_$(darkman get).conf"'
 alias sc='sesh connect $(sesh list | fzf)'
 alias lg='lazygit'
+alias cc='claude'
 
 # --- Path Setup ---
 export PATH="$HOME/miniconda3/bin:$PATH"
