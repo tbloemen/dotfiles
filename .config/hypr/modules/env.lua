@@ -27,6 +27,10 @@ hl.env("XCURSOR_THEME", cursor_theme)
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_THEME", cursor_theme)
 hl.env("HYPRCURSOR_SIZE", "24")
+-- Quickshell looks icons up through Qt, which doesn't read gsettings (and
+-- without a theme only finds hicolor). Seeded like the cursor; only read when
+-- qs starts, but app icons are the same in both variants.
+hl.env("QS_ICON_THEME", darkman_mode() == "light" and "Papirus-Light" or "Papirus-Dark")
 hl.env("GTK_IM_MODULE", "simple")
 -- Overrides /etc/environment's BROWSER=firefox.
 hl.env("BROWSER", browser)

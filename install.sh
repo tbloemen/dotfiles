@@ -36,6 +36,15 @@ git -C "$DOTFILES_DIR" config filter.btop-volatile.clean \
   "sed -E 's/^shown_boxes = .*/shown_boxes = \"cpu mem net proc\"/; s/^proc_sorting = .*/proc_sorting = \"cpu lazy\"/'"
 git -C "$DOTFILES_DIR" config filter.btop-volatile.smudge cat
 
+# GTK font: GTK on Wayland reads it from gsettings (dconf), and nothing else
+# sets it. Theme, icons and cursor are set by the darkman hooks.
+gsettings set org.gnome.desktop.interface font-name 'JetBrainsMono Nerd Font 10'
+
+# Catppuccin folder colour for Papirus. Papirus-Light and -Dark share the
+# folder icons, so this covers both; papirus-folders-catppuccin-git's pacman
+# hook re-applies it after every papirus-icon-theme upgrade.
+sudo papirus-folders -C cat-mocha-mauve --theme Papirus-Dark
+
 # Run stow on everything
 echo "🔗 Symlinking dotfiles with stow..."
 cd "$DOTFILES_DIR"

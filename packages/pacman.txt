@@ -23,6 +23,7 @@ npm
 obs-studio
 obsidian
 ollama-cuda
+papirus-icon-theme
 python
 quickshell
 rust

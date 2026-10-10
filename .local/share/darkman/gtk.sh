@@ -7,13 +7,13 @@ case "$1" in
 dark)
 	scheme="prefer-dark"
 	gtk_theme="Catppuccin-Purple-Dark"
-	icon_theme="Qogir-Dark"
+	icon_theme="Papirus-Dark"
 	prefer_dark=1
 	;;
 light)
 	scheme="prefer-light"
 	gtk_theme="Catppuccin-Purple-Light"
-	icon_theme="Qogir-Light"
+	icon_theme="Papirus-Light"
 	prefer_dark=0
 	;;
 *)
@@ -22,7 +22,12 @@ light)
 	;;
 esac
 
-theme_dir="$HOME/.themes/$gtk_theme"
+# The theme comes from the catppuccin-gtk-theme-git AUR package
+# (/usr/share/themes); a user copy in ~/.themes or ~/.local/share/themes wins.
+for dir in "$HOME/.themes" "$HOME/.local/share/themes" /usr/share/themes; do
+	theme_dir="$dir/$gtk_theme"
+	[ -d "$theme_dir" ] && break
+done
 
 # 1. gsettings — read by the gtk xdg-desktop-portal, so ghostty and Zen
 #    (and any libadwaita app) follow the color-scheme automatically.

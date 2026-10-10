@@ -1,6 +1,9 @@
+catppuccin-cursors-mocha
+catppuccin-gtk-theme-git
 gitkraken
 hyprshot-gui-git
 jetbrains-toolbox
+papirus-folders-catppuccin-git
 spicetify-cli
 whisper.cpp-cuda
 zen-browser-bin
