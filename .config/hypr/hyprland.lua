@@ -433,6 +433,14 @@ hl.window_rule({
 })
 
 hl.window_rule({
+	-- Zoom's screen-share toolbar maps at y=0, under the bar, where it can't be clicked
+	name = "zoom-share-toolbar-below-bar",
+	match = { class = "zoom", title = "as_toolbar" },
+
+	move = "((monitor_w-window_w)*0.5) 46",
+})
+
+hl.window_rule({
 	name = "fix-jetbrains-flickering",
 	match = { class = "jetbrains-.*" },
 
