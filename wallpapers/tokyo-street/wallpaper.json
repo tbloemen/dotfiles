@@ -1,0 +1,30 @@
+{
+  "source": "Tokyo Street.heic",
+  "kind": "h24",
+  "frames": [
+    {
+      "elevation": 9.17,
+      "rising": true,
+      "mode": "light",
+      "file": "frame-0.png"
+    },
+    {
+      "elevation": -37.99,
+      "rising": true,
+      "mode": "dark",
+      "file": "frame-1.png"
+    },
+    {
+      "elevation": 0.0,
+      "rising": false,
+      "mode": "light",
+      "file": "frame-2.png"
+    },
+    {
+      "elevation": -17.92,
+      "rising": false,
+      "mode": "dark",
+      "file": "frame-1.png"
+    }
+  ]
+}

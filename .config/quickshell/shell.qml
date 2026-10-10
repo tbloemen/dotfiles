@@ -210,11 +210,18 @@ ShellRoot {
     // The polkit authentication agent; registers itself on startup.
     PolkitDialog {}
 
-    // After repointing ~/wallpapers/active (see Services/Wallpaper.qml).
+    // reload after repointing ~/wallpapers/active; preview HH:MM scrubs
+    // through the day ("" for the real time). See Services/Wallpaper.qml.
     IpcHandler {
         target: "wallpaper"
         function reload() {
             Wallpaper.reload();
+        }
+        function preview(time: string): string {
+            return Wallpaper.preview(time);
+        }
+        function status(): string {
+            return Wallpaper.status;
         }
     }
 

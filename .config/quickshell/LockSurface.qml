@@ -96,15 +96,9 @@ Item {
         color: Colors.crust
     }
 
-    Image {
+    WallpaperView {
         id: wallpaper
         anchors.fill: parent
-        source: Wallpaper.source
-        fillMode: Image.PreserveAspectCrop
-        asynchronous: true
-        sourceSize.width: root.width
-        sourceSize.height: root.height
-        cache: false
         visible: false
     }
 
@@ -117,7 +111,7 @@ Item {
         blurEnabled: true
         blur: 1
         blurMax: 48
-        opacity: wallpaper.status === Image.Ready ? 1 : 0
+        opacity: wallpaper.ready ? 1 : 0
         Behavior on opacity {
             NumberAnimation {
                 duration: 300
