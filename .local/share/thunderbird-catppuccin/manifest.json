@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Catppuccin Lavender (auto)",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Catppuccin Latte / Mocha Lavender for Thunderbird, following the system color scheme",
   "applications": {
     "gecko": {
@@ -31,7 +31,8 @@
       "calendar_view_toggle_hover_bg": "--calendar-view-toggle-hover-background",
       "tabs_toolbar_bg": "--tabs-toolbar-background-color",
       "color_gray_70": "--color-gray-70",
-      "color_gray_50": "--color-gray-50"
+      "color_gray_50": "--color-gray-50",
+      "lwt_frame": "--lwt-frame"
     }
   },
   "theme": {
@@ -89,7 +90,8 @@
       "calendar_view_toggle_hover_bg": "#ccd0da",
       "tabs_toolbar_bg": "#e6e9ef",
       "color_gray_70": "#e6e9ef",
-      "color_gray_50": "#bcc0cc"
+      "color_gray_50": "#bcc0cc",
+      "lwt_frame": "#eff1f5"
     },
     "properties": {
       "color_scheme": "auto"
@@ -150,7 +152,8 @@
       "calendar_view_toggle_hover_bg": "#313244",
       "tabs_toolbar_bg": "#181825",
       "color_gray_70": "#181825",
-      "color_gray_50": "#45475a"
+      "color_gray_50": "#45475a",
+      "lwt_frame": "#1e1e2e"
     },
     "properties": {
       "color_scheme": "auto"
