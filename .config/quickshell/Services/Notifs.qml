@@ -37,10 +37,11 @@ Singleton {
     property real now: Date.now()
 
     // Fallbacks when the app leaves the timeout to the server, same values
-    // dunstrc had per urgency. Critical never times out.
+    // dunstrc had per urgency. Critical never times out. expireTimeout is the
+    // raw D-Bus value, already in milliseconds.
     function timeoutFor(n: Notification): int {
         if (n.expireTimeout > 0)
-            return n.expireTimeout * 1000;
+            return n.expireTimeout;
         if (n.expireTimeout === 0 || n.urgency === NotificationUrgency.Critical)
             return 0;
         return n.urgency === NotificationUrgency.Low ? 4000 : 6000;
