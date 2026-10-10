@@ -1,6 +1,7 @@
 \.git
 \.gitignore
 \.gitmodules
+^/\.gitattributes
 
 ^/README.*
 install.sh

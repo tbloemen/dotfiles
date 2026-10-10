@@ -31,6 +31,11 @@ fi
 
 echo "✅ Package installation complete."
 
+# Pin the settings btop rewrites on exit, so they don't show up as changes
+git -C "$DOTFILES_DIR" config filter.btop-volatile.clean \
+  "sed -E 's/^shown_boxes = .*/shown_boxes = \"cpu mem net proc\"/; s/^proc_sorting = .*/proc_sorting = \"cpu lazy\"/'"
+git -C "$DOTFILES_DIR" config filter.btop-volatile.smudge cat
+
 # Run stow on everything
 echo "🔗 Symlinking dotfiles with stow..."
 cd "$DOTFILES_DIR"
