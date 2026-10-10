@@ -80,9 +80,22 @@ end)
 
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 
-hl.env("XCURSOR_THEME", "catppuccin-mocha-dark-cursors")
+-- Cursor follows darkman: seed it from the last mode here (apps inherit the
+-- env), and ~/.local/share/darkman/cursor.sh swaps it live on every change.
+local function darkman_mode()
+	local f = io.open(os.getenv("HOME") .. "/.cache/darkman/mode.txt")
+	if not f then
+		return "dark"
+	end
+	local mode = f:read("l")
+	f:close()
+	return mode == "light" and "light" or "dark"
+end
+local cursor_theme = "catppuccin-mocha-" .. darkman_mode() .. "-cursors"
+
+hl.env("XCURSOR_THEME", cursor_theme)
 hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_THEME", "catppuccin-mocha-dark-cursors")
+hl.env("HYPRCURSOR_THEME", cursor_theme)
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("GTK_IM_MODULE", "simple")
 -- Overrides /etc/environment's BROWSER=firefox.
