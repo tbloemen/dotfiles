@@ -81,6 +81,9 @@ Item {
         // Urgency accent along the left edge, following the rounded corners
         // like a CSS border-left: a pill of the card's radius in the accent
         // colour, covered by the card colour except for its leftmost 3px.
+        // The cover's left corners are rounded by radius - 3, so they meet
+        // the card's top and bottom edges right where its own curve does;
+        // a square cover would paint outside the card's rounded corners.
         Rectangle {
             width: background.radius * 2
             height: parent.height
@@ -91,6 +94,8 @@ Item {
             x: 3
             width: background.radius * 2
             height: parent.height
+            topLeftRadius: background.radius - 3
+            bottomLeftRadius: background.radius - 3
             color: background.color
         }
 
