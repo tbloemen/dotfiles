@@ -6,13 +6,13 @@
 case "$1" in
 dark)
 	scheme="prefer-dark"
-	gtk_theme="Catppuccin-Purple-Dark"
+	gtk_theme="Catppuccin-Mauve-Dark"
 	icon_theme="Papirus-Dark"
 	prefer_dark=1
 	;;
 light)
 	scheme="prefer-light"
-	gtk_theme="Catppuccin-Purple-Light"
+	gtk_theme="Catppuccin-Mauve-Light"
 	icon_theme="Papirus-Light"
 	prefer_dark=0
 	;;
