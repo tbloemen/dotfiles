@@ -44,6 +44,10 @@ Singleton {
     property real lng: 4.4
     // [{file, mode, elevation?, rising?}]; no elevations = light/dark only.
     property var frames: []
+    // The sun's range the frame elevations were measured against (an equinox
+    // at darkman's latitude, for clock-time sets); 0 = take them as they are.
+    property real dayMin: 0
+    property real dayMax: 0
     // Minutes since midnight to pretend it is, or -1 for the real time.
     property int previewMinutes: -1
 
@@ -136,6 +140,21 @@ Singleton {
         return frac(from <= to ? from : s.min, to);
     }
 
+    // A frame's elevation moved into today's range. Above the horizon it
+    // scales with today's noon, so an equinox 11:00 frame still sits below
+    // the 13:00 one on a winter day whose noon is lower than either. Below
+    // -12 deg (past nautical dusk) the night stretches between there and
+    // today's midnight the same way; twilight itself stays absolute, since
+    // how the sky looks at -6 deg doesn't depend on the season.
+    function scaled(s: var, el: real): real {
+        const deep = -12;
+        if (el > 0 && dayMax > 0)
+            return el * s.max / dayMax;
+        if (el < deep && dayMin < deep)
+            return deep + (el - deep) * (Math.min(s.min, deep - 0.1) - deep) / (dayMin - deep);
+        return el;
+    }
+
     function update() {
         let now = new Date();
         if (previewMinutes >= 0)
@@ -146,14 +165,16 @@ Singleton {
             set(url(mode + ".png"), "", 0, `light/dark pair, ${mode}`);
             return;
         }
-        const timed = frames.filter(f => f.elevation !== undefined);
+        const s = sun(now);
+        const timed = frames.filter(f => f.elevation !== undefined).map(f => Object.assign({}, f, {
+                        elevation: scaled(s, f.elevation)
+                    }));
         if (timed.length === 0) {
             const f = frames.find(f => f.mode === mode) ?? frames[0];
             set(url(f.file), "", 0, `untimed set, ${mode}: ${f.file}`);
             return;
         }
 
-        const s = sun(now);
         const p = phase(s, s.elevation, s.rising);
         const keyed = timed.map((f, i) => ({
                     file: f.file,
@@ -228,7 +249,10 @@ Singleton {
         watchChanges: false
         onLoaded: {
             try {
-                root.frames = JSON.parse(text()).frames ?? [];
+                const m = JSON.parse(text());
+                root.dayMin = m.dayMin ?? 0;
+                root.dayMax = m.dayMax ?? 0;
+                root.frames = m.frames ?? [];
             } catch (e) {
                 console.warn("wallpaper.json:", e);
                 root.frames = [];
@@ -236,6 +260,7 @@ Singleton {
             root.update();
         }
         onLoadFailed: {
+            root.dayMin = root.dayMax = 0;
             root.frames = [];
             root.update();
         }

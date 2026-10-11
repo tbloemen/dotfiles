@@ -1,0 +1,116 @@
+{
+  "source": "Tropics.heic",
+  "kind": "h24",
+  "dayMin": -37.988422,
+  "dayMax": 37.988422,
+  "frames": [
+    {
+      "elevation": 32.21,
+      "rising": true,
+      "mode": "light",
+      "file": "frame-0.jpg"
+    },
+    {
+      "elevation": -37.61,
+      "rising": true,
+      "mode": "dark",
+      "file": "frame-1.jpg"
+    },
+    {
+      "elevation": -32.21,
+      "rising": true,
+      "mode": "dark",
+      "file": "frame-2.jpg"
+    },
+    {
+      "elevation": -29.23,
+      "rising": true,
+      "mode": "dark",
+      "file": "frame-3.jpg"
+    },
+    {
+      "elevation": -25.8,
+      "rising": true,
+      "mode": "dark",
+      "file": "frame-4.jpg"
+    },
+    {
+      "elevation": -17.92,
+      "rising": true,
+      "mode": "dark",
+      "file": "frame-5.jpg"
+    },
+    {
+      "elevation": -9.17,
+      "rising": true,
+      "mode": "dark",
+      "file": "frame-6.jpg"
+    },
+    {
+      "elevation": 17.92,
+      "rising": true,
+      "mode": "light",
+      "file": "frame-7.jpg"
+    },
+    {
+      "elevation": 25.8,
+      "rising": true,
+      "mode": "light",
+      "file": "frame-8.jpg"
+    },
+    {
+      "elevation": 36.48,
+      "rising": true,
+      "mode": "light",
+      "file": "frame-9.jpg"
+    },
+    {
+      "elevation": 37.99,
+      "rising": false,
+      "mode": "light",
+      "file": "frame-10.jpg"
+    },
+    {
+      "elevation": 36.48,
+      "rising": false,
+      "mode": "light",
+      "file": "frame-11.jpg"
+    },
+    {
+      "elevation": 32.21,
+      "rising": false,
+      "mode": "light",
+      "file": "frame-12.jpg"
+    },
+    {
+      "elevation": 25.8,
+      "rising": false,
+      "mode": "light",
+      "file": "frame-13.jpg"
+    },
+    {
+      "elevation": 17.92,
+      "rising": false,
+      "mode": "light",
+      "file": "frame-14.jpg"
+    },
+    {
+      "elevation": 0.0,
+      "rising": false,
+      "mode": "light",
+      "file": "frame-15.jpg"
+    },
+    {
+      "elevation": -17.92,
+      "rising": false,
+      "mode": "dark",
+      "file": "frame-16.jpg"
+    },
+    {
+      "elevation": -32.21,
+      "rising": false,
+      "mode": "dark",
+      "file": "frame-17.jpg"
+    }
+  ]
+}

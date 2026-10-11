@@ -1,0 +1,14 @@
+{
+  "source": "Dome.heic",
+  "kind": "apr",
+  "frames": [
+    {
+      "mode": "light",
+      "file": "frame-0.jpg"
+    },
+    {
+      "mode": "dark",
+      "file": "frame-1.jpg"
+    }
+  ]
+}

@@ -13,7 +13,17 @@ Apple stores the timing as a base64 binary plist in the XMP:
                           lands on sunset all year instead of at 18:00
   apple_desktop:apr    -- only a light and a dark frame, no timing
 Frames are matched to the images in item order. Identical images are written
-once. Needs heif-convert (libheif).
+once, as JPEGs scaled down to cover a 4K screen (the sources run up to 6K and
+the wallpapers live in git). wallpaper.json also records the sun's range the
+elevations were measured against (`dayMin`/`dayMax`), so the shell can stretch
+them to each day's range: a frame from an equinox noon then still shows at a
+lower winter noon instead of every midday frame piling up at the top.
+
+Some files carry contradicting data -- Apple's `ap` (which frame is the light
+and which the dark one) disagreeing with the timings. Then the timings are
+wrong (e.g. a night photo placed at noon) and only `ap` is kept.
+
+Needs heif-convert (libheif) and magick (ImageMagick).
 """
 
 import base64
@@ -23,7 +33,6 @@ import math
 import os
 import plistlib
 import re
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -31,6 +40,10 @@ import tempfile
 # Where darkman flips, and where a frame counts as a light one: the sun's
 # centre at -0.833 deg is sunrise/sunset once refraction is accounted for.
 HORIZON = -0.833
+
+# Big enough to cover a 3840x2160 screen; larger sources are scaled down.
+COVER = "3840x2160^>"
+QUALITY = "90"
 
 
 def darkman_lat() -> float:
@@ -68,21 +81,50 @@ def frame(i: int, elevation: float | None, rising: bool | None) -> dict:
     return f
 
 
-def frames_from(kind: str, meta: dict, lat: float) -> list[dict]:
+def appearance(meta: dict) -> list[dict]:
+    ap = meta.get("ap", meta)
+    return [{"image": ap["l"], "mode": "light"}, {"image": ap["d"], "mode": "dark"}]
+
+
+def frames_from(kind: str, meta: dict, lat: float) -> tuple[list[dict], dict]:
+    """The frames, plus the elevation range they were placed in."""
     if kind == "solar":
-        return [frame(s["i"], s["a"], s["z"] < 180) for s in meta["si"]]
+        frames = [frame(s["i"], s["a"], s["z"] < 180) for s in meta["si"]]
+        els = [f["elevation"] for f in frames]
+        # The day the photos were taken is unknown; the extremes the frames
+        # reach are the best guess at its range.
+        return frames, {"dayMin": min(min(els), -18), "dayMax": max(max(els), 10)}
     if kind == "h24":
-        out = []
+        frames = []
         for t in meta["ti"]:
             hour_angle = (t["t"] * 24 - 12) * 15
             el = math.degrees(
                 math.asin(math.cos(math.radians(lat)) * math.cos(math.radians(hour_angle)))
             )
-            out.append(frame(t["i"], el, hour_angle < 0))
-        return out
-    # apr: no timing, just which frame is the light and which the dark one.
-    ap = meta.get("ap", meta)
-    return [{"image": ap["l"], "mode": "light"}, {"image": ap["d"], "mode": "dark"}]
+            frames.append(frame(t["i"], el, hour_angle < 0))
+        return frames, {"dayMin": -(90 - abs(lat)), "dayMax": 90 - abs(lat)}
+    return appearance(meta), {}
+
+
+def consistent(frames: list[dict], meta: dict) -> bool:
+    """False when `ap` calls a frame light that the timing puts at night, or
+    the other way round."""
+    ap = meta.get("ap")
+    if not ap or "l" not in ap or "d" not in ap or ap["l"] == ap["d"]:
+        return True
+    modes = {f["image"]: f.get("mode") for f in frames}
+    return modes.get(ap["l"]) != "dark" and modes.get(ap["d"]) != "light"
+
+
+def convert(src: str, out: str) -> None:
+    cmd = ["heif-convert", "--quiet", src, out]
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    # Files built from many tiles (one has 1099) trip libheif's guard against
+    # malicious input; this is a wallpaper you chose to import.
+    if r.returncode != 0 and "Security limit" in r.stderr + r.stdout:
+        r = subprocess.run(cmd[:2] + ["--disable-limits"] + cmd[2:], capture_output=True, text=True)
+    if r.returncode != 0:
+        sys.exit(f"heif-convert failed: {(r.stderr or r.stdout).strip()}")
 
 
 def main() -> None:
@@ -91,13 +133,18 @@ def main() -> None:
     src, out_dir = sys.argv[1], os.path.expanduser(sys.argv[2])
     with open(src, "rb") as f:
         kind, meta = read_meta(f.read())
-    frames = frames_from(kind, meta, darkman_lat())
+    frames, day = frames_from(kind, meta, darkman_lat())
+    if not consistent(frames, meta):
+        print("timings contradict the light/dark frames; using those only", file=sys.stderr)
+        kind, frames, day = "apr", appearance(meta), {}
 
     os.makedirs(out_dir, exist_ok=True)
+    # Frames from an earlier import (names and counts may differ now).
+    for old in os.listdir(out_dir):
+        if re.fullmatch(r"frame-\d+\.(png|jpg)", old):
+            os.remove(os.path.join(out_dir, old))
     with tempfile.TemporaryDirectory() as tmp:
-        subprocess.run(
-            ["heif-convert", "--quiet", src, os.path.join(tmp, "f.png")], check=True
-        )
+        convert(src, os.path.join(tmp, "f.png"))
         # heif-convert writes f-1.png, f-2.png, ... (or just f.png for one).
         pngs = sorted(
             (p for p in os.listdir(tmp) if p.endswith(".png")),
@@ -111,14 +158,20 @@ def main() -> None:
             with open(path, "rb") as f:
                 digest = hashlib.sha256(f.read()).hexdigest()
             if digest not in seen:
-                seen[digest] = f"frame-{len(seen)}.png"
-                shutil.copyfile(path, os.path.join(out_dir, seen[digest]))
+                seen[digest] = f"frame-{len(seen)}.jpg"
+                subprocess.run(
+                    ["magick", path, "-resize", COVER, "-quality", QUALITY,
+                     os.path.join(out_dir, seen[digest])],
+                    check=True,
+                )
             files.append(seen[digest])
 
     for f in frames:
         f["file"] = files[f.pop("image")]
     with open(os.path.join(out_dir, "wallpaper.json"), "w") as f:
-        json.dump({"source": os.path.basename(src), "kind": kind, "frames": frames}, f, indent=2)
+        json.dump(
+            {"source": os.path.basename(src), "kind": kind, **day, "frames": frames}, f, indent=2
+        )
         f.write("\n")
     print(f"{len(frames)} frames ({len(seen)} distinct images) -> {out_dir}")
 
