@@ -1,5 +1,9 @@
 # --- Antidote Plugin Manager ---
-source '/usr/share/zsh-antidote/antidote.zsh'
+# Arch (AUR zsh-antidote) or NixOS (home-manager's per-user profile)
+for f in /usr/share/zsh-antidote/antidote.zsh /etc/profiles/per-user/$USER/share/antidote/antidote.zsh; do
+  [[ -r $f ]] && { source $f; break }
+done
+unset f
 antidote load
 
 # --- Starship Prompt (optimize via `starship.toml`) ---

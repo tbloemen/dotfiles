@@ -17,7 +17,8 @@ return {
       -- Quickshell's custom modules — Quickshell, Quickshell.Io, ... — live,
       -- since Quickshell installs alongside Qt).
       qmlls = {
-        cmd = { "qmlls6" },
+        -- NixOS's qtdeclarative calls it plain qmlls.
+        cmd = { vim.fn.executable("qmlls6") == 1 and "qmlls6" or "qmlls" },
       },
     },
   },

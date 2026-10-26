@@ -23,8 +23,11 @@ light)
 esac
 
 # The theme comes from the catppuccin-gtk-theme-git AUR package
-# (/usr/share/themes); a user copy in ~/.themes or ~/.local/share/themes wins.
-for dir in "$HOME/.themes" "$HOME/.local/share/themes" /usr/share/themes; do
+# (/usr/share/themes) or, on NixOS, magnetic-catppuccin-gtk in the
+# home-manager profile; a user copy in ~/.themes or ~/.local/share/themes wins.
+for dir in "$HOME/.themes" "$HOME/.local/share/themes" \
+	"/etc/profiles/per-user/$USER/share/themes" /run/current-system/sw/share/themes \
+	/usr/share/themes; do
 	theme_dir="$dir/$gtk_theme"
 	[ -d "$theme_dir" ] && break
 done
