@@ -1,6 +1,6 @@
 [user]
 	name = Ties Bloemen
-	email = t.t.j.bloemen@student.tudelft.nl
+	email = ttjbloemen@gmail.com
 	signingKey = ~/.ssh/id_ed25519.pub
 [gpg]
 	format = ssh
