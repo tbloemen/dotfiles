@@ -1,0 +1,9 @@
+# Worktrunk user config. Project entries here are personal and stay out of the
+# repo's .config/wt.toml, which teammates without worktrunk would never use.
+
+# zorginbox-platform: install deps and generate code in every new worktree.
+# pre-start blocks until done, so an agent never starts work on a half-installed
+# checkout. Both packages install concurrently.
+[projects."github.com/ZorgInbox/zorginbox-platform".pre-start]
+web = "cd apps/web && npm ci && npm run generate:orval && npm run generate:auth"
+api = "cd functions/api && npm ci && npm run generate:prisma"

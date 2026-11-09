@@ -326,3 +326,23 @@ pane_history = false
 # Maximum scrollback buffer size in bytes retained per pane terminal.
 # Matches Ghostty's default scrollback-limit behavior.
 # scrollback_limit_bytes = 10000000
+
+# Worktrunk plugin (devashish2203/herdr-worktrunk). Merge actions deliberately
+# unbound: wt merge squashes and merges locally, bypassing the PR flow.
+[[keys.command]]
+key = "prefix+shift+g"
+type = "plugin_action"
+command = "worktrunk.open"
+description = "Worktree: switch / create from default branch"
+
+[[keys.command]]
+key = "prefix+shift+o"
+type = "plugin_action"
+command = "worktrunk.open-with-remotes"
+description = "Worktree: switch / create from local or remote branches"
+
+[[keys.command]]
+key = "prefix+shift+d"
+type = "plugin_action"
+command = "worktrunk.remove"
+description = "Worktree: remove"

@@ -1,0 +1,5 @@
+picker_placement = "popup"
+popup_width = "70%"
+popup_height = "60%"
+slugify_new_branches = true
+hold_on_create = true
